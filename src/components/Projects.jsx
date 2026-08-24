@@ -16,7 +16,7 @@ export default function Projects({ onOpenTicketWidget }) {
       : PROJECTS_DATA.filter((p) => p.category.toLowerCase().includes(activeCategory.toLowerCase()));
 
   return (
-    <section id="work" style={{ padding: '100px 0', position: 'relative' }}>
+    <section id="work" className="section-padding" style={{ position: 'relative' }}>
       <div className="container">
         {/* Header */}
         <div className="section-head">
@@ -38,8 +38,8 @@ export default function Projects({ onOpenTicketWidget }) {
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            gap: '10px',
-            marginBottom: '48px'
+            gap: '8px',
+            marginBottom: '36px'
           }}
         >
           {categories.map((cat) => (
@@ -47,12 +47,12 @@ export default function Projects({ onOpenTicketWidget }) {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               style={{
-                padding: '8px 18px',
+                padding: '7px 16px',
                 borderRadius: '20px',
                 border: activeCategory === cat ? '1px solid #00f0ff' : '1px solid rgba(255, 255, 255, 0.1)',
                 backgroundColor: activeCategory === cat ? 'rgba(0, 102, 255, 0.2)' : 'rgba(15, 23, 42, 0.6)',
                 color: activeCategory === cat ? '#00f0ff' : '#94a3b8',
-                fontSize: '0.88rem',
+                fontSize: '0.85rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
@@ -64,25 +64,18 @@ export default function Projects({ onOpenTicketWidget }) {
         </div>
 
         {/* Projects Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '24px'
-          }}
-          className="grid-3"
-        >
+        <div className="grid-3">
           {filteredProjects.map((project, idx) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
               whileHover={{ y: -6 }}
               className="glass-panel"
               style={{
-                padding: '28px 24px',
+                padding: '24px 20px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -96,12 +89,12 @@ export default function Projects({ onOpenTicketWidget }) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    marginBottom: '16px'
+                    marginBottom: '14px'
                   }}
                 >
                   <span
                     style={{
-                      fontSize: '0.75rem',
+                      fontSize: '0.72rem',
                       fontWeight: 700,
                       color: '#00f0ff',
                       padding: '4px 10px',
@@ -112,15 +105,15 @@ export default function Projects({ onOpenTicketWidget }) {
                   >
                     {project.badge}
                   </span>
-                  <FolderGit2 size={20} color="#64748b" />
+                  <FolderGit2 size={18} color="#64748b" />
                 </div>
 
                 <h3
                   style={{
-                    fontSize: '1.25rem',
+                    fontSize: '1.15rem',
                     fontWeight: 700,
                     color: '#ffffff',
-                    marginBottom: '10px'
+                    marginBottom: '8px'
                   }}
                 >
                   {project.title}
@@ -129,9 +122,9 @@ export default function Projects({ onOpenTicketWidget }) {
                 <p
                   style={{
                     color: '#94a3b8',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.6,
-                    marginBottom: '20px'
+                    fontSize: '0.88rem',
+                    lineHeight: 1.55,
+                    marginBottom: '18px'
                   }}
                 >
                   {project.shortDesc}
@@ -144,9 +137,9 @@ export default function Projects({ onOpenTicketWidget }) {
                   alignItems: 'center',
                   gap: '6px',
                   color: '#00f0ff',
-                  fontSize: '0.9rem',
+                  fontSize: '0.88rem',
                   fontWeight: 600,
-                  paddingTop: '16px',
+                  paddingTop: '14px',
                   borderTop: '1px solid rgba(255, 255, 255, 0.05)'
                 }}
               >

@@ -37,43 +37,36 @@ export default function Stats() {
   return (
     <section
       style={{
-        padding: '64px 0',
+        padding: '48px 0',
         backgroundColor: '#070c18',
         borderTop: '1px solid rgba(255, 255, 255, 0.05)',
         borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
       }}
     >
       <div className="container">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '24px'
-          }}
-          className="grid-4"
-        >
+        <div className="grid-4">
           {stats.map((stat, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
               style={{
                 backgroundColor: 'rgba(15, 23, 42, 0.6)',
                 border: '1px solid rgba(0, 140, 255, 0.2)',
-                borderRadius: '16px',
-                padding: '28px 20px',
+                borderRadius: '14px',
+                padding: '20px 16px',
                 textAlign: 'center'
               }}
             >
               <div
                 style={{
-                  fontSize: 'clamp(2.2rem, 3.5vw, 3rem)',
+                  fontSize: 'clamp(2rem, 3vw, 2.5rem)',
                   fontWeight: 800,
                   color: '#00f0ff',
                   fontFamily: 'Manrope, sans-serif',
-                  marginBottom: '6px'
+                  marginBottom: '4px'
                 }}
               >
                 {stat.prefix}
@@ -83,10 +76,10 @@ export default function Stats() {
                   <CountUp end={stat.value} suffix={stat.suffix} />
                 )}
               </div>
-              <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '2px' }}>
                 {stat.label}
               </div>
-              <div style={{ fontSize: '0.82rem', color: '#94a3b8' }}>
+              <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
                 {stat.desc}
               </div>
             </motion.div>

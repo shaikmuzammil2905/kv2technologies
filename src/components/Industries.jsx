@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Landmark, Activity, Factory, ShoppingCart, Cpu, GraduationCap, CheckCircle } from 'lucide-react';
+import { Landmark, Activity, Factory, ShoppingCart, Cpu, GraduationCap } from 'lucide-react';
 
 export default function Industries() {
   const industries = [
@@ -22,7 +22,7 @@ export default function Industries() {
   ];
 
   return (
-    <section style={{ padding: '100px 0', backgroundColor: '#090e1c', position: 'relative' }}>
+    <section className="section-padding" style={{ backgroundColor: '#090e1c', position: 'relative' }}>
       <div className="container">
         {/* Industries Head */}
         <div className="section-head">
@@ -36,32 +36,24 @@ export default function Industries() {
         </div>
 
         {/* Industries Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '24px',
-            marginBottom: '80px'
-          }}
-          className="grid-3"
-        >
+        <div className="grid-3" style={{ marginBottom: '56px' }}>
           {industries.map((ind, idx) => {
             const IconComp = ind.icon;
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className="glass-panel"
-                style={{ padding: '28px 24px', display: 'flex', gap: '16px' }}
+                style={{ padding: '24px 20px', display: 'flex', gap: '14px' }}
               >
                 <div
                   style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '12px',
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '10px',
                     backgroundColor: 'rgba(0, 240, 255, 0.1)',
                     display: 'flex',
                     alignItems: 'center',
@@ -70,13 +62,13 @@ export default function Industries() {
                     flexShrink: 0
                   }}
                 >
-                  <IconComp size={24} />
+                  <IconComp size={22} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
                     {ind.title}
                   </h3>
-                  <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>{ind.desc}</p>
+                  <p style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{ind.desc}</p>
                 </div>
               </motion.div>
             );
@@ -84,43 +76,36 @@ export default function Industries() {
         </div>
 
         {/* Tech Ecosystem */}
-        <div className="section-head" style={{ marginBottom: '40px' }}>
+        <div className="section-head" style={{ marginBottom: '28px' }}>
           <div className="eyebrow">Technology Stack</div>
           <h2 className="section-title">Built On Enterprise Platforms</h2>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '20px'
-          }}
-          className="grid-3"
-        >
+        <div className="grid-3">
           {techEcosystem.map((item, idx) => (
             <div
               key={idx}
               style={{
                 backgroundColor: 'rgba(15, 23, 42, 0.7)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: '16px',
-                padding: '24px'
+                borderRadius: '14px',
+                padding: '20px'
               }}
             >
-              <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '14px' }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '12px' }}>
                 {item.category}
               </h4>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {item.tags.map((t, tidx) => (
                   <span
                     key={tidx}
                     style={{
-                      padding: '4px 12px',
-                      borderRadius: '12px',
+                      padding: '4px 10px',
+                      borderRadius: '10px',
                       backgroundColor: '#070c18',
                       border: '1px solid rgba(0, 140, 255, 0.2)',
                       color: '#38bdf8',
-                      fontSize: '0.82rem',
+                      fontSize: '0.8rem',
                       fontWeight: 600
                     }}
                   >

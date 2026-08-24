@@ -30,7 +30,7 @@ export default function Services({ onOpenTicketWidget }) {
   };
 
   return (
-    <section id="services" style={{ padding: '100px 0', position: 'relative', background: '#090e1c' }}>
+    <section id="services" className="section-padding" style={{ position: 'relative', background: '#090e1c' }}>
       <div className="container">
         {/* Section Header */}
         <div className="section-head">
@@ -47,28 +47,21 @@ export default function Services({ onOpenTicketWidget }) {
         </div>
 
         {/* Services Cards Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '24px'
-          }}
-          className="grid-4"
-        >
+        <div className="grid-4">
           {SERVICES_DATA.map((service, index) => {
             const IconComponent = iconMap[service.icon] || Headphones;
 
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                whileHover={{ y: -8 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                whileHover={{ y: -6 }}
                 className="glass-panel"
                 style={{
-                  padding: '30px 24px',
+                  padding: '24px 20px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -85,14 +78,14 @@ export default function Services({ onOpenTicketWidget }) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      marginBottom: '20px'
+                      marginBottom: '16px'
                     }}
                   >
                     <div
                       style={{
-                        width: '52px',
-                        height: '52px',
-                        borderRadius: '14px',
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: '12px',
                         backgroundColor: 'rgba(0, 102, 255, 0.12)',
                         border: '1px solid rgba(0, 240, 255, 0.3)',
                         display: 'flex',
@@ -101,7 +94,7 @@ export default function Services({ onOpenTicketWidget }) {
                         color: '#00f0ff'
                       }}
                     >
-                      <IconComponent size={26} />
+                      <IconComponent size={24} />
                     </div>
 
                     <span
@@ -118,10 +111,10 @@ export default function Services({ onOpenTicketWidget }) {
 
                   <h3
                     style={{
-                      fontSize: '1.25rem',
+                      fontSize: '1.2rem',
                       fontWeight: 700,
                       color: '#ffffff',
-                      marginBottom: '10px'
+                      marginBottom: '8px'
                     }}
                   >
                     {service.title}
@@ -130,9 +123,9 @@ export default function Services({ onOpenTicketWidget }) {
                   <p
                     style={{
                       color: '#94a3b8',
-                      fontSize: '0.9rem',
-                      lineHeight: 1.6,
-                      marginBottom: '24px'
+                      fontSize: '0.88rem',
+                      lineHeight: 1.55,
+                      marginBottom: '20px'
                     }}
                   >
                     {service.shortDesc}
@@ -146,7 +139,7 @@ export default function Services({ onOpenTicketWidget }) {
                     alignItems: 'center',
                     gap: '6px',
                     color: '#00f0ff',
-                    fontSize: '0.9rem',
+                    fontSize: '0.88rem',
                     fontWeight: 600
                   }}
                 >

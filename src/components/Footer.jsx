@@ -13,37 +13,29 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
       style={{
         backgroundColor: '#050811',
         borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-        paddingTop: '70px',
-        paddingBottom: '40px',
+        paddingTop: '56px',
+        paddingBottom: '32px',
         color: '#94a3b8'
       }}
     >
       <div className="container">
         {/* Main Footer Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1.4fr 1fr 1fr 1.2fr',
-            gap: '40px',
-            marginBottom: '60px'
-          }}
-          className="grid-4"
-        >
+        <div className="footer-grid" style={{ marginBottom: '40px' }}>
           {/* Brand Info */}
           <div>
-            <a href="#home" style={{ display: 'inline-block', marginBottom: '16px' }}>
-              <img src="/logo.png" alt="K²V Technologies Logo" style={{ height: '48px', objectFit: 'contain' }} />
+            <a href="#home" style={{ display: 'inline-block', marginBottom: '14px' }}>
+              <img src="/logo.png" alt="K²V Technologies Logo" style={{ height: '42px', objectFit: 'contain' }} />
             </a>
 
-            <div style={{ color: '#00f0ff', fontSize: '0.9rem', fontWeight: 700, marginBottom: '8px' }}>
+            <div style={{ color: '#00f0ff', fontSize: '0.88rem', fontWeight: 700, marginBottom: '6px' }}>
               Every Ticket Matters
             </div>
 
-            <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: '1.6', marginBottom: '20px' }}>
+            <p style={{ fontSize: '0.85rem', color: '#64748b', lineHeight: '1.55', marginBottom: '16px' }}>
               Smart Solutions. Reliable Support. Real Impact. A remote-first technology company delivering enterprise IT Service Desk, ServiceNow, Cloud, and Managed Operations.
             </p>
 
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               <button className="btn btn-outline btn-sm" onClick={onOpenWhatsApp} title="Chat on WhatsApp">
                 <MessageSquare size={14} color="#25D366" />
                 <span>WhatsApp</span>
@@ -57,10 +49,10 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
 
           {/* Quick Links */}
           <div>
-            <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '18px' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '14px' }}>
               Navigation
             </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.88rem' }}>
               <li><a href="#home" style={{ color: '#94a3b8', textDecoration: 'none' }}>Home</a></li>
               <li><a href="#about" style={{ color: '#94a3b8', textDecoration: 'none' }}>About Us</a></li>
               <li><a href="#services" style={{ color: '#94a3b8', textDecoration: 'none' }}>IT Services</a></li>
@@ -74,10 +66,10 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
 
           {/* Core Services */}
           <div>
-            <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '18px' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '14px' }}>
               Capabilities
             </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem' }}>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.88rem' }}>
               <li><a href="#services" style={{ color: '#94a3b8', textDecoration: 'none' }}>IT Service Desk</a></li>
               <li><a href="#services" style={{ color: '#94a3b8', textDecoration: 'none' }}>Managed IT Services</a></li>
               <li><a href="#services" style={{ color: '#94a3b8', textDecoration: 'none' }}>ServiceNow Services</a></li>
@@ -90,10 +82,10 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
 
           {/* Contact Lines */}
           <div>
-            <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '18px' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '14px' }}>
               Direct Business Lines
             </h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '0.9rem', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.88rem', marginBottom: '14px' }}>
               {phoneNumbers.map((num, idx) => (
                 <a
                   key={idx}
@@ -125,13 +117,13 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
         <div
           style={{
             borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-            paddingTop: '28px',
+            paddingTop: '20px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
-            gap: '16px',
-            fontSize: '0.85rem'
+            gap: '12px',
+            fontSize: '0.82rem'
           }}
         >
           <div>
@@ -144,8 +136,8 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
               background: 'rgba(255, 255, 255, 0.05)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               borderRadius: '50%',
-              width: '40px',
-              height: '40px',
+              width: '36px',
+              height: '36px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -155,7 +147,7 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
             }}
             title="Scroll to top"
           >
-            <ArrowUp size={18} />
+            <ArrowUp size={16} />
           </button>
         </div>
       </div>

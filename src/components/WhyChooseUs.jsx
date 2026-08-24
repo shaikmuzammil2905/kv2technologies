@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Cpu, Headphones, Eye, Activity, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export default function WhyChooseUs() {
   const reasons = [
@@ -27,7 +27,7 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section id="why-us" style={{ padding: '100px 0', position: 'relative' }}>
+    <section id="why-us" className="section-padding" style={{ position: 'relative' }}>
       <div className="container">
         <div className="section-head">
           <div className="eyebrow">
@@ -42,34 +42,27 @@ export default function WhyChooseUs() {
           </p>
         </div>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '24px'
-          }}
-          className="grid-4"
-        >
+        <div className="grid-4">
           {reasons.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
               className="glass-panel"
               style={{
-                padding: '32px 24px',
+                padding: '24px 20px',
                 position: 'relative'
               }}
             >
               <div
                 style={{
-                  fontSize: '1.8rem',
+                  fontSize: '1.6rem',
                   fontWeight: 900,
                   color: '#00f0ff',
                   fontFamily: 'Manrope, sans-serif',
-                  marginBottom: '16px'
+                  marginBottom: '12px'
                 }}
               >
                 {item.num}
@@ -77,16 +70,16 @@ export default function WhyChooseUs() {
 
               <h3
                 style={{
-                  fontSize: '1.2rem',
+                  fontSize: '1.15rem',
                   fontWeight: 700,
                   color: '#ffffff',
-                  marginBottom: '12px'
+                  marginBottom: '10px'
                 }}
               >
                 {item.title}
               </h3>
 
-              <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: '1.6' }}>
+              <p style={{ color: '#94a3b8', fontSize: '0.88rem', lineHeight: '1.55' }}>
                 {item.desc}
               </p>
             </motion.div>
