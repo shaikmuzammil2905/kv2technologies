@@ -1,0 +1,103 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { X, MessageSquare, ExternalLink } from 'lucide-react';
+
+export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
+  if (!isOpen) return null;
+
+  const phoneNumbers = [
+    { display: '+91 97416 76105', raw: '919741676105', label: 'Primary Desk Support' },
+    { display: '+91 93421 74058', raw: '919342174058', label: 'Operations & NOC' },
+    { display: '+91 95000 00449', raw: '919500000449', label: 'Enterprise Escalations' }
+  ];
+
+  const defaultMsg = customMessage || encodeURIComponent('Hello K2V Technologies! I would like to inquire about your IT Service Desk and Managed IT services.');
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <motion.div
+        className="modal-content"
+        onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        transition={{ duration: 0.3 }}
+        style={{ maxWidth: '540px' }}
+      >
+        <button className="modal-close-btn" onClick={onClose} aria-label="Close WhatsApp modal">
+          <X size={20} />
+        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
+          <div
+            style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(37, 211, 102, 0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#25D366'
+            }}
+          >
+            <MessageSquare size={26} />
+          </div>
+          <div>
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 800 }}>Chat on WhatsApp</h3>
+            <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>Select an available K²V Technologies business number</p>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
+          {phoneNumbers.map((num, idx) => {
+            const link = `https://wa.me/${num.raw}?text=${defaultMsg}`;
+
+            return (
+              <a
+                key={idx}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px 20px',
+                  borderRadius: '14px',
+                  backgroundColor: '#070c18',
+                  border: '1px solid rgba(37, 211, 102, 0.25)',
+                  color: '#ffffff',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#25D366';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(37, 211, 102, 0.25)';
+                  e.currentTarget.style.transform = 'none';
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: '0.78rem', color: '#25D366', fontWeight: 700, textTransform: 'uppercase' }}>
+                    {num.label}
+                  </div>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 700, fontFamily: 'monospace' }}>
+                    {num.display}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#25D366', fontWeight: 600, fontSize: '0.9rem' }}>
+                  <span>Open Chat</span>
+                  <ExternalLink size={16} />
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
