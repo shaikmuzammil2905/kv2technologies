@@ -67,7 +67,7 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
           {/* Top Pill Tag / Eyebrow Badge */}
           <motion.div variants={itemVariants} className="hero-top-badge">
             <Shield size={16} color="#00e5ff" />
-            <span>TRILOK INFOTECH</span>
+            <span>K²V TECHNOLOGIES</span>
           </motion.div>
 
           {/* Main Headline */}
@@ -77,7 +77,7 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
 
           {/* Subtitle Quote */}
           <motion.p variants={itemVariants} className="hero-subtitle-quote">
-            &quot;Trilok Infotech Private Limited delivers innovative software solutions, cybersecurity services, networking solutions and digital transformation services.&quot;
+            &quot;K²V Technologies Private Limited delivers innovative software solutions, cybersecurity services, networking solutions and digital transformation services.&quot;
           </motion.p>
 
           {/* Bullet-Separated Services List */}
@@ -93,21 +93,21 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
 
           {/* Action CTA Buttons */}
           <motion.div variants={itemVariants} className="hero-cta-group">
-            <button
+            <a
+              href="#services"
               className="hero-btn hero-btn-primary"
-              onClick={onOpenTicketWidget}
             >
               <span>Explore Services</span>
               <ArrowRight size={18} />
-            </button>
-
-            <a
-              href="#services"
-              className="hero-btn hero-btn-secondary"
-            >
-              <span>Our Products</span>
-              <Monitor size={18} />
             </a>
+
+            <button
+              className="hero-btn hero-btn-secondary"
+              onClick={onOpenTicketWidget}
+            >
+              <span>Talk to an Expert</span>
+              <Monitor size={18} />
+            </button>
           </motion.div>
         </motion.div>
       </div>
@@ -386,4 +386,5 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
     </section>
   );
 }
+
 
