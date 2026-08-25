@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Ticket, ShieldCheck, Clock, Globe, Sparkles } from 'lucide-react';
+import { ArrowRight, Shield, Monitor, MessageSquare } from 'lucide-react';
 import HeroCanvas from './HeroCanvas';
 
 export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
@@ -9,18 +9,18 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
+        staggerChildren: 0.15,
         delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 24 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: [0.16, 0.8, 0.24, 1] }
+      transition: { duration: 0.6, ease: [0.16, 0.8, 0.24, 1] }
     }
   };
 
@@ -29,171 +29,361 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
       id="home"
       style={{
         position: 'relative',
-        paddingTop: 'clamp(90px, 10vw, 120px)',
-        paddingBottom: 'clamp(50px, 8vw, 90px)',
+        minHeight: '92vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingTop: 'clamp(100px, 12vw, 140px)',
+        paddingBottom: 'clamp(70px, 10vw, 110px)',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #ffffff 0%, var(--light-blue) 130%)'
+        backgroundColor: '#030b1e',
+        color: '#ffffff'
       }}
     >
-      <div className="container">
-        <div className="grid-2 hero-grid-layout" style={{ alignItems: 'center', gap: '48px' }}>
-          {/* Hero Left Content */}
-          <motion.div variants={containerVariants} initial="hidden" animate="visible">
-            {/* Tagline Eyebrow */}
-            <motion.div variants={itemVariants} className="eyebrow" style={{ marginBottom: '16px' }}>
-              <Sparkles size={14} color="var(--blue)" />
-              <span>IT Service Desk & Managed IT Support Services</span>
-            </motion.div>
+      {/* Animated Cyber Network Canvas Background */}
+      <HeroCanvas />
 
-            {/* Main Headline */}
-            <motion.h1
-              variants={itemVariants}
-              style={{
-                fontSize: 'clamp(2.1rem, 4.5vw, 3.6rem)',
-                fontWeight: 800,
-                lineHeight: 1.15,
-                marginBottom: '18px',
-                color: 'var(--navy)',
-                letterSpacing: '-0.025em'
-              }}
-            >
-              Enterprise IT Support That Keeps Business{' '}
-              <span style={{ color: 'var(--blue)' }}>Moving.</span>
-            </motion.h1>
-
-            {/* Subtext */}
-            <motion.p
-              variants={itemVariants}
-              style={{
-                fontSize: 'clamp(1rem, 1.8vw, 1.18rem)',
-                color: 'var(--ink-60)',
-                marginBottom: '28px',
-                lineHeight: 1.7,
-                maxWidth: '560px'
-              }}
-            >
-              Reliable service desk, managed IT, ServiceNow, cloud, automation, and cybersecurity solutions designed around your business. Smart Solutions. Reliable Support. Real Impact.
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              variants={itemVariants}
-              style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginBottom: '36px' }}
-            >
-              <button
-                className="btn btn-primary btn-lg"
-                onClick={onOpenTicketWidget}
-                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-              >
-                <span>Talk to an Expert</span>
-                <ArrowRight size={18} />
-              </button>
-
-              <a
-                href="#services"
-                className="btn btn-outline btn-lg"
-                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-              >
-                <span>Explore Services</span>
-              </a>
-            </motion.div>
-
-            {/* Key Value Badges */}
-            <motion.div
-              variants={itemVariants}
-              className="grid-3"
-              style={{
-                paddingTop: '24px',
-                borderTop: '1px solid var(--line)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--electric)', flexShrink: 0 }} />
-                <div>
-                  <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--navy)' }}>24/7 Support Model</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-60)' }}>Round-the-clock</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--electric)', flexShrink: 0 }} />
-                <div>
-                  <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--navy)' }}>Proactive Monitoring</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-60)' }}>Active Telemetry</div>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--electric)', flexShrink: 0 }} />
-                <div>
-                  <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--navy)' }}>Enterprise Ready</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-60)' }}>Global Operations</div>
-                </div>
-              </div>
-            </motion.div>
+      {/* Hero Content Container */}
+      <div
+        className="container"
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          textAlign: 'center',
+          maxWidth: '980px',
+          margin: '0 auto'
+        }}
+      >
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
+          {/* Top Pill Tag / Eyebrow Badge */}
+          <motion.div variants={itemVariants} className="hero-top-badge">
+            <Shield size={16} color="#00e5ff" />
+            <span>TRILOK INFOTECH</span>
           </motion.div>
 
-          {/* Hero Right Visual Canvas */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            style={{
-              position: 'relative',
-              width: '100%',
-              minHeight: '380px',
-              borderRadius: '20px',
-              border: '1px solid var(--line)',
-              backgroundColor: '#ffffff',
-              boxShadow: 'var(--shadow-md)',
-              padding: '12px'
-            }}
-          >
-            <HeroCanvas />
+          {/* Main Headline */}
+          <motion.h1 variants={itemVariants} className="hero-main-title">
+            Building the Future of Software, Cybersecurity &amp; Digital Trust
+          </motion.h1>
 
-            {/* Floating Live Ticket Stats Card */}
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '20px',
-                left: '20px',
-                right: '20px',
-                background: 'rgba(255, 255, 255, 0.94)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid var(--line)',
-                borderRadius: '14px',
-                padding: '16px 20px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '12px',
-                boxShadow: 'var(--shadow-sm)'
-              }}
-            >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e' }} />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Live Support Engine
-                  </span>
-                </div>
-                <div style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--navy)' }}>
-                  Avg. First Response Target: &lt; 15 Mins
-                </div>
-              </div>
+          {/* Subtitle Quote */}
+          <motion.p variants={itemVariants} className="hero-subtitle-quote">
+            &quot;Trilok Infotech Private Limited delivers innovative software solutions, cybersecurity services, networking solutions and digital transformation services.&quot;
+          </motion.p>
 
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={onOpenTicketWidget}
-                style={{ fontSize: '0.82rem' }}
-              >
-                Talk to an Expert
-              </button>
-            </div>
+          {/* Bullet-Separated Services List */}
+          <motion.div variants={itemVariants} className="hero-services-tags">
+            <span>Website Development</span>
+            <span className="bullet-dot">•</span>
+            <span>Mobile Apps</span>
+            <span className="bullet-dot">•</span>
+            <span>Custom Software</span>
+            <span className="bullet-dot">•</span>
+            <span>Digital Solutions</span>
           </motion.div>
-        </div>
+
+          {/* Action CTA Buttons */}
+          <motion.div variants={itemVariants} className="hero-cta-group">
+            <button
+              className="hero-btn hero-btn-primary"
+              onClick={onOpenTicketWidget}
+            >
+              <span>Explore Services</span>
+              <ArrowRight size={18} />
+            </button>
+
+            <a
+              href="#services"
+              className="hero-btn hero-btn-secondary"
+            >
+              <span>Our Products</span>
+              <Monitor size={18} />
+            </a>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Floating Bottom Right WhatsApp Widget */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.4 }}
+        className="hero-whatsapp-floating"
+      >
+        <button
+          onClick={onOpenWhatsApp}
+          className="whatsapp-pill-btn"
+          title="Chat with us on WhatsApp"
+        >
+          <span className="online-pulse-dot" />
+          <span>Chat with Us on WhatsApp</span>
+        </button>
+
+        <button
+          onClick={onOpenWhatsApp}
+          className="whatsapp-icon-btn"
+          aria-label="WhatsApp Chat"
+        >
+          <MessageSquare size={22} color="#ffffff" fill="#ffffff" />
+        </button>
+      </motion.div>
+
+      {/* Component Styles */}
+      <style>{`
+        .hero-top-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          padding: 8px 20px;
+          border-radius: 9999px;
+          background: rgba(0, 229, 255, 0.07);
+          border: 1.5px solid rgba(0, 229, 255, 0.35);
+          box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          font-family: var(--font-heading);
+          font-size: 0.82rem;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          color: #00e5ff;
+          text-transform: uppercase;
+          margin-bottom: 28px;
+        }
+
+        .hero-main-title {
+          font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+          font-weight: 800;
+          line-height: 1.14;
+          letter-spacing: -0.025em;
+          color: #ffffff;
+          margin-bottom: 24px;
+          max-width: 940px;
+          text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-subtitle-quote {
+          font-size: clamp(1rem, 1.8vw, 1.22rem);
+          color: rgba(225, 238, 255, 0.85);
+          line-height: 1.65;
+          max-width: 780px;
+          margin-bottom: 24px;
+          font-weight: 400;
+          font-style: normal;
+        }
+
+        .hero-services-tags {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 12px;
+          font-size: clamp(0.88rem, 1.5vw, 1.05rem);
+          font-weight: 700;
+          color: #00e5ff;
+          margin-bottom: 38px;
+          letter-spacing: -0.01em;
+        }
+
+        .hero-services-tags .bullet-dot {
+          color: #00e5ff;
+          font-size: 1.2rem;
+          line-height: 1;
+        }
+
+        .hero-cta-group {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+
+        .hero-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 14px 32px;
+          border-radius: 9999px;
+          font-family: var(--font-heading);
+          font-weight: 700;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.16, 0.8, 0.24, 1);
+          text-decoration: none;
+          white-space: nowrap;
+        }
+
+        .hero-btn-primary {
+          background: linear-gradient(135deg, #1877f2 0%, #0052cc 100%);
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 30px rgba(24, 119, 242, 0.45);
+        }
+
+        .hero-btn-primary:hover {
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 14px 40px rgba(24, 119, 242, 0.65);
+          background: linear-gradient(135deg, #2482ff 0%, #0062f5 100%);
+        }
+
+        .hero-btn-secondary {
+          background: rgba(15, 28, 56, 0.65);
+          color: #ffffff;
+          border: 1.5px solid rgba(255, 255, 255, 0.22);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-btn-secondary:hover {
+          transform: translateY(-3px) scale(1.02);
+          border-color: #00e5ff;
+          color: #00e5ff;
+          background: rgba(20, 40, 80, 0.85);
+          box-shadow: 0 8px 30px rgba(0, 229, 255, 0.25);
+        }
+
+        /* WhatsApp Floating Bottom-Right Controls */
+        .hero-whatsapp-floating {
+          position: absolute;
+          bottom: 28px;
+          right: 28px;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+
+        .whatsapp-pill-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 18px;
+          border-radius: 9999px;
+          background: rgba(10, 24, 46, 0.82);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          color: #ffffff;
+          font-family: var(--font-heading);
+          font-size: 0.86rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .whatsapp-pill-btn:hover {
+          border-color: #25D366;
+          color: #25D366;
+          transform: translateY(-2px);
+        }
+
+        .online-pulse-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #25D366;
+          box-shadow: 0 0 10px #25D366;
+          animation: pulseGreen 2s infinite;
+        }
+
+        @keyframes pulseGreen {
+          0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+          70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .whatsapp-icon-btn {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: #25D366;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+          transition: all 0.25s ease;
+        }
+
+        .whatsapp-icon-btn:hover {
+          transform: scale(1.08) rotate(5deg);
+          box-shadow: 0 10px 28px rgba(37, 211, 102, 0.65);
+        }
+
+        /* Mobile Viewport Optimizations */
+        @media (max-width: 768px) {
+          #home {
+            min-height: 100vh;
+            padding-top: 110px;
+            padding-bottom: 90px;
+          }
+
+          .hero-top-badge {
+            font-size: 0.74rem;
+            padding: 6px 14px;
+            margin-bottom: 20px;
+          }
+
+          .hero-main-title {
+            font-size: 2.1rem;
+            line-height: 1.2;
+            margin-bottom: 18px;
+          }
+
+          .hero-subtitle-quote {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 0 6px;
+          }
+
+          .hero-services-tags {
+            gap: 6px;
+            font-size: 0.84rem;
+            margin-bottom: 28px;
+          }
+
+          .hero-cta-group {
+            flex-direction: column;
+            width: 100%;
+            max-width: 320px;
+            gap: 12px;
+          }
+
+          .hero-btn {
+            width: 100%;
+            padding: 13px 22px;
+            font-size: 0.95rem;
+          }
+
+          .hero-whatsapp-floating {
+            bottom: 16px;
+            right: 16px;
+          }
+
+          .whatsapp-pill-btn span:nth-child(2) {
+            display: none;
+          }
+
+          .whatsapp-pill-btn {
+            padding: 8px 12px;
+          }
+        }
+      `}</style>
     </section>
   );
 }
+
