@@ -29,8 +29,8 @@ export default function HeroCanvas() {
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 1.2,
         vy: (Math.random() - 0.5) * 1.2,
-        radius: Math.random() * 2 + 1.5,
-        color: i % 3 === 0 ? '#00f0ff' : '#0066ff'
+        radius: Math.random() * 2.5 + 2,
+        color: i % 3 === 0 ? '#149BEF' : '#0757D9'
       });
     }
 
@@ -48,8 +48,8 @@ export default function HeroCanvas() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(0, 150, 255, ${0.35 * (1 - dist / 130)})`;
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = `rgba(7, 87, 217, ${0.28 * (1 - dist / 130)})`;
+            ctx.lineWidth = 1.2;
             ctx.stroke();
           }
         }
@@ -60,10 +60,7 @@ export default function HeroCanvas() {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
         ctx.fill();
-        ctx.shadowBlur = 0;
 
         p.x += p.vx;
         p.y += p.vy;
@@ -90,7 +87,7 @@ export default function HeroCanvas() {
         width: '100%',
         height: '100%',
         display: 'block',
-        borderRadius: '24px'
+        borderRadius: '16px'
       }}
     />
   );

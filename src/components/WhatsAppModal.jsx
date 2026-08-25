@@ -18,10 +18,10 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
       <motion.div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.95, y: 16 }}
+        transition={{ duration: 0.25 }}
         style={{ maxWidth: '540px' }}
       >
         <button className="modal-close-btn" onClick={onClose} aria-label="Close WhatsApp modal">
@@ -34,18 +34,18 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
               width: '48px',
               height: '48px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(37, 211, 102, 0.15)',
+              backgroundColor: 'rgba(37, 211, 102, 0.12)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#25D366'
             }}
           >
-            <MessageSquare size={26} />
+            <MessageSquare size={24} />
           </div>
           <div>
-            <h3 style={{ fontSize: '1.35rem', fontWeight: 800 }}>Chat on WhatsApp</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>Select an available K²V Technologies business number</p>
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--navy)' }}>Chat on WhatsApp</h3>
+            <p style={{ color: 'var(--ink-60)', fontSize: '0.88rem' }}>Select an available K²V Technologies business number</p>
           </div>
         </div>
 
@@ -64,10 +64,10 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   padding: '16px 20px',
-                  borderRadius: '14px',
-                  backgroundColor: '#070c18',
-                  border: '1px solid rgba(37, 211, 102, 0.25)',
-                  color: '#ffffff',
+                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: 'var(--bg-light)',
+                  border: '1px solid var(--line)',
+                  color: 'var(--navy)',
                   textDecoration: 'none',
                   transition: 'all 0.2s ease'
                 }}
@@ -76,20 +76,20 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(37, 211, 102, 0.25)';
+                  e.currentTarget.style.borderColor = 'var(--line)';
                   e.currentTarget.style.transform = 'none';
                 }}
               >
                 <div>
-                  <div style={{ fontSize: '0.78rem', color: '#25D366', fontWeight: 700, textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '0.78rem', color: '#25D366', fontWeight: 800, textTransform: 'uppercase' }}>
                     {num.label}
                   </div>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 700, fontFamily: 'monospace' }}>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 800, fontFamily: "'Manrope', sans-serif" }}>
                     {num.display}
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#25D366', fontWeight: 600, fontSize: '0.9rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#25D366', fontWeight: 700, fontSize: '0.9rem' }}>
                   <span>Open Chat</span>
                   <ExternalLink size={16} />
                 </div>

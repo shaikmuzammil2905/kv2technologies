@@ -14,19 +14,19 @@ export default function FAQ() {
   );
 
   return (
-    <section id="faq" style={{ padding: '100px 0', position: 'relative' }}>
-      <div className="container" style={{ maxWidth: '860px' }}>
+    <section id="faq" style={{ padding: '96px 0', position: 'relative', background: 'var(--white)' }}>
+      <div className="container" style={{ maxWidth: '880px' }}>
         {/* Head */}
         <div className="section-head">
           <div className="eyebrow">
-            <HelpCircle size={14} color="#00f0ff" />
-            <span>Got Questions?</span>
+            <HelpCircle size={14} color="var(--blue)" />
+            <span>FAQs</span>
           </div>
           <h2 className="section-title">
-            Frequently Asked <span className="gradient-blue-cyan">Questions</span>
+            Frequently Asked <span style={{ color: 'var(--blue)' }}>Questions</span>
           </h2>
           <p className="section-sub">
-            Learn more about K²V Technologies' remote IT service desk model and SLA commitments.
+            Learn more about K²V Technologies' IT service desk capabilities, support model, and ServiceNow integrations.
           </p>
 
           {/* Search Box */}
@@ -34,27 +34,27 @@ export default function FAQ() {
             style={{
               marginTop: '28px',
               position: 'relative',
-              maxWidth: '500px',
+              maxWidth: '520px',
               margin: '28px auto 0 auto'
             }}
           >
             <Search
               size={18}
-              color="#64748b"
-              style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)' }}
+              color="var(--ink-40)"
+              style={{ position: 'absolute', left: '18px', top: '50%', transform: 'translateY(-50%)' }}
             />
             <input
               type="text"
-              placeholder="Search questions or keywords..."
+              placeholder="Search questions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
                 width: '100%',
-                padding: '12px 16px 12px 48px',
+                padding: '12px 18px 12px 48px',
                 borderRadius: '24px',
-                backgroundColor: 'rgba(15, 23, 42, 0.8)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                color: '#ffffff',
+                backgroundColor: 'var(--bg-light)',
+                border: '1px solid var(--line)',
+                color: 'var(--navy)',
                 fontSize: '0.95rem',
                 outline: 'none'
               }}
@@ -63,7 +63,7 @@ export default function FAQ() {
         </div>
 
         {/* FAQ Accordion List */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', backgroundColor: 'var(--line)', border: '1px solid var(--line)', borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
           {filteredFaqs.length > 0 ? (
             filteredFaqs.map((faq, idx) => {
               const isOpen = openIndex === idx;
@@ -72,26 +72,23 @@ export default function FAQ() {
                 <div
                   key={idx}
                   style={{
-                    backgroundColor: 'rgba(15, 23, 42, 0.75)',
-                    border: isOpen ? '1px solid rgba(0, 240, 255, 0.4)' : '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '16px',
-                    overflow: 'hidden',
-                    transition: 'border-color 0.3s ease'
+                    backgroundColor: '#ffffff',
+                    transition: 'background 0.2s ease'
                   }}
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : idx)}
                     style={{
                       width: '100%',
-                      padding: '22px 24px',
+                      padding: '24px 28px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       backgroundColor: 'transparent',
                       border: 'none',
-                      color: '#ffffff',
+                      color: 'var(--navy)',
                       fontSize: '1.05rem',
-                      fontWeight: 700,
+                      fontWeight: 800,
                       textAlign: 'left',
                       cursor: 'pointer',
                       gap: '16px'
@@ -101,7 +98,7 @@ export default function FAQ() {
                     <motion.div
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.25 }}
-                      style={{ color: isOpen ? '#00f0ff' : '#64748b', flexShrink: 0 }}
+                      style={{ color: isOpen ? 'var(--blue)' : 'var(--ink-40)', flexShrink: 0 }}
                     >
                       <ChevronDown size={20} />
                     </motion.div>
@@ -118,12 +115,10 @@ export default function FAQ() {
                       >
                         <div
                           style={{
-                            padding: '0 24px 22px 24px',
-                            color: '#94a3b8',
-                            fontSize: '0.95rem',
-                            lineHeight: 1.7,
-                            borderTop: '1px solid rgba(255, 255, 255, 0.04)',
-                            paddingTop: '16px'
+                            padding: '0 28px 24px 28px',
+                            color: 'var(--ink-60)',
+                            fontSize: '0.96rem',
+                            lineHeight: 1.7
                           }}
                         >
                           {faq.answer}
@@ -135,7 +130,7 @@ export default function FAQ() {
               );
             })
           ) : (
-            <div style={{ textAlign: 'center', color: '#64748b', padding: '40px' }}>
+            <div style={{ textAlign: 'center', color: 'var(--ink-40)', padding: '40px', background: '#ffffff' }}>
               No matching questions found for "{searchQuery}".
             </div>
           )}

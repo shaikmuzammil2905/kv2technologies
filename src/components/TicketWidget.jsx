@@ -13,7 +13,7 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
   const priorities = [
     { id: 'P1', label: 'P1 - Critical Outage', sla: '< 15 Mins Response', color: '#ef4444' },
     { id: 'P2', label: 'P2 - High Priority', sla: '< 30 Mins Response', color: '#f59e0b' },
-    { id: 'P3', label: 'P3 - Standard Request', sla: '< 2 Hours Response', color: '#3b82f6' }
+    { id: 'P3', label: 'P3 - Standard Request', sla: '< 2 Hours Response', color: 'var(--blue)' }
   ];
 
   const servicesList = [
@@ -42,10 +42,10 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
       <motion.div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.95, y: 16 }}
+        transition={{ duration: 0.25 }}
       >
         <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
           <X size={20} />
@@ -53,31 +53,31 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
 
         {!submitted ? (
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '8px' }}>
               <div
                 style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '11px',
+                  backgroundColor: 'var(--light-blue)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#00f0ff'
+                  color: 'var(--blue)'
                 }}
               >
                 <Ticket size={22} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 800 }}>Raise a Support Ticket</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Every Ticket Matters — Guaranteed SLA Target</p>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--navy)' }}>Raise a Support Request</h3>
+                <p style={{ color: 'var(--ink-60)', fontSize: '0.86rem' }}>Every Ticket Matters — Rapid Response Target</p>
               </div>
             </div>
 
             <form onSubmit={handleSubmit} style={{ marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {/* Priority Selector */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '8px' }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '8px' }}>
                   Select Priority Level
                 </label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
@@ -89,16 +89,16 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
                       style={{
                         padding: '12px 8px',
                         borderRadius: '10px',
-                        border: priority === item.id ? `2px solid ${item.color}` : '1px solid rgba(255, 255, 255, 0.1)',
-                        backgroundColor: priority === item.id ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
-                        color: '#ffffff',
+                        border: priority === item.id ? `2px solid ${item.color}` : '1.5px solid var(--line)',
+                        backgroundColor: priority === item.id ? 'var(--light-blue)' : 'var(--bg-light)',
+                        color: 'var(--navy)',
                         cursor: 'pointer',
                         textAlign: 'center',
                         transition: 'all 0.2s ease'
                       }}
                     >
-                      <div style={{ fontSize: '0.85rem', fontWeight: 700, color: item.color }}>{item.id}</div>
-                      <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginTop: '4px' }}>{item.sla}</div>
+                      <div style={{ fontSize: '0.88rem', fontWeight: 800, color: item.color }}>{item.id}</div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--ink-60)', marginTop: '4px', fontWeight: 600 }}>{item.sla}</div>
                     </button>
                   ))}
                 </div>
@@ -106,7 +106,7 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
 
               {/* Service Category */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '8px' }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '8px' }}>
                   Service Category
                 </label>
                 <select
@@ -114,17 +114,17 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
                   onChange={(e) => setService(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '12px 14px',
-                    borderRadius: '10px',
-                    backgroundColor: '#070c18',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    color: '#ffffff',
+                    padding: '13px 14px',
+                    borderRadius: '9px',
+                    backgroundColor: 'var(--bg-light)',
+                    border: '1.5px solid var(--line)',
+                    color: 'var(--navy)',
                     fontSize: '0.95rem',
                     outline: 'none'
                   }}
                 >
                   {servicesList.map((s, idx) => (
-                    <option key={idx} value={s} style={{ backgroundColor: '#070c18' }}>
+                    <option key={idx} value={s}>
                       {s}
                     </option>
                   ))}
@@ -133,21 +133,21 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
 
               {/* Requirement details */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '8px' }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '8px' }}>
                   Requirement / Incident Summary
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="Describe your technology request or issue..."
+                  placeholder="Describe your support request..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '12px 14px',
-                    borderRadius: '10px',
-                    backgroundColor: '#070c18',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    color: '#ffffff',
+                    padding: '13px 14px',
+                    borderRadius: '9px',
+                    backgroundColor: 'var(--bg-light)',
+                    border: '1.5px solid var(--line)',
+                    color: 'var(--navy)',
                     fontSize: '0.95rem',
                     outline: 'none',
                     resize: 'vertical'
@@ -164,12 +164,12 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
                   style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                 >
                   <MessageSquare size={18} color="#25D366" />
-                  <span>Send via WhatsApp</span>
+                  <span>WhatsApp</span>
                 </button>
 
                 <button
                   type="submit"
-                  className="btn btn-cyan"
+                  className="btn btn-primary"
                   style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                 >
                   <Send size={18} />
@@ -185,8 +185,8 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
                 width: '64px',
                 height: '64px',
                 borderRadius: '50%',
-                backgroundColor: 'rgba(34, 197, 94, 0.15)',
-                color: '#22c55e',
+                backgroundColor: 'var(--light-blue)',
+                color: 'var(--blue)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -196,26 +196,26 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
               <CheckCircle size={36} />
             </div>
 
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '8px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '8px' }}>
               Ticket Dispatch Initialized!
             </h3>
 
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem', marginBottom: '24px' }}>
+            <p style={{ color: 'var(--ink-60)', fontSize: '0.95rem', marginBottom: '24px' }}>
               Your ticket request for <strong>{service}</strong> ({priority}) has been registered. Under K²V's philosophy, <strong>Every Ticket Matters</strong> and our team responds promptly!
             </p>
 
             <div
               style={{
-                backgroundColor: '#070c18',
-                padding: '16px',
+                backgroundColor: 'var(--bg-light)',
+                padding: '18px',
                 borderRadius: '12px',
-                border: '1px solid rgba(0, 240, 255, 0.2)',
+                border: '1px solid var(--line)',
                 marginBottom: '24px',
                 textAlign: 'left'
               }}
             >
-              <div style={{ fontSize: '0.8rem', color: '#64748b' }}>Assigned Ticket ID</div>
-              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#00f0ff', fontFamily: 'monospace' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--ink-60)', fontWeight: 600 }}>Assigned Ticket ID</div>
+              <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--blue)', fontFamily: "'Manrope', monospace" }}>
                 #K2V-{Math.floor(100000 + Math.random() * 900000)}
               </div>
             </div>

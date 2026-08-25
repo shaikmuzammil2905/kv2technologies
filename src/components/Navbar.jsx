@@ -20,7 +20,7 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 30);
 
       // ScrollSpy active section detection
       const sections = navItems.map((item) => item.href.substring(1));
@@ -51,39 +51,52 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
   return (
     <header
       style={{
-        position: 'fixed',
+        position: 'sticky',
         top: 0,
         left: 0,
         right: 0,
         zIndex: 900,
-        padding: scrolled ? '10px 0' : '18px 0',
-        backgroundColor: scrolled ? 'rgba(7, 12, 24, 0.92)' : 'rgba(7, 12, 24, 0.6)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(255, 255, 255, 0.03)',
-        transition: 'all 0.3s ease'
+        backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.92)' : 'rgba(255, 255, 255, 0.85)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
+        borderBottom: '1px solid var(--line)',
+        boxShadow: scrolled ? 'var(--shadow-sm)' : 'none',
+        transition: 'all 0.3s cubic-bezier(0.16, 0.8, 0.24, 1)'
       }}
     >
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* Logo */}
+      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: scrolled ? '12px 28px' : '18px 28px', transition: 'padding 0.3s ease' }}>
+        {/* Brand / Logo */}
         <a
           href="#home"
           onClick={(e) => handleNavClick(e, '#home')}
-          style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}
         >
           <img
-            src="/logo.png"
+            src="/assets/logo-icon.png"
             alt="K²V Technologies Logo"
+            onError={(e) => { e.target.src = '/logo.png'; }}
             style={{
-              height: scrolled ? '36px' : '44px',
+              height: scrolled ? '34px' : '40px',
+              width: 'auto',
               objectFit: 'contain',
               transition: 'height 0.3s ease'
             }}
           />
+          <span
+            style={{
+              fontFamily: "'Manrope', sans-serif",
+              fontWeight: 800,
+              fontSize: '1.15rem',
+              color: 'var(--navy)',
+              letterSpacing: '-0.01em'
+            }}
+          >
+            K²V Technologies
+          </span>
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '28px' }} className="desktop-nav">
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '6px' }} className="desktop-nav">
           {navItems.map((item) => {
             const isActive = activeSection === item.href.substring(1);
             return (
@@ -92,30 +105,17 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 style={{
-                  color: isActive ? '#00f0ff' : '#94a3b8',
-                  fontSize: '0.9rem',
-                  fontWeight: isActive ? 600 : 500,
+                  color: isActive ? 'var(--blue)' : 'var(--ink-60)',
+                  fontSize: '0.92rem',
+                  fontWeight: isActive ? 700 : 600,
                   textDecoration: 'none',
-                  position: 'relative',
-                  padding: '6px 0',
-                  transition: 'color 0.2s ease'
+                  padding: '8px 14px',
+                  borderRadius: '8px',
+                  backgroundColor: isActive ? 'var(--light-blue)' : 'transparent',
+                  transition: 'all 0.2s ease'
                 }}
               >
                 {item.label}
-                {isActive && (
-                  <motion.div
-                    layoutId="activeNavIndicator"
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: '2px',
-                      background: 'linear-gradient(90deg, #0066ff 0%, #00f0ff 100%)',
-                      borderRadius: '2px'
-                    }}
-                  />
-                )}
               </a>
             );
           })}
@@ -134,12 +134,12 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
           </button>
 
           <button
-            className="btn btn-cyan btn-sm"
+            className="btn btn-primary btn-sm"
             onClick={onOpenTicketWidget}
             style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
           >
             <Ticket size={16} />
-            <span>Raise Request</span>
+            <span>Talk to an Expert</span>
           </button>
         </div>
 
@@ -150,11 +150,11 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
           aria-label="Toggle menu"
           style={{
             display: 'none',
-            background: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            background: 'var(--bg-light)',
+            border: '1px solid var(--line)',
             borderRadius: '8px',
             padding: '8px',
-            color: '#ffffff',
+            color: 'var(--navy)',
             cursor: 'pointer'
           }}
         >
@@ -171,38 +171,39 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             style={{
-              backgroundColor: '#070c18',
-              borderBottom: '1px solid rgba(0, 140, 255, 0.3)',
-              padding: '20px 24px',
-              overflow: 'hidden'
+              backgroundColor: '#ffffff',
+              borderBottom: '1px solid var(--line)',
+              padding: '20px 24px 28px',
+              overflow: 'hidden',
+              boxShadow: 'var(--shadow-md)'
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
                   style={{
-                    color: activeSection === item.href.substring(1) ? '#00f0ff' : '#cbd5e1',
+                    color: activeSection === item.href.substring(1) ? 'var(--blue)' : 'var(--navy)',
                     fontSize: '1.05rem',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     textDecoration: 'none',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '8px 0',
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+                    padding: '12px 8px',
+                    borderBottom: '1px solid var(--line)'
                   }}
                 >
                   <span>{item.label}</span>
-                  <ChevronRight size={18} color="#64748b" />
+                  <ChevronRight size={18} color="var(--ink-40)" />
                 </a>
               ))}
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '12px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '16px' }}>
                 <button
-                  className="btn btn-cyan"
+                  className="btn btn-primary"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     onOpenTicketWidget();
@@ -210,7 +211,7 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
                   style={{ width: '100%', justifyContent: 'center' }}
                 >
                   <Ticket size={18} />
-                  <span>Raise Support Ticket</span>
+                  <span>Talk to an Expert</span>
                 </button>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
@@ -234,7 +235,7 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
                     }}
                     style={{ justifyContent: 'center' }}
                   >
-                    <Phone size={16} color="#38bdf8" />
+                    <Phone size={16} color="var(--blue)" />
                     <span>Call Us</span>
                   </button>
                 </div>

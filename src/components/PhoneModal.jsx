@@ -24,10 +24,10 @@ export default function PhoneModal({ isOpen, onClose }) {
       <motion.div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 16 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.95, y: 16 }}
+        transition={{ duration: 0.25 }}
         style={{ maxWidth: '520px' }}
       >
         <button className="modal-close-btn" onClick={onClose} aria-label="Close phone options modal">
@@ -40,18 +40,18 @@ export default function PhoneModal({ isOpen, onClose }) {
               width: '48px',
               height: '48px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(0, 240, 255, 0.15)',
+              backgroundColor: 'var(--light-blue)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#00f0ff'
+              color: 'var(--blue)'
             }}
           >
             <Phone size={24} />
           </div>
           <div>
-            <h3 style={{ fontSize: '1.35rem', fontWeight: 800 }}>Call K²V Technologies</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>Tap to dial on mobile or copy phone number</p>
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--navy)' }}>Call K²V Technologies</h3>
+            <p style={{ color: 'var(--ink-60)', fontSize: '0.88rem' }}>Tap to dial on mobile or copy phone number</p>
           </div>
         </div>
 
@@ -64,23 +64,23 @@ export default function PhoneModal({ isOpen, onClose }) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '16px 20px',
-                borderRadius: '14px',
-                backgroundColor: '#070c18',
-                border: '1px solid rgba(0, 240, 255, 0.2)'
+                borderRadius: 'var(--radius-md)',
+                backgroundColor: 'var(--bg-light)',
+                border: '1px solid var(--line)'
               }}
             >
               <div>
-                <div style={{ fontSize: '0.78rem', color: '#00f0ff', fontWeight: 700, textTransform: 'uppercase' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--blue)', fontWeight: 800, textTransform: 'uppercase' }}>
                   {num.label}
                 </div>
                 <a
                   href={num.tel}
                   style={{
                     fontSize: '1.15rem',
-                    fontWeight: 700,
-                    color: '#ffffff',
+                    fontWeight: 800,
+                    color: 'var(--navy)',
                     textDecoration: 'none',
-                    fontFamily: 'monospace'
+                    fontFamily: "'Manrope', sans-serif"
                   }}
                 >
                   {num.display}
@@ -90,7 +90,7 @@ export default function PhoneModal({ isOpen, onClose }) {
               <div style={{ display: 'flex', gap: '8px' }}>
                 <a
                   href={num.tel}
-                  className="btn btn-cyan btn-sm"
+                  className="btn btn-primary btn-sm"
                   style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}
                 >
                   <Phone size={14} />
@@ -104,8 +104,8 @@ export default function PhoneModal({ isOpen, onClose }) {
                 >
                   {copiedIndex === idx ? (
                     <>
-                      <Check size={14} color="#22c55e" />
-                      <span style={{ color: '#22c55e' }}>Copied</span>
+                      <Check size={14} color="#16a34a" />
+                      <span style={{ color: '#16a34a' }}>Copied</span>
                     </>
                   ) : (
                     <>

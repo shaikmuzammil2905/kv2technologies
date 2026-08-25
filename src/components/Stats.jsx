@@ -37,10 +37,10 @@ export default function Stats() {
   return (
     <section
       style={{
-        padding: '48px 0',
-        backgroundColor: '#070c18',
-        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+        padding: '56px 0',
+        backgroundColor: 'var(--white)',
+        borderTop: '1px solid var(--line)',
+        borderBottom: '1px solid var(--line)'
       }}
     >
       <div className="container">
@@ -53,33 +53,34 @@ export default function Stats() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
               style={{
-                backgroundColor: 'rgba(15, 23, 42, 0.6)',
-                border: '1px solid rgba(0, 140, 255, 0.2)',
+                backgroundColor: 'var(--bg-light)',
+                border: '1px solid var(--line)',
                 borderRadius: '14px',
-                padding: '20px 16px',
-                textAlign: 'center'
+                padding: '24px 20px',
+                textAlign: 'center',
+                boxShadow: 'var(--shadow-sm)'
               }}
             >
               <div
                 style={{
-                  fontSize: 'clamp(2rem, 3vw, 2.5rem)',
+                  fontSize: 'clamp(2rem, 3.2vw, 2.6rem)',
                   fontWeight: 800,
-                  color: '#00f0ff',
-                  fontFamily: 'Manrope, sans-serif',
+                  color: 'var(--blue)',
+                  fontFamily: "'Manrope', sans-serif",
                   marginBottom: '4px'
                 }}
               >
                 {stat.prefix}
                 {stat.isFloat ? (
-                  '99.9'
+                  '99.9%'
                 ) : (
                   <CountUp end={stat.value} suffix={stat.suffix} />
                 )}
               </div>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '2px' }}>
+              <div style={{ fontSize: '0.96rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '2px' }}>
                 {stat.label}
               </div>
-              <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
+              <div style={{ fontSize: '0.82rem', color: 'var(--ink-60)' }}>
                 {stat.desc}
               </div>
             </motion.div>

@@ -8,56 +8,56 @@ export default function Process({ onOpenTicketWidget }) {
   const steps = [
     {
       num: '01',
-      title: 'Tell Us',
-      shortTitle: '01 — Tell Us',
+      title: 'Discover',
+      shortTitle: '01 — Discover',
       icon: MessageSquare,
-      summary: 'Customer explains requirement or technology problem.',
+      summary: 'Understand the business and IT environment.',
       details:
-        'Submit your inquiry or raise a ticket via our interactive portal, WhatsApp, or phone line. Our remote desk logs your exact requirements with immediate SLA timestamping under our "Every Ticket Matters" commitment.',
-      actionText: 'Raise a Ticket Now'
+        'Submit your inquiry or raise a ticket via our interactive portal, WhatsApp, or phone line. Our service desk logs your exact requirements with immediate SLA timestamping under our "Every Ticket Matters" commitment.',
+      actionText: 'Talk to an Expert'
     },
     {
       num: '02',
-      title: 'Understand',
-      shortTitle: '02 — Understand',
+      title: 'Assess',
+      shortTitle: '02 — Assess',
       icon: Search,
-      summary: 'K²V Technologies analyzes the requirement.',
+      summary: 'Identify gaps, risks, and improvement opportunities.',
       details:
-        'Our Tier 2/3 specialists conduct a rapid discovery assessment—evaluating existing system architecture, security policies, and incident history to map out an exact solution plan.',
-      actionText: 'See Discovery Plan'
+        'Our L2/L3 specialists conduct a rapid discovery assessment — evaluating existing infrastructure, cloud setup, security policies, and ticket history to map out an exact solution plan.',
+      actionText: 'Request Assessment'
     },
     {
       num: '03',
-      title: 'Solve',
-      shortTitle: '03 — Solve',
+      title: 'Design',
+      shortTitle: '03 — Design',
       icon: Cpu,
-      summary: 'The targeted technology/service solution is provided.',
+      summary: 'Build the right support and technology strategy.',
       details:
-        'We execute the remediation plan—whether deploying automated ServiceNow workflows, hardening cloud servers, establishing EDR security agents, or resolving user desktop issues.',
-      actionText: 'Explore Service Options'
+        'We design structured ITSM workflows, ServiceNow automations, and proactive monitoring pipelines tailored specifically to your organization’s operational needs.',
+      actionText: 'Explore Strategy'
     },
     {
       num: '04',
-      title: 'Support',
-      shortTitle: '04 — Support',
+      title: 'Implement & Optimize',
+      shortTitle: '04 — Implement & Optimize',
       icon: HeartHandshake,
-      summary: 'Continuous 24/7 support & proactive SLA optimization.',
+      summary: 'Deploy solutions with minimal disruption & continuous SLA management.',
       details:
-        'We don’t stop at resolution. Our 24/7 NOC monitoring ensures system stability, delivers monthly performance reports, and proactively optimizes IT operations.',
+        'We deploy solutions seamlessly, monitor system metrics 24/7, and deliver ongoing optimization to keep your technology running flawlessly.',
       actionText: 'Talk to an Expert'
     }
   ];
 
   return (
-    <section id="process" className="section-padding" style={{ backgroundColor: '#090e1c', position: 'relative' }}>
+    <section id="process" className="section-padding" style={{ backgroundColor: 'var(--bg-light)', position: 'relative' }}>
       <div className="container">
         <div className="section-head">
-          <div className="eyebrow">Interactive Workflow</div>
+          <div className="eyebrow">How We Work</div>
           <h2 className="section-title">
-            A Structured Path From <span className="gradient-blue-cyan">First Ticket to Resolution.</span>
+            A Structured Path From <span style={{ color: 'var(--blue)' }}>First Call to Ongoing Optimization</span>
           </h2>
           <p className="section-sub">
-            How K²V Technologies handles your IT requirements with clarity and speed.
+            How K²V Technologies brings structure, clarity, and speed to everyday IT operations.
           </p>
         </div>
 
@@ -72,23 +72,24 @@ export default function Process({ onOpenTicketWidget }) {
                 key={idx}
                 onClick={() => setActiveStep(idx)}
                 style={{
-                  padding: '16px 14px',
-                  borderRadius: '14px',
-                  border: isActive ? '2px solid #00f0ff' : '1px solid rgba(255, 255, 255, 0.08)',
-                  backgroundColor: isActive ? 'rgba(0, 102, 255, 0.15)' : 'rgba(15, 23, 42, 0.6)',
-                  color: '#ffffff',
+                  padding: '20px 18px',
+                  borderRadius: 'var(--radius-md)',
+                  border: isActive ? '2px solid var(--blue)' : '1px solid var(--line)',
+                  backgroundColor: isActive ? 'var(--light-blue)' : '#ffffff',
+                  color: 'var(--navy)',
                   textAlign: 'left',
                   cursor: 'pointer',
+                  boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
                   transition: 'all 0.3s ease'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: isActive ? '#00f0ff' : '#64748b' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 800, color: isActive ? 'var(--blue)' : 'var(--ink-40)' }}>
                     STEP {step.num}
                   </span>
-                  <IconComp size={18} color={isActive ? '#00f0ff' : '#64748b'} />
+                  <IconComp size={20} color={isActive ? 'var(--blue)' : 'var(--ink-40)'} />
                 </div>
-                <div style={{ fontSize: '0.98rem', fontWeight: 700 }}>{step.title}</div>
+                <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--navy)' }}>{step.title}</div>
               </button>
             );
           })}
@@ -100,37 +101,40 @@ export default function Process({ onOpenTicketWidget }) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="glass-panel grid-2"
           style={{
-            padding: '32px 24px',
-            alignItems: 'center'
+            backgroundColor: '#ffffff',
+            border: '1px solid var(--line)',
+            borderRadius: 'var(--radius-md)',
+            padding: '36px 32px',
+            boxShadow: 'var(--shadow-md)'
           }}
+          className="grid-2"
         >
           <div>
             <div className="eyebrow" style={{ marginBottom: '10px' }}>
               Phase {steps[activeStep].num} Overview
             </div>
-            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', fontWeight: 800, color: '#ffffff', marginBottom: '10px' }}>
+            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', fontWeight: 800, color: 'var(--navy)', marginBottom: '10px' }}>
               {steps[activeStep].shortTitle}
             </h3>
-            <p style={{ color: '#00f0ff', fontSize: '1rem', fontWeight: 600, marginBottom: '12px' }}>
+            <p style={{ color: 'var(--blue)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '12px' }}>
               {steps[activeStep].summary}
             </p>
-            <p style={{ color: '#94a3b8', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '24px' }}>
+            <p style={{ color: 'var(--ink-60)', fontSize: '0.94rem', lineHeight: 1.65, marginBottom: '28px' }}>
               {steps[activeStep].details}
             </p>
 
-            <button className="btn btn-cyan" onClick={onOpenTicketWidget}>
+            <button className="btn btn-primary" onClick={onOpenTicketWidget}>
               <span>{steps[activeStep].actionText}</span>
             </button>
           </div>
 
           <div
             style={{
-              backgroundColor: '#070c18',
-              border: '1px solid rgba(0, 140, 255, 0.25)',
+              backgroundColor: 'var(--bg-light)',
+              border: '1px solid var(--line)',
               borderRadius: '16px',
-              padding: '24px',
+              padding: '28px',
               textAlign: 'center'
             }}
           >
@@ -139,8 +143,8 @@ export default function Process({ onOpenTicketWidget }) {
                 width: '56px',
                 height: '56px',
                 borderRadius: '50%',
-                backgroundColor: 'rgba(0, 240, 255, 0.12)',
-                color: '#00f0ff',
+                backgroundColor: 'var(--light-blue)',
+                color: 'var(--blue)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -150,14 +154,14 @@ export default function Process({ onOpenTicketWidget }) {
               <CheckCircle2 size={32} />
             </div>
 
-            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#38bdf8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-              Service Commitment
+            <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--blue)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              Service Guarantee
             </div>
-            <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff', marginTop: '4px', marginBottom: '6px' }}>
+            <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--navy)', marginTop: '4px', marginBottom: '6px' }}>
               Every Ticket Matters
             </h4>
-            <p style={{ color: '#64748b', fontSize: '0.82rem' }}>
-              Complete end-to-end transparency & real-time ticket progress updates.
+            <p style={{ color: 'var(--ink-60)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+              End-to-end transparency & real-time ticket progress updates from start to finish.
             </p>
           </div>
         </motion.div>

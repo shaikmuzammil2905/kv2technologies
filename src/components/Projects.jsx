@@ -16,19 +16,19 @@ export default function Projects({ onOpenTicketWidget }) {
       : PROJECTS_DATA.filter((p) => p.category.toLowerCase().includes(activeCategory.toLowerCase()));
 
   return (
-    <section id="work" className="section-padding" style={{ position: 'relative' }}>
+    <section id="work" className="section-padding" style={{ position: 'relative', background: 'var(--white)' }}>
       <div className="container">
         {/* Header */}
         <div className="section-head">
           <div className="eyebrow">
-            <Sparkles size={14} color="#00f0ff" />
-            <span>Work & Case Studies</span>
+            <Sparkles size={14} color="var(--blue)" />
+            <span>Case Studies</span>
           </div>
           <h2 className="section-title">
-            Structured IT Operations <span className="gradient-blue-cyan">In Action.</span>
+            How Structured IT Operations <span style={{ color: 'var(--blue)' }}>Change Outcomes</span>
           </h2>
           <p className="section-sub">
-            Real-world architecture patterns and support transformations designed for modern enterprises.
+            Real-world support case studies and operational transformations.
           </p>
         </div>
 
@@ -47,13 +47,13 @@ export default function Projects({ onOpenTicketWidget }) {
               key={cat}
               onClick={() => setActiveCategory(cat)}
               style={{
-                padding: '7px 16px',
+                padding: '8px 18px',
                 borderRadius: '20px',
-                border: activeCategory === cat ? '1px solid #00f0ff' : '1px solid rgba(255, 255, 255, 0.1)',
-                backgroundColor: activeCategory === cat ? 'rgba(0, 102, 255, 0.2)' : 'rgba(15, 23, 42, 0.6)',
-                color: activeCategory === cat ? '#00f0ff' : '#94a3b8',
-                fontSize: '0.85rem',
-                fontWeight: 600,
+                border: activeCategory === cat ? '1px solid var(--blue)' : '1px solid var(--line)',
+                backgroundColor: activeCategory === cat ? 'var(--light-blue)' : '#ffffff',
+                color: activeCategory === cat ? 'var(--blue)' : 'var(--ink-60)',
+                fontSize: '0.86rem',
+                fontWeight: 700,
                 cursor: 'pointer',
                 transition: 'all 0.2s ease'
               }}
@@ -72,14 +72,18 @@ export default function Projects({ onOpenTicketWidget }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
-              whileHover={{ y: -6 }}
-              className="glass-panel"
+              whileHover={{ y: -5 }}
               style={{
-                padding: '24px 20px',
+                padding: '28px 24px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                backgroundColor: '#ffffff',
+                border: '1px solid var(--line)',
+                borderRadius: 'var(--radius-md)',
+                boxShadow: 'var(--shadow-sm)',
+                transition: 'all 0.3s ease'
               }}
               onClick={() => setSelectedProject(project)}
             >
@@ -89,31 +93,32 @@ export default function Projects({ onOpenTicketWidget }) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    marginBottom: '14px'
+                    marginBottom: '16px'
                   }}
                 >
                   <span
                     style={{
                       fontSize: '0.72rem',
-                      fontWeight: 700,
-                      color: '#00f0ff',
+                      fontWeight: 800,
+                      color: 'var(--blue)',
                       padding: '4px 10px',
-                      borderRadius: '12px',
-                      backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                      border: '1px solid rgba(0, 240, 255, 0.2)'
+                      borderRadius: '6px',
+                      backgroundColor: 'var(--light-blue)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
                     }}
                   >
                     {project.badge}
                   </span>
-                  <FolderGit2 size={18} color="#64748b" />
+                  <FolderGit2 size={18} color="var(--ink-40)" />
                 </div>
 
                 <h3
                   style={{
                     fontSize: '1.15rem',
-                    fontWeight: 700,
-                    color: '#ffffff',
-                    marginBottom: '8px'
+                    fontWeight: 800,
+                    color: 'var(--navy)',
+                    marginBottom: '10px'
                   }}
                 >
                   {project.title}
@@ -121,10 +126,10 @@ export default function Projects({ onOpenTicketWidget }) {
 
                 <p
                   style={{
-                    color: '#94a3b8',
-                    fontSize: '0.88rem',
-                    lineHeight: 1.55,
-                    marginBottom: '18px'
+                    color: 'var(--ink-60)',
+                    fontSize: '0.9rem',
+                    lineHeight: 1.6,
+                    marginBottom: '20px'
                   }}
                 >
                   {project.shortDesc}
@@ -136,11 +141,11 @@ export default function Projects({ onOpenTicketWidget }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  color: '#00f0ff',
+                  color: 'var(--blue)',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
-                  paddingTop: '14px',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+                  fontWeight: 700,
+                  paddingTop: '16px',
+                  borderTop: '1px solid var(--line)'
                 }}
               >
                 <span>View Case Study</span>

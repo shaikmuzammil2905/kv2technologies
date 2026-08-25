@@ -20,7 +20,7 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 0.5, ease: [0.16, 0.8, 0.24, 1] }
     }
   };
 
@@ -29,80 +29,64 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
       id="home"
       style={{
         position: 'relative',
-        paddingTop: 'clamp(95px, 12vw, 130px)',
-        paddingBottom: 'clamp(40px, 8vw, 75px)',
+        paddingTop: 'clamp(90px, 10vw, 120px)',
+        paddingBottom: 'clamp(50px, 8vw, 90px)',
         overflow: 'hidden',
-        background: 'radial-gradient(ellipse at 50% 0%, rgba(0, 102, 255, 0.15) 0%, rgba(7, 12, 24, 1) 70%)'
+        background: 'linear-gradient(180deg, #ffffff 0%, var(--light-blue) 130%)'
       }}
     >
       <div className="container">
-        <div className="grid-2 hero-grid-layout" style={{ alignItems: 'center' }}>
+        <div className="grid-2 hero-grid-layout" style={{ alignItems: 'center', gap: '48px' }}>
           {/* Hero Left Content */}
           <motion.div variants={containerVariants} initial="hidden" animate="visible">
-            {/* Tagline Badge */}
-            <motion.div variants={itemVariants} className="eyebrow">
-              <Sparkles size={14} color="#00f0ff" />
-              <span>Launching Sept 2026 • Remote by Design</span>
-            </motion.div>
-
-            {/* Philosophy Accent */}
-            <motion.div
-              variants={itemVariants}
-              style={{
-                display: 'inline-block',
-                fontSize: '0.85rem',
-                fontWeight: 700,
-                color: '#00f0ff',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                marginBottom: '10px'
-              }}
-            >
-              Philosophy: Every Ticket Matters
+            {/* Tagline Eyebrow */}
+            <motion.div variants={itemVariants} className="eyebrow" style={{ marginBottom: '16px' }}>
+              <Sparkles size={14} color="var(--blue)" />
+              <span>IT Service Desk & Managed IT Support Services</span>
             </motion.div>
 
             {/* Main Headline */}
             <motion.h1
               variants={itemVariants}
               style={{
-                fontSize: 'clamp(1.95rem, 4.5vw, 3.5rem)',
+                fontSize: 'clamp(2.1rem, 4.5vw, 3.6rem)',
                 fontWeight: 800,
                 lineHeight: 1.15,
-                marginBottom: '16px',
-                color: '#ffffff'
+                marginBottom: '18px',
+                color: 'var(--navy)',
+                letterSpacing: '-0.025em'
               }}
             >
               Enterprise IT Support That Keeps Business{' '}
-              <span className="gradient-blue-cyan">Moving.</span>
+              <span style={{ color: 'var(--blue)' }}>Moving.</span>
             </motion.h1>
 
             {/* Subtext */}
             <motion.p
               variants={itemVariants}
               style={{
-                fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)',
-                color: '#94a3b8',
-                marginBottom: '24px',
-                lineHeight: 1.6,
-                maxWidth: '600px'
+                fontSize: 'clamp(1rem, 1.8vw, 1.18rem)',
+                color: 'var(--ink-60)',
+                marginBottom: '28px',
+                lineHeight: 1.7,
+                maxWidth: '560px'
               }}
             >
-              K²V Technologies delivers 24/7 IT Service Desk, Managed IT Support, ServiceNow workflows, Cloud, and Cybersecurity solutions. Built around one core promise: <strong style={{ color: '#ffffff' }}>Every Ticket Matters.</strong>
+              Reliable service desk, managed IT, ServiceNow, cloud, automation, and cybersecurity solutions designed around your business. Smart Solutions. Reliable Support. Real Impact.
             </motion.p>
 
             {/* CTA Buttons */}
             <motion.div
               variants={itemVariants}
-              style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '32px' }}
+              style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginBottom: '36px' }}
             >
               <button
                 className="btn btn-primary btn-lg"
                 onClick={onOpenTicketWidget}
                 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
               >
-                <Ticket size={18} />
-                <span>Raise a Request</span>
-                <ArrowRight size={16} />
+                <span>Talk to an Expert</span>
+                <ArrowRight size={18} />
               </button>
 
               <a
@@ -119,31 +103,31 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
               variants={itemVariants}
               className="grid-3"
               style={{
-                paddingTop: '20px',
-                borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+                paddingTop: '24px',
+                borderTop: '1px solid var(--line)'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Clock size={18} color="#00f0ff" style={{ flexShrink: 0 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--electric)', flexShrink: 0 }} />
                 <div>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>24/7 Support</div>
-                  <div style={{ fontSize: '0.72rem', color: '#64748b' }}>Round-the-clock</div>
+                  <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--navy)' }}>24/7 Support Model</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-60)' }}>Round-the-clock</div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <ShieldCheck size={18} color="#00f0ff" style={{ flexShrink: 0 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--electric)', flexShrink: 0 }} />
                 <div>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>Proactive NOC</div>
-                  <div style={{ fontSize: '0.72rem', color: '#64748b' }}>Active Telemetry</div>
+                  <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--navy)' }}>Proactive Monitoring</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-60)' }}>Active Telemetry</div>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Globe size={18} color="#00f0ff" style={{ flexShrink: 0 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--electric)', flexShrink: 0 }} />
                 <div>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#ffffff' }}>Remote First</div>
-                  <div style={{ fontSize: '0.72rem', color: '#64748b' }}>Global Operations</div>
+                  <div style={{ fontSize: '0.86rem', fontWeight: 700, color: 'var(--navy)' }}>Enterprise Ready</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--ink-60)' }}>Global Operations</div>
                 </div>
               </div>
             </motion.div>
@@ -151,18 +135,18 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
 
           {/* Hero Right Visual Canvas */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
             style={{
               position: 'relative',
               width: '100%',
-              minHeight: '340px',
+              minHeight: '380px',
               borderRadius: '20px',
-              border: '1px solid rgba(0, 140, 255, 0.25)',
-              backgroundColor: 'rgba(15, 23, 42, 0.7)',
-              boxShadow: '0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 102, 255, 0.15)',
-              padding: '10px'
+              border: '1px solid var(--line)',
+              backgroundColor: '#ffffff',
+              boxShadow: 'var(--shadow-md)',
+              padding: '12px'
             }}
           >
             <HeroCanvas />
@@ -171,39 +155,40 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
             <div
               style={{
                 position: 'absolute',
-                bottom: '16px',
-                left: '16px',
-                right: '16px',
-                background: 'rgba(13, 21, 39, 0.92)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(0, 240, 255, 0.3)',
+                bottom: '20px',
+                left: '20px',
+                right: '20px',
+                background: 'rgba(255, 255, 255, 0.94)',
+                backdropFilter: 'blur(12px)',
+                border: '1px solid var(--line)',
                 borderRadius: '14px',
-                padding: '14px 16px',
+                padding: '16px 20px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '10px'
+                gap: '12px',
+                boxShadow: 'var(--shadow-sm)'
               }}
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
                   <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e' }} />
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#38bdf8' }}>
-                    LIVE SUPPORT ENGINE
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Live Support Engine
                   </span>
                 </div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#ffffff' }}>
-                  Avg. Response Target: &lt; 15 Mins
+                <div style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--navy)' }}>
+                  Avg. First Response Target: &lt; 15 Mins
                 </div>
               </div>
 
               <button
-                className="btn btn-cyan btn-sm"
+                className="btn btn-primary btn-sm"
                 onClick={onOpenTicketWidget}
-                style={{ fontSize: '0.78rem' }}
+                style={{ fontSize: '0.82rem' }}
               >
-                Test Ticket Flow
+                Talk to an Expert
               </button>
             </div>
           </motion.div>

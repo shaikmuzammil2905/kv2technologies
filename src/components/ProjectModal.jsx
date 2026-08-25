@@ -23,10 +23,10 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
       <motion.div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.94, y: 30 }}
+        initial={{ opacity: 0, scale: 0.94, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.94, y: 30 }}
-        transition={{ duration: 0.3 }}
+        exit={{ opacity: 0, scale: 0.94, y: 20 }}
+        transition={{ duration: 0.25 }}
       >
         <button className="modal-close-btn" onClick={onClose} aria-label="Close project modal">
           <X size={20} />
@@ -36,57 +36,57 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
           <div className="eyebrow" style={{ marginBottom: '10px' }}>
             {project.badge} • {project.category}
           </div>
-          <h2 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 800, color: '#ffffff' }}>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 800, color: 'var(--navy)' }}>
             {project.title}
           </h2>
         </div>
 
         {/* Problem, Solution, Outcome Grid */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '28px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '28px' }}>
           <div
             style={{
-              backgroundColor: 'rgba(239, 68, 68, 0.08)',
-              border: '1px solid rgba(239, 68, 68, 0.25)',
+              backgroundColor: 'rgba(239, 68, 68, 0.06)',
+              border: '1px solid rgba(239, 68, 68, 0.2)',
               borderRadius: '14px',
               padding: '20px'
             }}
           >
-            <h4 style={{ color: '#f87171', fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '6px' }}>
+            <h4 style={{ color: '#dc2626', fontSize: '0.86rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '6px' }}>
               The Operational Challenge
             </h4>
-            <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.6' }}>
+            <p style={{ color: 'var(--navy)', fontSize: '0.94rem', lineHeight: 1.6 }}>
               {project.problem}
             </p>
           </div>
 
           <div
             style={{
-              backgroundColor: 'rgba(0, 102, 255, 0.08)',
-              border: '1px solid rgba(0, 102, 255, 0.25)',
+              backgroundColor: 'var(--light-blue)',
+              border: '1px solid rgba(7, 87, 217, 0.2)',
               borderRadius: '14px',
               padding: '20px'
             }}
           >
-            <h4 style={{ color: '#38bdf8', fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '6px' }}>
+            <h4 style={{ color: 'var(--blue)', fontSize: '0.86rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '6px' }}>
               K²V Implemented Solution
             </h4>
-            <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.6' }}>
+            <p style={{ color: 'var(--navy)', fontSize: '0.94rem', lineHeight: 1.6 }}>
               {project.solution}
             </p>
           </div>
 
           <div
             style={{
-              backgroundColor: 'rgba(34, 197, 94, 0.08)',
-              border: '1px solid rgba(34, 197, 94, 0.25)',
+              backgroundColor: 'rgba(34, 197, 94, 0.06)',
+              border: '1px solid rgba(34, 197, 94, 0.2)',
               borderRadius: '14px',
               padding: '20px'
             }}
           >
-            <h4 style={{ color: '#4ade80', fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '6px' }}>
+            <h4 style={{ color: '#16a34a', fontSize: '0.86rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '6px' }}>
               Measured Business Outcome
             </h4>
-            <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.6' }}>
+            <p style={{ color: 'var(--navy)', fontSize: '0.94rem', lineHeight: 1.6 }}>
               {project.outcome}
             </p>
           </div>
@@ -94,7 +94,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
 
         {/* Tech Stack */}
         <div style={{ marginBottom: '32px' }}>
-          <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#94a3b8', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <h4 style={{ fontSize: '0.86rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--ink-60)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Layers size={16} />
             <span>Technologies & Platform Architecture</span>
           </h4>
@@ -105,11 +105,11 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
                 style={{
                   padding: '6px 14px',
                   borderRadius: '20px',
-                  backgroundColor: '#070c18',
-                  border: '1px solid rgba(0, 240, 255, 0.25)',
-                  color: '#00f0ff',
-                  fontSize: '0.82rem',
-                  fontWeight: 600
+                  backgroundColor: 'var(--bg-light)',
+                  border: '1px solid var(--line)',
+                  color: 'var(--navy)',
+                  fontSize: '0.84rem',
+                  fontWeight: 700
                 }}
               >
                 {tech}
@@ -119,12 +119,12 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
         </div>
 
         {/* Modal Actions */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', paddingTop: '16px', borderTop: '1px solid var(--line)' }}>
           <button className="btn btn-ghost" onClick={onClose}>
             Close
           </button>
           <button
-            className="btn btn-cyan"
+            className="btn btn-primary"
             onClick={() => {
               onClose();
               onOpenTicketWidget();
@@ -132,7 +132,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
             style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
           >
             <Ticket size={18} />
-            <span>Discuss Similar Project</span>
+            <span>Discuss Similar Case Study</span>
           </button>
         </div>
       </motion.div>

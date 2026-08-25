@@ -30,19 +30,19 @@ export default function Services({ onOpenTicketWidget }) {
   };
 
   return (
-    <section id="services" className="section-padding" style={{ position: 'relative', background: '#090e1c' }}>
+    <section id="services" className="section-padding" style={{ position: 'relative', background: 'var(--bg-light)' }}>
       <div className="container">
         {/* Section Header */}
         <div className="section-head">
           <div className="eyebrow">
-            <Sparkles size={14} color="#00f0ff" />
-            <span>Core Capabilities</span>
+            <Sparkles size={14} color="var(--blue)" />
+            <span>What We Do</span>
           </div>
           <h2 className="section-title">
-            IT Services Built Around <span className="gradient-blue-cyan">Your Business.</span>
+            IT Services Built Around <span style={{ color: 'var(--blue)' }}>Your Business</span>
           </h2>
           <p className="section-sub">
-            Eight core IT capabilities designed to function as one dependable, high-performance IT operation.
+            Eight core capabilities that work together as one dependable IT operation.
           </p>
         </div>
 
@@ -57,17 +57,20 @@ export default function Services({ onOpenTicketWidget }) {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                whileHover={{ y: -6 }}
+                transition={{ duration: 0.4, delay: index * 0.04 }}
+                whileHover={{ y: -5 }}
                 className="glass-panel"
                 style={{
-                  padding: '24px 20px',
+                  padding: '28px 24px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   position: 'relative',
                   cursor: 'pointer',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  background: '#ffffff',
+                  border: '1px solid var(--line)',
+                  borderRadius: 'var(--radius-md)'
                 }}
                 onClick={() => setSelectedService(service)}
               >
@@ -78,31 +81,30 @@ export default function Services({ onOpenTicketWidget }) {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      marginBottom: '16px'
+                      marginBottom: '20px'
                     }}
                   >
                     <div
                       style={{
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '12px',
-                        backgroundColor: 'rgba(0, 102, 255, 0.12)',
-                        border: '1px solid rgba(0, 240, 255, 0.3)',
+                        width: '46px',
+                        height: '46px',
+                        borderRadius: '11px',
+                        backgroundColor: 'var(--light-blue)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#00f0ff'
+                        color: 'var(--blue)'
                       }}
                     >
-                      <IconComponent size={24} />
+                      <IconComponent size={22} />
                     </div>
 
                     <span
                       style={{
                         fontSize: '0.85rem',
                         fontWeight: 800,
-                        color: '#64748b',
-                        fontFamily: 'monospace'
+                        color: 'var(--ink-40)',
+                        fontFamily: "'Manrope', sans-serif"
                       }}
                     >
                       {service.num}
@@ -111,10 +113,10 @@ export default function Services({ onOpenTicketWidget }) {
 
                   <h3
                     style={{
-                      fontSize: '1.2rem',
-                      fontWeight: 700,
-                      color: '#ffffff',
-                      marginBottom: '8px'
+                      fontSize: '1.15rem',
+                      fontWeight: 800,
+                      color: 'var(--navy)',
+                      marginBottom: '10px'
                     }}
                   >
                     {service.title}
@@ -122,9 +124,9 @@ export default function Services({ onOpenTicketWidget }) {
 
                   <p
                     style={{
-                      color: '#94a3b8',
-                      fontSize: '0.88rem',
-                      lineHeight: 1.55,
+                      color: 'var(--ink-60)',
+                      fontSize: '0.9rem',
+                      lineHeight: 1.6,
                       marginBottom: '20px'
                     }}
                   >
@@ -135,15 +137,15 @@ export default function Services({ onOpenTicketWidget }) {
                 {/* Bottom Card Action */}
                 <div
                   style={{
-                    display: 'flex',
+                    display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    color: '#00f0ff',
+                    color: 'var(--blue)',
                     fontSize: '0.88rem',
-                    fontWeight: 600
+                    fontWeight: 700
                   }}
                 >
-                  <span>Learn More</span>
+                  <span>Learn more</span>
                   <ArrowRight size={16} />
                 </div>
               </motion.div>

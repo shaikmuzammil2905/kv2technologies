@@ -11,12 +11,12 @@ export default function Preloader({ onComplete }) {
           clearInterval(interval);
           setTimeout(() => {
             if (onComplete) onComplete();
-          }, 400);
+          }, 300);
           return 100;
         }
-        return prev + Math.floor(Math.random() * 15) + 10;
+        return prev + Math.floor(Math.random() * 15) + 12;
       });
-    }, 120);
+    }, 100);
 
     return () => clearInterval(interval);
   }, [onComplete]);
@@ -24,14 +24,14 @@ export default function Preloader({ onComplete }) {
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.6 } }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100vw',
         height: '100vh',
-        backgroundColor: '#070c18',
+        backgroundColor: '#ffffff',
         zIndex: 99999,
         display: 'flex',
         flexDirection: 'column',
@@ -41,53 +41,44 @@ export default function Preloader({ onComplete }) {
       }}
     >
       <div style={{ position: 'relative', textAlign: 'center' }}>
-        {/* Glow behind logo */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '180px',
-            height: '180px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0, 240, 255, 0.25) 0%, rgba(0, 102, 255, 0) 70%)',
-            filter: 'blur(20px)',
-            pointerEvents: 'none'
-          }}
-        />
-
         {/* Logo */}
-        <motion.img
-          src="/logo.png"
-          alt="K²V Technologies"
-          initial={{ scale: 0.8, opacity: 0 }}
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          style={{
-            maxHeight: '90px',
-            objectFit: 'contain',
-            marginBottom: '20px',
-            position: 'relative'
-          }}
-        />
+          transition={{ duration: 0.4 }}
+          style={{ display: 'flex', alignItems: 'center', gap: '12px', justifyContent: 'center', marginBottom: '16px' }}
+        >
+          <img
+            src="/assets/logo-icon.png"
+            alt="K²V Technologies"
+            onError={(e) => { e.target.src = '/logo.png'; }}
+            style={{
+              maxHeight: '48px',
+              width: 'auto',
+              objectFit: 'contain'
+            }}
+          />
+          <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 800, fontSize: '1.6rem', color: 'var(--navy)' }}>
+            K²V Technologies
+          </span>
+        </motion.div>
 
         {/* Philosophy */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
           style={{
-            fontFamily: 'Manrope, sans-serif',
-            fontSize: '1rem',
-            fontWeight: 700,
-            letterSpacing: '0.15em',
-            color: '#38bdf8',
+            fontFamily: "'Manrope', sans-serif",
+            fontSize: '0.9rem',
+            fontWeight: 800,
+            letterSpacing: '0.08em',
+            color: 'var(--blue)',
             textTransform: 'uppercase',
             marginBottom: '24px'
           }}
         >
-          Every Ticket Matters
+          Smart Solutions • Reliable Support • Real Impact
         </motion.div>
 
         {/* Progress Bar Container */}
@@ -95,7 +86,7 @@ export default function Preloader({ onComplete }) {
           style={{
             width: '240px',
             height: '4px',
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'var(--light-blue)',
             borderRadius: '4px',
             overflow: 'hidden',
             margin: '0 auto 12px auto'
@@ -104,15 +95,15 @@ export default function Preloader({ onComplete }) {
           <motion.div
             style={{
               height: '100%',
-              background: 'linear-gradient(90deg, #0066ff 0%, #00f0ff 100%)',
+              background: 'linear-gradient(90deg, var(--blue) 0%, var(--electric) 100%)',
               width: `${progress}%`
             }}
             transition={{ ease: 'easeOut' }}
           />
         </div>
 
-        <div style={{ color: '#64748b', fontSize: '0.8rem', fontFamily: 'Inter, sans-serif' }}>
-          Launching Remote Operations {progress}%
+        <div style={{ color: 'var(--ink-60)', fontSize: '0.82rem', fontFamily: "'Inter', sans-serif", fontWeight: 600 }}>
+          Loading Operations {progress}%
         </div>
       </div>
     </motion.div>

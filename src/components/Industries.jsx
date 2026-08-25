@@ -4,39 +4,39 @@ import { Landmark, Activity, Factory, ShoppingCart, Cpu, GraduationCap } from 'l
 
 export default function Industries() {
   const industries = [
-    { title: 'Financial Services', icon: Landmark, desc: 'Uptime-critical environments with strict SLA requirements.' },
-    { title: 'Healthcare', icon: Activity, desc: 'Reliable IT infrastructure supporting clinical care teams.' },
-    { title: 'Manufacturing', icon: Factory, desc: 'OT and distributed multi-site network telemetry.' },
-    { title: 'Retail & E-commerce', icon: ShoppingCart, desc: 'High-transaction POS and multi-location IT support.' },
-    { title: 'Technology & SaaS', icon: Cpu, desc: 'Fast-moving, developer-driven remote organizations.' },
-    { title: 'Education', icon: GraduationCap, desc: 'Institutions supporting staff, students, and digital learning.' }
+    { title: 'Financial Services', icon: Landmark, desc: 'Solutions designed for regulated, uptime-critical environments.' },
+    { title: 'Healthcare', icon: Activity, desc: 'Solutions designed for reliability where systems support patient care.' },
+    { title: 'Manufacturing', icon: Factory, desc: 'Solutions designed for distributed sites and operational technology.' },
+    { title: 'Retail', icon: ShoppingCart, desc: 'Solutions designed for multi-location, high-transaction IT environments.' },
+    { title: 'Technology', icon: Cpu, desc: 'Solutions designed for fast-moving, engineering-driven organizations.' },
+    { title: 'Education', icon: GraduationCap, desc: 'Solutions designed for institutions supporting staff, students and campuses.' }
   ];
 
   const techEcosystem = [
     { category: 'Cloud Infrastructure', tags: ['AWS', 'Microsoft Azure', 'Microsoft 365'] },
     { category: 'Enterprise ITSM', tags: ['ServiceNow Platform', 'CMDB', 'Service Catalog'] },
-    { category: 'OS & Virtualization', tags: ['Windows Server', 'Linux', 'VMware vSphere', 'Nutanix'] },
+    { category: 'OS & Virtualization', tags: ['Windows Server', 'Linux', 'VMware', 'Nutanix'] },
     { category: 'Automation & AI', tags: ['PowerShell', 'Python', 'REST APIs', 'OpenAI / NLP'] },
     { category: 'Containers & DevOps', tags: ['Docker', 'Kubernetes', 'GitOps'] },
-    { category: 'Cybersecurity & EDR', tags: ['CrowdStrike', 'Defender', 'Okta MFA', 'Azure AD'] }
+    { category: 'Cybersecurity & EDR', tags: ['Endpoint', 'Identity', 'Monitoring', 'Azure AD'] }
   ];
 
   return (
-    <section className="section-padding" style={{ backgroundColor: '#090e1c', position: 'relative' }}>
+    <section className="section-padding" style={{ backgroundColor: 'var(--bg-light)', position: 'relative' }}>
       <div className="container">
         {/* Industries Head */}
         <div className="section-head">
-          <div className="eyebrow">Target Sectors</div>
+          <div className="eyebrow">Industries</div>
           <h2 className="section-title">
-            Solutions Designed For <span className="gradient-blue-cyan">Organizations Like Yours.</span>
+            Solutions Designed For <span style={{ color: 'var(--blue)' }}>Organizations Like Yours</span>
           </h2>
           <p className="section-sub">
-            Tailored remote IT management designed for compliance-driven, high-uptime industries.
+            Tailored remote IT management designed for high-uptime, compliance-driven industries.
           </p>
         </div>
 
         {/* Industries Grid */}
-        <div className="grid-3" style={{ marginBottom: '56px' }}>
+        <div className="grid-3" style={{ marginBottom: '64px' }}>
           {industries.map((ind, idx) => {
             const IconComp = ind.icon;
             return (
@@ -46,29 +46,29 @@ export default function Industries() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
-                className="glass-panel"
-                style={{ padding: '24px 20px', display: 'flex', gap: '14px' }}
+                style={{
+                  padding: '30px 24px',
+                  borderRadius: 'var(--radius-md)',
+                  background: 'linear-gradient(150deg, var(--navy), #0b2b5c)',
+                  color: '#ffffff',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  minHeight: '170px',
+                  boxShadow: 'var(--shadow-md)',
+                  position: 'relative'
+                }}
               >
-                <div
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
-                    backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#00f0ff',
-                    flexShrink: 0
-                  }}
-                >
-                  <IconComp size={22} />
+                <div style={{ position: 'absolute', top: '24px', right: '24px', opacity: 0.35 }}>
+                  <IconComp size={28} color="#ffffff" />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
                     {ind.title}
                   </h3>
-                  <p style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{ind.desc}</p>
+                  <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                    {ind.desc}
+                  </p>
                 </div>
               </motion.div>
             );
@@ -76,9 +76,9 @@ export default function Industries() {
         </div>
 
         {/* Tech Ecosystem */}
-        <div className="section-head" style={{ marginBottom: '28px' }}>
-          <div className="eyebrow">Technology Stack</div>
-          <h2 className="section-title">Built On Enterprise Platforms</h2>
+        <div className="section-head" style={{ marginBottom: '32px' }}>
+          <div className="eyebrow">Technology Ecosystem</div>
+          <h2 className="section-title">Built On the Platforms Enterprise IT Runs On</h2>
         </div>
 
         <div className="grid-3">
@@ -86,27 +86,27 @@ export default function Industries() {
             <div
               key={idx}
               style={{
-                backgroundColor: 'rgba(15, 23, 42, 0.7)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: '14px',
-                padding: '20px'
+                backgroundColor: '#ffffff',
+                border: '1px solid var(--line)',
+                borderRadius: 'var(--radius-md)',
+                padding: '26px 22px',
+                boxShadow: 'var(--shadow-sm)'
               }}
             >
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginBottom: '12px' }}>
+              <h4 style={{ fontSize: '0.82rem', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 800, color: 'var(--blue)', marginBottom: '14px' }}>
                 {item.category}
               </h4>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {item.tags.map((t, tidx) => (
                   <span
                     key={tidx}
                     style={{
-                      padding: '4px 10px',
-                      borderRadius: '10px',
-                      backgroundColor: '#070c18',
-                      border: '1px solid rgba(0, 140, 255, 0.2)',
-                      color: '#38bdf8',
-                      fontSize: '0.8rem',
-                      fontWeight: 600
+                      fontSize: '0.84rem',
+                      fontWeight: 600,
+                      padding: '7px 12px',
+                      borderRadius: '7px',
+                      backgroundColor: 'var(--light-blue)',
+                      color: 'var(--navy)'
                     }}
                   >
                     {t}

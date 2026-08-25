@@ -4,9 +4,9 @@ import { HeartHandshake, Zap, Globe2 } from 'lucide-react';
 
 export default function About() {
   return (
-    <section id="about" className="section-padding" style={{ position: 'relative' }}>
+    <section id="about" className="section-padding" style={{ position: 'relative', background: 'var(--white)' }}>
       <div className="container">
-        <div className="grid-2" style={{ alignItems: 'center' }}>
+        <div className="grid-2" style={{ alignItems: 'center', gap: '48px' }}>
           {/* Left Text */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -17,46 +17,45 @@ export default function About() {
             <div className="eyebrow">About K²V Technologies</div>
 
             <h2 className="section-title">
-              Remote by Design.{' '}
-              <span className="gradient-blue-cyan">Connected by Technology.</span>
+              Technology problems shouldn't slow your business down.
             </h2>
 
-            <p className="section-sub" style={{ marginBottom: '16px' }}>
-              Launching in <strong>September 2026</strong>, K²V Technologies is a modern, fully remote IT Service Desk and Managed IT Support company. We engineered our company without physical office boundaries so we can deliver agile, global IT operations for organizations wherever they operate.
+            <p className="section-sub" style={{ marginBottom: '18px' }}>
+              K²V Technologies helps organizations reduce downtime, resolve issues faster, and bring structure to everyday IT operations — from the service desk to the data center to the cloud.
             </p>
 
-            <p style={{ color: '#94a3b8', fontSize: '0.95rem', lineHeight: '1.65', marginBottom: '24px' }}>
-              In today's fast-moving digital landscape, IT issues should never hold your workforce back. Whether managing complex cloud migrations, structuring ServiceNow ITSM workflows, or providing 24/7 Service Desk assistance, our team operates with precision and purpose.
+            <p style={{ color: 'var(--ink-60)', fontSize: '0.96rem', lineHeight: '1.7', marginBottom: '28px' }}>
+              In today's fast-moving enterprise landscape, IT support must be proactive, responsive, and reliable. Whether managing multi-site cloud environments, structuring ServiceNow workflows, or providing 24/7 Service Desk assistance, our team delivers with speed and precision.
             </p>
 
             {/* Philosophy Box */}
             <div
               style={{
-                background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 240, 255, 0.05) 100%)',
-                border: '1px solid rgba(0, 240, 255, 0.3)',
+                background: 'var(--light-blue)',
+                border: '1px solid rgba(7, 87, 217, 0.2)',
                 borderRadius: '16px',
-                padding: '20px',
+                padding: '24px',
                 position: 'relative'
               }}
             >
               <div
                 style={{
-                  fontFamily: 'Manrope, sans-serif',
+                  fontFamily: "'Manrope', sans-serif",
                   fontSize: '0.8rem',
                   fontWeight: 800,
-                  color: '#00f0ff',
-                  letterSpacing: '0.1em',
+                  color: 'var(--blue)',
+                  letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   marginBottom: '6px'
                 }}
               >
                 Our Core Philosophy
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '8px' }}>
                 Every Ticket Matters.
               </h3>
-              <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.55' }}>
-                Every request deserves immediate attention. Every problem deserves an optimal solution. No issue is too small, no infrastructure too complex. Every ticket matters to your business—and to ours.
+              <p style={{ color: 'var(--ink-60)', fontSize: '0.92rem', lineHeight: '1.6' }}>
+                Every request deserves immediate attention. Every problem deserves a permanent solution. No issue is too small, no infrastructure too complex. Every ticket matters to your business—and to ours.
               </p>
             </div>
           </motion.div>
@@ -67,82 +66,82 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}
           >
-            <div className="glass-panel" style={{ padding: '20px', display: 'flex', gap: '16px' }}>
+            <div className="glass-panel" style={{ padding: '24px', display: 'flex', gap: '18px', background: 'var(--bg-light)' }}>
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '10px',
-                  backgroundColor: 'rgba(0, 102, 255, 0.15)',
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '11px',
+                  background: 'linear-gradient(135deg, var(--blue), var(--electric))',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#0066ff',
+                  color: '#ffffff',
                   flexShrink: 0
                 }}
               >
                 <Globe2 size={22} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '4px' }}>
-                  Fully Remote Company
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '4px' }}>
+                  24/7 Global Support
                 </h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>
-                  No legacy physical constraints. Continuous remote desktop, NOC telemetry, and multi-timezone support accessibility worldwide.
+                <p style={{ color: 'var(--ink-60)', fontSize: '0.9rem' }}>
+                  Round-the-clock availability for critical issues across timezones, remote endpoints, NOC telemetry, and multi-site environments.
                 </p>
               </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '20px', display: 'flex', gap: '16px' }}>
+            <div className="glass-panel" style={{ padding: '24px', display: 'flex', gap: '18px', background: 'var(--bg-light)' }}>
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '10px',
-                  backgroundColor: 'rgba(0, 240, 255, 0.15)',
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '11px',
+                  background: 'linear-gradient(135deg, var(--blue), var(--electric))',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#00f0ff',
+                  color: '#ffffff',
                   flexShrink: 0
                 }}
               >
                 <Zap size={22} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '4px' }}>
-                  Automation-First Mindset
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '4px' }}>
+                  Proactive Monitoring
                 </h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>
-                  We leverage intelligent scripting and ServiceNow automation to resolve routine requests fast and focus technician time on complex challenges.
+                <p style={{ color: 'var(--ink-60)', fontSize: '0.9rem' }}>
+                  Systems watched continuously so problems are caught and resolved before they ever disrupt business operations.
                 </p>
               </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '20px', display: 'flex', gap: '16px' }}>
+            <div className="glass-panel" style={{ padding: '24px', display: 'flex', gap: '18px', background: 'var(--bg-light)' }}>
               <div
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '10px',
-                  backgroundColor: 'rgba(34, 197, 94, 0.15)',
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '11px',
+                  background: 'linear-gradient(135deg, var(--blue), var(--electric))',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#22c55e',
+                  color: '#ffffff',
                   flexShrink: 0
                 }}
               >
                 <HeartHandshake size={22} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '4px' }}>
-                  Uncompromising Support Quality
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '4px' }}>
+                  Enterprise-Ready Solutions
                 </h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.88rem' }}>
-                  Clear communication, strict SLA management, and genuine human support for every single user ticket.
+                <p style={{ color: 'var(--ink-60)', fontSize: '0.9rem' }}>
+                  Structured processes, strict SLA management, and IT automation built to scale seamlessly with growing IT environments.
                 </p>
               </div>
             </div>
