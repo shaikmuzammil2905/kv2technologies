@@ -67,47 +67,47 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
           {/* Top Pill Tag / Eyebrow Badge */}
           <motion.div variants={itemVariants} className="hero-top-badge">
             <Shield size={16} color="#00e5ff" />
-            <span>K²V TECHNOLOGIES</span>
+            <span>K²V TECHNOLOGIES • IT SERVICE DESK &amp; MANAGED SUPPORT</span>
           </motion.div>
 
           {/* Main Headline */}
           <motion.h1 variants={itemVariants} className="hero-main-title">
-            Building the Future of Software, Cybersecurity &amp; Digital Trust
+            Enterprise IT Support That Keeps Business <span style={{ color: '#00e5ff' }}>Moving.</span>
           </motion.h1>
 
           {/* Subtitle Quote */}
           <motion.p variants={itemVariants} className="hero-subtitle-quote">
-            &quot;K²V Technologies Private Limited delivers innovative software solutions, cybersecurity services, networking solutions and digital transformation services.&quot;
+            &quot;K²V Technologies provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure &amp; Cybersecurity Solutions. Every Ticket Matters.&quot;
           </motion.p>
 
-          {/* Bullet-Separated Services List */}
+          {/* Bullet-Separated Concept & Services List */}
           <motion.div variants={itemVariants} className="hero-services-tags">
-            <span>Website Development</span>
+            <span>IT Service Desk</span>
             <span className="bullet-dot">•</span>
-            <span>Mobile Apps</span>
+            <span>Managed IT Services</span>
             <span className="bullet-dot">•</span>
-            <span>Custom Software</span>
+            <span>ServiceNow Workflows</span>
             <span className="bullet-dot">•</span>
-            <span>Digital Solutions</span>
+            <span>Cloud &amp; Cybersecurity</span>
           </motion.div>
 
           {/* Action CTA Buttons */}
           <motion.div variants={itemVariants} className="hero-cta-group">
-            <a
-              href="#services"
-              className="hero-btn hero-btn-primary"
-            >
-              <span>Explore Services</span>
-              <ArrowRight size={18} />
-            </a>
-
             <button
-              className="hero-btn hero-btn-secondary"
+              className="hero-btn hero-btn-primary"
               onClick={onOpenTicketWidget}
             >
               <span>Talk to an Expert</span>
-              <Monitor size={18} />
+              <ArrowRight size={18} />
             </button>
+
+            <a
+              href="#services"
+              className="hero-btn hero-btn-secondary"
+            >
+              <span>Explore Services</span>
+              <Monitor size={18} />
+            </a>
           </motion.div>
         </motion.div>
       </div>
@@ -271,7 +271,7 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
           padding: 10px 18px;
           border-radius: 9999px;
           background: rgba(10, 24, 46, 0.82);
-          border: 1px solid rgba(255, 255, 255, 0.18);
+          border: 1.5px solid rgba(255, 255, 255, 0.18);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
           color: #ffffff;
@@ -386,5 +386,3 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
     </section>
   );
 }
-
-
