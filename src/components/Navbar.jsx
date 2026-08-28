@@ -40,12 +40,25 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
   }, []);
 
   const handleNavClick = (e, href) => {
-    e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
     setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    setActiveSection(href.substring(1));
+
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        const navHeight = 70;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = target.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = Math.max(0, elementPosition - navHeight);
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   return (
