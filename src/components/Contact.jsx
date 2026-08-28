@@ -16,7 +16,7 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
 
   const phoneNumbers = [
     { display: '+91 97416 76105', raw: '+919741676105' },
-    { display: '+91 93421 74058', raw: '+919342174058' },
+    { display: '+91 89034 12599', raw: '+918903412599' },
     { display: '+91 95000 00449', raw: '+919500000449' }
   ];
 

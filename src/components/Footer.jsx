@@ -6,7 +6,7 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const phoneNumbers = ['+91 97416 76105', '+91 93421 74058', '+91 95000 00449'];
+  const phoneNumbers = ['+91 97416 76105', '+91 89034 12599', '+91 95000 00449'];
 
   return (
     <footer

@@ -31,7 +31,7 @@ export const FAQ_DATA = [
   },
   {
     question: "How do I contact or raise a support request with K²V Technologies?",
-    answer: "You can reach us directly through our 3 dedicated business phone lines (+91 97416 76105, +91 93421 74058, +91 95000 00449), chat with us on WhatsApp using the instant launcher, or fill out our online request form to schedule an expert consultation.",
+    answer: "You can reach us directly through our 3 dedicated business phone lines (+91 97416 76105, +91 89034 12599, +91 95000 00449), chat with us on WhatsApp using the instant launcher, or fill out our online request form to schedule an expert consultation.",
     category: "Contact"
   }
 ];

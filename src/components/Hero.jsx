@@ -91,24 +91,6 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
             <span>Cloud &amp; Cybersecurity</span>
           </motion.div>
 
-          {/* Action CTA Buttons */}
-          <motion.div variants={itemVariants} className="hero-cta-group">
-            <button
-              className="hero-btn hero-btn-primary"
-              onClick={onOpenTicketWidget}
-            >
-              <span>Talk to an Expert</span>
-              <ArrowRight size={18} />
-            </button>
-
-            <a
-              href="#services"
-              className="hero-btn hero-btn-secondary"
-            >
-              <span>Explore Services</span>
-              <Monitor size={18} />
-            </a>
-          </motion.div>
         </motion.div>
       </div>
 

@@ -7,7 +7,7 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
 
   const phoneNumbers = [
     { display: '+91 97416 76105', raw: '919741676105', label: 'Primary Desk Support' },
-    { display: '+91 93421 74058', raw: '919342174058', label: 'Operations & NOC' },
+    { display: '+91 89034 12599', raw: '918903412599', label: 'Operations & NOC' },
     { display: '+91 95000 00449', raw: '919500000449', label: 'Enterprise Escalations' }
   ];
 

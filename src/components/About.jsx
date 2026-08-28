@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { HeartHandshake, Zap, Globe2 } from 'lucide-react';
+import Founders from './Founders';
 
 export default function About() {
   return (
@@ -147,6 +148,9 @@ export default function About() {
             </div>
           </motion.div>
         </div>
+
+        {/* Founders & Leadership Showcase */}
+        <Founders />
       </div>
     </section>
   );
