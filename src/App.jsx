@@ -19,6 +19,8 @@ import WhatsAppModal from './components/WhatsAppModal';
 import PhoneModal from './components/PhoneModal';
 import Footer from './components/Footer';
 
+import ServiceDetailPage from './components/ServiceDetailPage';
+
 // Admin Panel CMS Components
 import AdminLayout from './admin/AdminLayout';
 import Login from './admin/Login';
@@ -150,6 +152,8 @@ export default function App() {
       <Routes>
         {/* Public Website Route */}
         <Route path="/" element={<PublicSite />} />
+        <Route path="/services/:id" element={<ServiceDetailPage />} />
+        <Route path="/service/:id" element={<ServiceDetailPage />} />
 
         {/* Admin Login Route */}
         <Route path="/admin/login" element={<Login />} />

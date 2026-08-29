@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Headphones,
@@ -17,6 +18,7 @@ import ServiceModal from './ServiceModal';
 import { fetchTableData, subscribeCmsUpdate } from '../lib/supabaseClient';
 
 export default function Services({ onOpenTicketWidget }) {
+  const navigate = useNavigate();
   const [selectedService, setSelectedService] = useState(null);
   const [servicesList, setServicesList] = useState(SERVICES_DATA);
 
@@ -91,9 +93,10 @@ export default function Services({ onOpenTicketWidget }) {
                   overflow: 'hidden',
                   background: '#ffffff',
                   border: '1px solid var(--line)',
-                  borderRadius: 'var(--radius-md)'
+                  borderRadius: 'var(--radius-md)',
+                  textDecoration: 'none'
                 }}
-                onClick={() => setSelectedService(service)}
+                onClick={() => navigate(`/services/${service.id}`)}
               >
                 {/* Top Row: Icon & Number Indicator */}
                 <div>
@@ -156,26 +159,31 @@ export default function Services({ onOpenTicketWidget }) {
                 </div>
 
                 {/* Bottom Card Action */}
-                <div
+                <Link
+                  to={`/services/${service.id}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
                     color: 'var(--blue)',
                     fontSize: '0.88rem',
-                    fontWeight: 700
+                    fontWeight: 700,
+                    textDecoration: 'none'
                   }}
                 >
                   <span>Learn more</span>
                   <ArrowRight size={16} />
-                </div>
+                </Link>
               </motion.div>
             );
           })}
         </div>
       </div>
 
-      {/* Service Detail Modal Popup */}
+      {/* Service Detail Modal Popup Fallback */}
       {selectedService && (
         <ServiceModal
           service={selectedService}
