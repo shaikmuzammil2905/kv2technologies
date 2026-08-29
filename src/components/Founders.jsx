@@ -10,7 +10,7 @@ const foundersData = [
     subtitle: 'Service Desk & Cloud',
     experience: '8+ Years IT Experience',
     photo: '/assets/vinay.png',
-    philosophy: '“Every Ticket Matters”',
+    philosophy: '“Head of ITSM”',
     highlights: [
       '8+ Years of IT Experience',
       'Service Desk',
@@ -43,7 +43,7 @@ const foundersData = [
   {
     id: 'kingston',
     name: 'Kingston',
-    title: 'Co-Founder & Desktop & Network Engineer',
+    title: 'Co-Founder & CIO (Chief Information Officer) & Desktop & Network Engineer',
     subtitle: 'Desktop Support & Network Infrastructure',
     experience: '10+ Years IT Experience',
     photo: '/assets/kingston.png',

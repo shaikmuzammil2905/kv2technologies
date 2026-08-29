@@ -15,9 +15,9 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
   const [submitted, setSubmitted] = useState(false);
 
   const phoneNumbers = [
-    { display: '+91 97416 76105', raw: '+919741676105' },
-    { display: '+91 89034 12599', raw: '+918903412599' },
-    { display: '+91 95000 00449', raw: '+919500000449' }
+    { display: '+91 97416 76105', raw: '+919741676105', label: 'CEO' },
+    { display: '+91 89034 12599', raw: '+918903412599', label: 'CTO' },
+    { display: '+91 95000 00449', raw: '+919500000449', label: 'CIO' }
   ];
 
   const validate = () => {
@@ -107,7 +107,7 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
                     </div>
                     <div>
                       <div style={{ fontSize: '0.75rem', color: 'var(--ink-40)', textTransform: 'uppercase', fontWeight: 700 }}>
-                        Business Phone Line {idx + 1}
+                        {num.label}
                       </div>
                       <a
                         href={`tel:${num.raw}`}

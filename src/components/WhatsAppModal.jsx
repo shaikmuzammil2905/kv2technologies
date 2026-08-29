@@ -6,9 +6,9 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
   if (!isOpen) return null;
 
   const phoneNumbers = [
-    { display: '+91 97416 76105', raw: '919741676105', label: 'Primary Desk Support' },
-    { display: '+91 89034 12599', raw: '918903412599', label: 'Operations & NOC' },
-    { display: '+91 95000 00449', raw: '919500000449', label: 'Enterprise Escalations' }
+    { display: '+91 97416 76105', raw: '919741676105', label: 'CEO' },
+    { display: '+91 89034 12599', raw: '918903412599', label: 'CTO' },
+    { display: '+91 95000 00449', raw: '919500000449', label: 'CIO' }
   ];
 
   const defaultMsg = customMessage || encodeURIComponent('Hello K2V Technologies! I would like to inquire about your IT Service Desk and Managed IT services.');

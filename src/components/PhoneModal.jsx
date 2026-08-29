@@ -8,9 +8,9 @@ export default function PhoneModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const phoneNumbers = [
-    { display: '+91 97416 76105', tel: 'tel:+919741676105', label: 'Primary Desk Line' },
-    { display: '+91 89034 12599', tel: 'tel:+918903412599', label: 'Technical Operations' },
-    { display: '+91 95000 00449', tel: 'tel:+919500000449', label: 'Client Relations' }
+    { display: '+91 97416 76105', tel: 'tel:+919741676105', label: 'CEO' },
+    { display: '+91 89034 12599', tel: 'tel:+918903412599', label: 'CTO' },
+    { display: '+91 95000 00449', tel: 'tel:+919500000449', label: 'CIO' }
   ];
 
   const handleCopy = (text, idx) => {

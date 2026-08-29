@@ -135,7 +135,7 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
           }}
         >
           <div>
-            © 2026 K²V Technologies. All rights reserved. • Philosophy: <strong>Every Ticket Matters</strong>
+            © 2026 K²V Technologies. All rights reserved.
           </div>
 
           <button

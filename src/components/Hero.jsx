@@ -77,7 +77,7 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
 
           {/* Subtitle Quote */}
           <motion.p variants={itemVariants} className="hero-subtitle-quote">
-            &quot;K²V Technologies provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure &amp; Cybersecurity Solutions. Every Ticket Matters.&quot;
+            K²V Technologies provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure &amp; Cybersecurity Solutions. Every Ticket Matters.
           </motion.p>
 
           {/* Bullet-Separated Concept & Services List */}

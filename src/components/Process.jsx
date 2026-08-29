@@ -1,171 +1,282 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageSquare, Search, Cpu, HeartHandshake, CheckCircle2 } from 'lucide-react';
+import {
+  MessageSquare,
+  Search,
+  Settings,
+  RotateCw,
+  Target,
+  ShieldCheck,
+  Gauge,
+  TrendingUp,
+  ChevronRight
+} from 'lucide-react';
 
-export default function Process({ onOpenTicketWidget }) {
-  const [activeStep, setActiveStep] = useState(0);
-
+export default function Process() {
   const steps = [
     {
       num: '01',
       title: 'Discover',
-      shortTitle: '01 — Discover',
       icon: MessageSquare,
-      summary: 'Understand the business and IT environment.',
-      details:
-        'Submit your inquiry or raise a ticket via our interactive portal, WhatsApp, or phone line. Our service desk logs your exact requirements with immediate SLA timestamping under our "Every Ticket Matters" commitment.',
-      actionText: 'Talk to an Expert'
+      desc: 'We understand your users, systems, challenges, and business requirements.'
     },
     {
       num: '02',
       title: 'Assess',
-      shortTitle: '02 — Assess',
       icon: Search,
-      summary: 'Identify gaps, risks, and improvement opportunities.',
-      details:
-        'Our L2/L3 specialists conduct a rapid discovery assessment — evaluating existing infrastructure, cloud setup, security policies, and ticket history to map out an exact solution plan.',
-      actionText: 'Request Assessment'
+      desc: 'We evaluate your current IT environment, workflows, service gaps, and operational needs.'
     },
     {
       num: '03',
       title: 'Design',
-      shortTitle: '03 — Design',
-      icon: Cpu,
-      summary: 'Build the right support and technology strategy.',
-      details:
-        'We design structured ITSM workflows, ServiceNow automations, and proactive monitoring pipelines tailored specifically to your organization’s operational needs.',
-      actionText: 'Explore Strategy'
+      icon: Settings,
+      desc: 'We build a structured service model aligned with your business and technology requirements.'
     },
     {
       num: '04',
       title: 'Implement & Optimize',
-      shortTitle: '04 — Implement & Optimize',
-      icon: HeartHandshake,
-      summary: 'Deploy solutions with minimal disruption & continuous SLA management.',
-      details:
-        'We deploy solutions seamlessly, monitor system metrics 24/7, and deliver ongoing optimization to keep your technology running flawlessly.',
-      actionText: 'Talk to an Expert'
+      icon: RotateCw,
+      desc: 'We deploy, monitor, measure, and continuously improve IT operations and service delivery.'
+    }
+  ];
+
+  const features = [
+    {
+      icon: Target,
+      title: 'Structured Process',
+      desc: 'Every step is defined and measurable.'
+    },
+    {
+      icon: ShieldCheck,
+      title: 'Reliable Outcomes',
+      desc: 'Built on proven practices and enterprise standards.'
+    },
+    {
+      icon: Gauge,
+      title: 'Operational Speed',
+      desc: 'Faster resolution. Better experience.'
+    },
+    {
+      icon: TrendingUp,
+      title: 'Continuous Improvement',
+      desc: 'Optimization is ongoing, not one-time.'
     }
   ];
 
   return (
-    <section id="process" className="section-padding" style={{ backgroundColor: 'var(--bg-light)', position: 'relative' }}>
+    <section id="process" className="section-padding" style={{ backgroundColor: '#f8fafc', position: 'relative' }}>
       <div className="container">
-        <div className="section-head">
-          <div className="eyebrow">How We Work</div>
-          <h2 className="section-title">
-            A Structured Path From <span style={{ color: 'var(--blue)' }}>First Call to Ongoing Optimization</span>
+        {/* Section Header */}
+        <div className="section-head" style={{ textAlign: 'center', marginBottom: '56px' }}>
+          <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <span>— HOW WE WORK —</span>
+          </div>
+          <h2 className="section-title" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, marginTop: '8px' }}>
+            A Structured Approach From <br className="hidden-mobile" />
+            First Call to <span style={{ color: '#0757d9' }}>Continuous Optimization</span>
           </h2>
-          <p className="section-sub">
+          <p className="section-sub" style={{ fontSize: '1.05rem', color: '#64748b', marginTop: '12px' }}>
             How K²V Technologies brings structure, clarity, and speed to everyday IT operations.
           </p>
         </div>
 
-        {/* Step Tabs Nav */}
-        <div className="grid-4" style={{ marginBottom: '32px' }}>
-          {steps.map((step, idx) => {
-            const isActive = activeStep === idx;
-            const IconComp = step.icon;
+        {/* 4 Process Cards Grid */}
+        <div className="process-grid-wrapper" style={{ position: 'relative', marginBottom: '40px' }}>
+          <div className="grid-4" style={{ gap: '20px', position: 'relative', zIndex: 2 }}>
+            {steps.map((step, idx) => {
+              const IconComp = step.icon;
 
-            return (
-              <button
-                key={idx}
-                onClick={() => setActiveStep(idx)}
-                style={{
-                  padding: '20px 18px',
-                  borderRadius: 'var(--radius-md)',
-                  border: isActive ? '2px solid var(--blue)' : '1px solid var(--line)',
-                  backgroundColor: isActive ? 'var(--light-blue)' : '#ffffff',
-                  color: 'var(--navy)',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  boxShadow: isActive ? 'var(--shadow-sm)' : 'none',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '0.82rem', fontWeight: 800, color: isActive ? 'var(--blue)' : 'var(--ink-40)' }}>
-                    STEP {step.num}
-                  </span>
-                  <IconComp size={20} color={isActive ? 'var(--blue)' : 'var(--ink-40)'} />
+              return (
+                <div key={idx} style={{ position: 'relative' }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                    style={{
+                      backgroundColor: '#ffffff',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '20px',
+                      padding: '36px 24px 28px',
+                      textAlign: 'center',
+                      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      position: 'relative'
+                    }}
+                  >
+                    {/* Top Number Badge */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '-18px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '50%',
+                        backgroundColor: '#0757d9',
+                        color: '#ffffff',
+                        fontSize: '0.85rem',
+                        fontWeight: 800,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 4px 10px rgba(7, 87, 217, 0.3)'
+                      }}
+                    >
+                      {step.num}
+                    </div>
+
+                    {/* Icon Circle */}
+                    <div
+                      style={{
+                        width: '68px',
+                        height: '68px',
+                        borderRadius: '50%',
+                        backgroundColor: '#eff6ff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#0757d9',
+                        marginTop: '8px',
+                        marginBottom: '20px'
+                      }}
+                    >
+                      <IconComp size={30} strokeWidth={1.75} />
+                    </div>
+
+                    {/* Step Title */}
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>
+                      {step.title}
+                    </h3>
+
+                    {/* Blue Accent Line */}
+                    <div
+                      style={{
+                        width: '28px',
+                        height: '3px',
+                        backgroundColor: '#0757d9',
+                        borderRadius: '2px',
+                        marginBottom: '16px'
+                      }}
+                    />
+
+                    {/* Description */}
+                    <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+                      {step.desc}
+                    </p>
+                  </motion.div>
+
+                  {/* Arrow Indicator between cards (for desktop) */}
+                  {idx < steps.length - 1 && (
+                    <div className="process-arrow-connector">
+                      <div className="arrow-badge">
+                        <ChevronRight size={14} color="#ffffff" />
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--navy)' }}>{step.title}</div>
-              </button>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        {/* Selected Step Display Box */}
+        {/* Bottom 4 Feature Pillars Card */}
         <motion.div
-          key={activeStep}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           style={{
             backgroundColor: '#ffffff',
-            border: '1px solid var(--line)',
-            borderRadius: 'var(--radius-md)',
-            padding: '36px 32px',
-            boxShadow: 'var(--shadow-md)'
+            border: '1px solid #e2e8f0',
+            borderRadius: '20px',
+            padding: '28px 32px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)'
           }}
-          className="grid-2"
         >
-          <div>
-            <div className="eyebrow" style={{ marginBottom: '10px' }}>
-              Phase {steps[activeStep].num} Overview
-            </div>
-            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', fontWeight: 800, color: 'var(--navy)', marginBottom: '10px' }}>
-              {steps[activeStep].shortTitle}
-            </h3>
-            <p style={{ color: 'var(--blue)', fontSize: '1.05rem', fontWeight: 700, marginBottom: '12px' }}>
-              {steps[activeStep].summary}
-            </p>
-            <p style={{ color: 'var(--ink-60)', fontSize: '0.94rem', lineHeight: 1.65, marginBottom: '28px' }}>
-              {steps[activeStep].details}
-            </p>
+          <div className="grid-4" style={{ gap: '24px', alignItems: 'center' }}>
+            {features.map((feat, fIdx) => {
+              const FeatIcon = feat.icon;
 
-            <button className="btn btn-primary" onClick={onOpenTicketWidget}>
-              <span>{steps[activeStep].actionText}</span>
-            </button>
-          </div>
-
-          <div
-            style={{
-              backgroundColor: 'var(--bg-light)',
-              border: '1px solid var(--line)',
-              borderRadius: '16px',
-              padding: '28px',
-              textAlign: 'center'
-            }}
-          >
-            <div
-              style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '50%',
-                backgroundColor: 'var(--light-blue)',
-                color: 'var(--blue)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 14px auto'
-              }}
-            >
-              <CheckCircle2 size={32} />
-            </div>
-
-            <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--blue)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-              Service Guarantee
-            </div>
-            <h4 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--navy)', marginTop: '4px', marginBottom: '6px' }}>
-              Every Ticket Matters
-            </h4>
-            <p style={{ color: 'var(--ink-60)', fontSize: '0.88rem', lineHeight: 1.5 }}>
-              End-to-end transparency & real-time ticket progress updates from start to finish.
-            </p>
+              return (
+                <div
+                  key={fIdx}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '14px',
+                    paddingRight: fIdx < features.length - 1 ? '12px' : 0,
+                    borderRight: fIdx < features.length - 1 ? '1px solid #f1f5f9' : 'none'
+                  }}
+                  className="feature-pillar-item"
+                >
+                  <div
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      backgroundColor: '#eff6ff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#0757d9',
+                      flexShrink: 0
+                    }}
+                  >
+                    <FeatIcon size={20} strokeWidth={2} />
+                  </div>
+                  <div>
+                    <h4 style={{ fontSize: '0.98rem', fontWeight: 800, color: '#0f172a', marginBottom: '2px' }}>
+                      {feat.title}
+                    </h4>
+                    <p style={{ fontSize: '0.84rem', color: '#64748b', lineHeight: 1.45, margin: 0 }}>
+                      {feat.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
+
+      <style>{`
+        .process-arrow-connector {
+          position: absolute;
+          top: 50%;
+          right: -16px;
+          transform: translateY(-50%);
+          z-index: 5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .arrow-badge {
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background-color: #0757d9;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 8px rgba(7, 87, 217, 0.3);
+        }
+
+        @media (max-width: 991px) {
+          .process-arrow-connector {
+            display: none;
+          }
+          .feature-pillar-item {
+            border-right: none !important;
+            padding-right: 0 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

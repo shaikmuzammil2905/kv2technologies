@@ -36,13 +36,13 @@ export default function Services({ onOpenTicketWidget }) {
         <div className="section-head">
           <div className="eyebrow">
             <Sparkles size={14} color="var(--blue)" />
-            <span>What We Do</span>
+            <span>OUR IT SERVICES</span>
           </div>
           <h2 className="section-title">
             IT Services Built Around <span style={{ color: 'var(--blue)' }}>Your Business</span>
           </h2>
           <p className="section-sub">
-            Eight core capabilities that work together as one dependable IT operation.
+            Eight core IT capabilities working together to deliver reliable, scalable, and efficient IT operations.
           </p>
         </div>
 

@@ -31,14 +31,14 @@ export default function WhyChooseUs() {
       <div className="container">
         <div className="section-head">
           <div className="eyebrow">
-            <Sparkles size={14} color="var(--blue)" />
-            <span>Why K²V</span>
+            <span>WHY K²V</span>
+            <Sparkles size={14} color="var(--blue)" style={{ marginLeft: '6px' }} />
           </div>
           <h2 className="section-title">
             More Than IT Support. <span style={{ color: 'var(--blue)' }}>A Technology Partner.</span>
           </h2>
           <p className="section-sub">
-            Built on accountability, enterprise tooling, and an unyielding commitment to operational excellence.
+            Built on accountability, enabled by enterprise-grade technology, and driven by an unwavering commitment to operational excellence
           </p>
         </div>
 
