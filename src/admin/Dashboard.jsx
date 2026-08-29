@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
+import { supabase, getContactRequests, subscribeCmsUpdate } from '../lib/supabaseClient';
 import {
   Briefcase,
   FolderGit2,
@@ -42,23 +42,22 @@ export default function Dashboard() {
         const { count: faqCount } = await supabase.from('faqs').select('*', { count: 'exact', head: true });
         // Fetch media count
         const { count: mediaCount } = await supabase.from('media_library').select('*', { count: 'exact', head: true });
-        // Fetch contact requests count & unread
-        const { count: reqCount, data: reqData } = await supabase.from('contact_requests').select('*', { count: 'exact' }).order('created_at', { ascending: false }).limit(5);
-        const { count: unreadCount } = await supabase.from('contact_requests').select('*', { count: 'exact', head: true }).eq('status', 'unread');
+
+        // Fetch contact requests merged from DB & Local Cache
+        const allRequests = await getContactRequests();
+        const unreadCount = allRequests.filter(r => r.status === 'unread').length;
 
         setStats({
           servicesCount: svcCount ?? SERVICES_DATA.length,
           projectsCount: prjCount ?? PROJECTS_DATA.length,
           faqsCount: faqCount ?? FAQ_DATA.length,
           mediaCount: mediaCount ?? 0,
-          contactRequestsCount: reqCount ?? 0,
-          unreadRequestsCount: unreadCount ?? 0,
+          contactRequestsCount: allRequests.length,
+          unreadRequestsCount: unreadCount,
           navItemsCount: 8
         });
 
-        if (reqData) {
-          setRecentRequests(reqData);
-        }
+        setRecentRequests(allRequests.slice(0, 5));
       } catch (err) {
         console.warn('Dashboard stats fetch fallback:', err);
       } finally {
@@ -67,6 +66,13 @@ export default function Dashboard() {
     }
 
     loadDashboardMetrics();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'contact_requests') {
+        loadDashboardMetrics();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   const metricCards = [

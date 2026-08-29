@@ -143,3 +143,83 @@ export async function verifyAndSaveRecord(tableName, idKey, idValue, payload, is
   notifyCmsUpdate(tableName);
   return verified || payload;
 }
+
+// Contact submission persistence helper (Saves to both Supabase & Local Cache)
+export async function saveContactSubmission(submission) {
+  const reqRecord = {
+    id: submission.id || `req-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    name: (submission.name || 'Anonymous User').trim(),
+    phone: (submission.phone || '').trim(),
+    email: (submission.email || '').trim(),
+    service: submission.service || 'IT Service Desk',
+    message: (submission.message || '').trim(),
+    status: submission.status || 'unread',
+    created_at: submission.created_at || new Date().toISOString()
+  };
+
+  // 1. Immediately store in local cache so it appears in Admin panel right away
+  const existing = getCachedData('contact_requests', []);
+  const updatedList = [reqRecord, ...existing.filter(r => r.id !== reqRecord.id)];
+  setCachedData('contact_requests', updatedList);
+  notifyCmsUpdate('contact_requests');
+
+  // 2. Persist to Supabase Database
+  try {
+    const { error } = await supabase.from('contact_requests').insert([reqRecord]);
+    if (error) {
+      console.warn('Supabase contact_requests insert note:', error.message);
+    }
+  } catch (err) {
+    console.warn('Supabase contact_requests insert exception:', err);
+  }
+
+  return reqRecord;
+}
+
+// Helper to fetch combined contact requests from Supabase & Local Cache
+export async function getContactRequests() {
+  const localItems = getCachedData('contact_requests', []);
+  let dbItems = [];
+
+  try {
+    const { data, error } = await supabase
+      .from('contact_requests')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && Array.isArray(data)) {
+      dbItems = data;
+    }
+  } catch (err) {
+    console.warn('Contact requests DB fetch exception:', err);
+  }
+
+  // Merge local & DB items by ID, prioritizing newest
+  const itemMap = new Map();
+
+  // Add DB items first
+  dbItems.forEach(item => {
+    if (item && item.id) itemMap.set(String(item.id), item);
+  });
+
+  // Merge local items
+  localItems.forEach(item => {
+    if (item && item.id) {
+      if (!itemMap.has(String(item.id))) {
+        itemMap.set(String(item.id), item);
+      } else {
+        // If local item has updated status (e.g. read/unread toggled), keep newest status
+        const dbItem = itemMap.get(String(item.id));
+        itemMap.set(String(item.id), { ...dbItem, ...item });
+      }
+    }
+  });
+
+  const merged = Array.from(itemMap.values());
+  merged.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+
+  // Update local cache with complete merged view
+  setCachedData('contact_requests', merged);
+  return merged;
+}
+

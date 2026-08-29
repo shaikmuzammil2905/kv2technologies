@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MessageSquare, Mail, Globe2, Send, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
-import { supabase, fetchSingleRecord, subscribeCmsUpdate } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, subscribeCmsUpdate, saveContactSubmission } from '../lib/supabaseClient';
 
 export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
   const [formData, setFormData] = useState({
@@ -74,16 +74,14 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
     e.preventDefault();
     if (validate()) {
       try {
-        await supabase.from('contact_requests').insert([{
-          id: Date.now().toString(),
-          name: formData.name.trim(),
-          phone: formData.phone.trim(),
-          email: formData.email.trim(),
+        await saveContactSubmission({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
           service: formData.service,
-          message: formData.message.trim(),
-          status: 'unread',
-          created_at: new Date().toISOString()
-        }]);
+          message: formData.message,
+          status: 'unread'
+        });
       } catch (err) {
         console.warn('Contact request save error:', err);
       }

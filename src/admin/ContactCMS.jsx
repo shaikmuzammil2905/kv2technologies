@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchSingleRecord, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, fetchTableData, notifyCmsUpdate, setCachedData, getContactRequests, subscribeCmsUpdate } from '../lib/supabaseClient';
 import { Mail, Phone, MapPin, Clock, CheckCircle2, AlertCircle, RefreshCw, MessageSquare, Trash2, Eye, EyeOff, Shield, Search, Filter, Save } from 'lucide-react';
 
 export default function ContactCMS() {
-  const [activeTab, setActiveTab] = useState('channels'); // 'channels' | 'requests'
+  const [activeTab, setActiveTab] = useState('inbox'); // 'inbox' | 'info'
   const [contactInfo, setContactInfo] = useState({
     email: 'info@k2vtechnologies.com',
     phone1: '+91 97416 76105',
@@ -23,6 +23,13 @@ export default function ContactCMS() {
 
   useEffect(() => {
     loadData();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'contact_requests' || tableName === 'contact_info') {
+        loadData();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   async function loadData() {
@@ -38,10 +45,10 @@ export default function ContactCMS() {
       });
     }
 
-    // Load contact requests
+    // Load contact requests combined from Supabase DB & Local Cache
     try {
-      const { data } = await supabase.from('contact_requests').select('*').order('created_at', { ascending: false });
-      if (data) setRequests(data);
+      const allRequests = await getContactRequests();
+      setRequests(allRequests);
     } catch (err) {
       console.warn('Requests load fallback:', err);
     }
@@ -72,9 +79,13 @@ export default function ContactCMS() {
 
   const handleToggleRead = async (req) => {
     const newStatus = req.status === 'unread' ? 'read' : 'unread';
-    const updated = { ...req, status: newStatus };
-    setRequests(requests.map(r => r.id === req.id ? updated : r));
-    if (selectedReq?.id === req.id) setSelectedReq(updated);
+    const updatedReq = { ...req, status: newStatus };
+    const newList = requests.map(r => r.id === req.id ? updatedReq : r);
+    setRequests(newList);
+    setCachedData('contact_requests', newList);
+    notifyCmsUpdate('contact_requests');
+
+    if (selectedReq?.id === req.id) setSelectedReq(updatedReq);
 
     try {
       await supabase.from('contact_requests').update({ status: newStatus }).eq('id', req.id);
@@ -84,13 +95,18 @@ export default function ContactCMS() {
   };
 
   const handleDeleteRequest = async (id) => {
+    const newList = requests.filter(r => r.id !== id);
+    setRequests(newList);
+    setCachedData('contact_requests', newList);
+    notifyCmsUpdate('contact_requests');
+
+    if (selectedReq?.id === id) setSelectedReq(null);
+
     try {
       await supabase.from('contact_requests').delete().eq('id', id);
-      setRequests(requests.filter(r => r.id !== id));
-      if (selectedReq?.id === id) setSelectedReq(null);
       setToast({ type: 'success', text: 'Contact request deleted.' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Delete failed.' });
+      setToast({ type: 'error', text: 'Delete note: removed locally.' });
     } finally {
       setTimeout(() => setToast(null), 3000);
     }

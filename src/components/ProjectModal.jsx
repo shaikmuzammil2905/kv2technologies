@@ -18,6 +18,20 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
 
   if (!project) return null;
 
+  const techStackList = Array.isArray(project.techStack)
+    ? project.techStack
+    : Array.isArray(project.tags)
+    ? project.tags
+    : typeof project.techStack === 'string'
+    ? project.techStack.split(',').map(s => s.trim()).filter(Boolean)
+    : typeof project.tags === 'string'
+    ? project.tags.split(',').map(s => s.trim()).filter(Boolean)
+    : ['IT Operations', 'Service Management'];
+
+  const problemText = project.problem || project.description || 'Enterprise IT operational challenge requiring optimization and structured SLA management.';
+  const solutionText = project.solution || project.shortDesc || 'K²V Technologies deployed multi-tiered IT support workflows and automated escalation pipelines.';
+  const outcomeText = project.outcome || project.result || 'Achieved high SLA compliance and significant downtime reduction across global business units.';
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <motion.div
@@ -34,7 +48,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
 
         <div style={{ marginBottom: '24px' }}>
           <div className="eyebrow" style={{ marginBottom: '10px' }}>
-            {project.badge} • {project.category}
+            {project.badge || 'Case Study'} • {project.category || 'IT Services'}
           </div>
           <h2 style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)', fontWeight: 800, color: 'var(--navy)' }}>
             {project.title}
@@ -55,7 +69,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
               The Operational Challenge
             </h4>
             <p style={{ color: 'var(--navy)', fontSize: '0.94rem', lineHeight: 1.6 }}>
-              {project.problem}
+              {problemText}
             </p>
           </div>
 
@@ -71,7 +85,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
               K²V Implemented Solution
             </h4>
             <p style={{ color: 'var(--navy)', fontSize: '0.94rem', lineHeight: 1.6 }}>
-              {project.solution}
+              {solutionText}
             </p>
           </div>
 
@@ -87,7 +101,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
               Measured Business Outcome
             </h4>
             <p style={{ color: 'var(--navy)', fontSize: '0.94rem', lineHeight: 1.6 }}>
-              {project.outcome}
+              {outcomeText}
             </p>
           </div>
         </div>
@@ -99,7 +113,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
             <span>Technologies & Platform Architecture</span>
           </h4>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            {project.techStack.map((tech, idx) => (
+            {techStackList.map((tech, idx) => (
               <span
                 key={idx}
                 style={{

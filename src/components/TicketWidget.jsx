@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Ticket, AlertCircle, CheckCircle, Clock, Send, MessageSquare, X } from 'lucide-react';
+import { saveContactSubmission } from '../lib/supabaseClient';
 
 export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpenContactWithData }) {
   const [priority, setPriority] = useState('P2');
   const [service, setService] = useState('IT Service Desk');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [description, setDescription] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -25,14 +28,26 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
     '24/7 NOC Telemetry'
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      await saveContactSubmission({
+        name: name.trim() || 'Portal Visitor',
+        phone: phone.trim() || 'Not provided',
+        email: '',
+        service: `${service} (${priority})`,
+        message: description.trim() || `Priority ${priority} ticket request for ${service}`,
+        status: 'unread'
+      });
+    } catch (err) {
+      console.warn('Ticket request save note:', err);
+    }
     setSubmitted(true);
   };
 
   const handleWhatsAppRedirect = () => {
     const text = encodeURIComponent(
-      `Hello K2V Technologies!\nI would like to raise a support request:\n• Priority: ${priority}\n• Service: ${service}\n• Requirement: ${description || 'General Inquiry'}`
+      `Hello K2V Technologies!\nI would like to raise a support request:\n• Priority: ${priority}\n• Service: ${service}\n• Name: ${name || 'N/A'}\n• Contact: ${phone || 'N/A'}\n• Requirement: ${description || 'General Inquiry'}`
     );
     onSelectWhatsApp(text);
   };
@@ -129,6 +144,52 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
                     </option>
                   ))}
                 </select>
+              </div>
+
+              {/* Visitor Contact Info */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '6px' }}>
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter full name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '11px 12px',
+                      borderRadius: '9px',
+                      backgroundColor: 'var(--bg-light)',
+                      border: '1.5px solid var(--line)',
+                      color: 'var(--navy)',
+                      fontSize: '0.9rem',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--navy)', marginBottom: '6px' }}>
+                    Phone / Email
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Contact info"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: '11px 12px',
+                      borderRadius: '9px',
+                      backgroundColor: 'var(--bg-light)',
+                      border: '1.5px solid var(--line)',
+                      color: 'var(--navy)',
+                      fontSize: '0.9rem',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
               </div>
 
               {/* Requirement details */}

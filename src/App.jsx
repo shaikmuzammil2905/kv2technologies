@@ -20,6 +20,7 @@ import PhoneModal from './components/PhoneModal';
 import Footer from './components/Footer';
 
 import ServiceDetailPage from './components/ServiceDetailPage';
+import CaseStudyDetailPage from './components/CaseStudyDetailPage';
 
 // Admin Panel CMS Components
 import AdminLayout from './admin/AdminLayout';
@@ -154,6 +155,10 @@ export default function App() {
         <Route path="/" element={<PublicSite />} />
         <Route path="/services/:id" element={<ServiceDetailPage />} />
         <Route path="/service/:id" element={<ServiceDetailPage />} />
+        <Route path="/case-study/:id" element={<CaseStudyDetailPage />} />
+        <Route path="/case-studies/:id" element={<CaseStudyDetailPage />} />
+        <Route path="/project/:id" element={<CaseStudyDetailPage />} />
+        <Route path="/projects/:id" element={<CaseStudyDetailPage />} />
 
         {/* Admin Login Route */}
         <Route path="/admin/login" element={<Login />} />
