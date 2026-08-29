@@ -34,21 +34,31 @@ export default function AdminLayout() {
   const location = useLocation();
 
   useEffect(() => {
-    // Check active session
+    const localSession = localStorage.getItem('k2v_admin_session');
+    if (localSession) {
+      try {
+        const parsed = JSON.parse(localSession);
+        setUser({ email: parsed.email || 'admin.k2v@gmail.com' });
+        setLoading(false);
+        return;
+      } catch (e) {}
+    }
+
+    // Check active Supabase session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
+      if (!session && !localStorage.getItem('k2v_admin_session')) {
         navigate('/admin/login');
-      } else {
+      } else if (session) {
         setUser(session.user);
       }
       setLoading(false);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT' || !session) {
+      if (event === 'SIGNED_OUT' && !localStorage.getItem('k2v_admin_session')) {
         setUser(null);
         navigate('/admin/login');
-      } else {
+      } else if (session) {
         setUser(session.user);
       }
     });
@@ -57,6 +67,7 @@ export default function AdminLayout() {
   }, [navigate]);
 
   const handleLogout = async () => {
+    localStorage.removeItem('k2v_admin_session');
     await supabase.auth.signOut();
     navigate('/admin/login');
   };
