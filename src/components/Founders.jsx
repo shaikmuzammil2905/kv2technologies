@@ -79,7 +79,7 @@ const foundersData = [
     subtitle: 'ServiceNow & IT Automation',
     experience: '7 Years IT Experience',
     photo: '/assets/kevin.png',
-    philosophy: 'Automating Workflows, Modernizing IT Operations',
+    philosophy: 'Transforming IT Operations Through Automation & Intelligent Technology',
     highlights: [
       '7 Years of IT Experience',
       'ServiceNow',
