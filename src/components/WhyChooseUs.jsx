@@ -1,30 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import { fetchTableData } from '../lib/supabaseClient';
+import { INITIAL_WHY_US } from '../lib/seedData';
 
 export default function WhyChooseUs() {
-  const reasons = [
-    {
-      num: '01',
-      title: 'Proactive Support',
-      desc: 'Identify problems before they become business disruptions with continuous monitoring and automated telemetry.'
-    },
-    {
-      num: '02',
-      title: 'Experienced IT Professionals',
-      desc: 'Skilled support teams focused on fast, reliable L1/L2/L3 resolution and transparent SLA management.'
-    },
-    {
-      num: '03',
-      title: 'Automation First',
-      desc: 'Reduce repetitive manual work and improve IT efficiency through intelligent ServiceNow workflows.'
-    },
-    {
-      num: '04',
-      title: 'Business-Focused IT',
-      desc: 'Technology solutions aligned with your core business goals, uptime targets, and growth requirements.'
+  const [reasons, setReasons] = useState(INITIAL_WHY_US);
+
+  useEffect(() => {
+    async function loadWhyUs() {
+      const data = await fetchTableData('why_us', INITIAL_WHY_US);
+      const activeData = data.filter(w => w.is_active !== false);
+      if (activeData.length > 0) {
+        setReasons(activeData);
+      }
     }
-  ];
+    loadWhyUs();
+  }, []);
 
   return (
     <section id="why-us" className="section-padding" style={{ position: 'relative', background: 'var(--white)' }}>

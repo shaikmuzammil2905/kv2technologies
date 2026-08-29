@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Headphones,
@@ -14,9 +14,22 @@ import {
 } from 'lucide-react';
 import { SERVICES_DATA } from '../data/servicesData';
 import ServiceModal from './ServiceModal';
+import { fetchTableData } from '../lib/supabaseClient';
 
 export default function Services({ onOpenTicketWidget }) {
   const [selectedService, setSelectedService] = useState(null);
+  const [servicesList, setServicesList] = useState(SERVICES_DATA);
+
+  useEffect(() => {
+    async function loadServices() {
+      const data = await fetchTableData('services', SERVICES_DATA);
+      const activeData = data.filter(s => s.is_active !== false);
+      if (activeData.length > 0) {
+        setServicesList(activeData);
+      }
+    }
+    loadServices();
+  }, []);
 
   const iconMap = {
     Headphones: Headphones,
@@ -48,7 +61,7 @@ export default function Services({ onOpenTicketWidget }) {
 
         {/* Services Cards Grid */}
         <div className="grid-4">
-          {SERVICES_DATA.map((service, index) => {
+          {servicesList.map((service, index) => {
             const IconComponent = iconMap[service.icon] || Headphones;
 
             return (

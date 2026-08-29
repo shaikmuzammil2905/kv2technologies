@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HeartHandshake, Zap, Globe2 } from 'lucide-react';
 import Founders from './Founders';
+import { fetchSingleRecord } from '../lib/supabaseClient';
+import { INITIAL_ABOUT } from '../lib/seedData';
 
 export default function About() {
+  const [aboutData, setAboutData] = useState(INITIAL_ABOUT);
+
+  useEffect(() => {
+    async function loadAbout() {
+      const data = await fetchSingleRecord('about_section', INITIAL_ABOUT);
+      if (data) {
+        setAboutData({
+          eyebrow: data.eyebrow || INITIAL_ABOUT.eyebrow,
+          heading: data.heading || INITIAL_ABOUT.heading,
+          description: data.description || INITIAL_ABOUT.description,
+          subText: data.subText || INITIAL_ABOUT.subText,
+          philosophyTitle: data.philosophyTitle || INITIAL_ABOUT.philosophyTitle,
+          philosophyText: data.philosophyText || INITIAL_ABOUT.philosophyText
+        });
+      }
+    }
+    loadAbout();
+  }, []);
+
   return (
     <section id="about" className="section-padding" style={{ position: 'relative', background: 'var(--white)' }}>
       <div className="container">
@@ -15,18 +36,18 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="eyebrow">About K²V Technologies</div>
+            <div className="eyebrow">{aboutData.eyebrow}</div>
 
             <h2 className="section-title">
-              Technology problems shouldn't slow your business down.
+              {aboutData.heading}
             </h2>
 
             <p className="section-sub" style={{ marginBottom: '18px' }}>
-              K²V Technologies helps organizations reduce downtime, resolve issues faster, and bring structure to everyday IT operations — from the service desk to the data center to the cloud.
+              {aboutData.description}
             </p>
 
             <p style={{ color: 'var(--ink-60)', fontSize: '0.96rem', lineHeight: '1.7', marginBottom: '28px' }}>
-              In today's fast-moving enterprise landscape, IT support must be proactive, responsive, and reliable. Whether managing multi-site cloud environments, structuring ServiceNow workflows, or providing 24/7 Service Desk assistance, our team delivers with speed and precision.
+              {aboutData.subText}
             </p>
 
             {/* Philosophy Box */}
@@ -53,10 +74,10 @@ export default function About() {
                 Our Core Philosophy
               </div>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--navy)', marginBottom: '8px' }}>
-                Every Ticket Matters.
+                {aboutData.philosophyTitle}
               </h3>
               <p style={{ color: 'var(--ink-60)', fontSize: '0.92rem', lineHeight: '1.6' }}>
-                Every request deserves immediate attention. Every problem deserves a permanent solution. No issue is too small, no infrastructure too complex. Every ticket matters to your business—and to ours.
+                {aboutData.philosophyText}
               </p>
             </div>
           </motion.div>

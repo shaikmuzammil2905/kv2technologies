@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Monitor, MessageSquare } from 'lucide-react';
 import HeroCanvas from './HeroCanvas';
+import { fetchSingleRecord } from '../lib/supabaseClient';
+import { INITIAL_HERO } from '../lib/seedData';
 
 export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
+  const [heroData, setHeroData] = useState(INITIAL_HERO);
+
+  useEffect(() => {
+    async function loadHero() {
+      const data = await fetchSingleRecord('hero_section', INITIAL_HERO);
+      if (data) {
+        setHeroData({
+          badge: data.badge || INITIAL_HERO.badge,
+          title: data.title || INITIAL_HERO.title,
+          subtitle: data.subtitle || INITIAL_HERO.subtitle,
+          tags: Array.isArray(data.tags) ? data.tags : INITIAL_HERO.tags,
+          primaryCtaText: data.primaryCtaText || INITIAL_HERO.primaryCtaText,
+          primaryCtaUrl: data.primaryCtaUrl || INITIAL_HERO.primaryCtaUrl,
+          secondaryCtaText: data.secondaryCtaText || INITIAL_HERO.secondaryCtaText,
+          secondaryCtaUrl: data.secondaryCtaUrl || INITIAL_HERO.secondaryCtaUrl
+        });
+      }
+    }
+    loadHero();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -67,28 +90,27 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
           {/* Top Pill Tag / Eyebrow Badge */}
           <motion.div variants={itemVariants} className="hero-top-badge">
             <Shield size={16} color="#00e5ff" />
-            <span>K²V TECHNOLOGIES • IT SERVICE DESK &amp; MANAGED SUPPORT</span>
+            <span>{heroData.badge}</span>
           </motion.div>
 
           {/* Main Headline */}
           <motion.h1 variants={itemVariants} className="hero-main-title">
-            Enterprise IT Support That Keeps Business <span style={{ color: '#00e5ff' }}>Moving.</span>
+            {heroData.title}
           </motion.h1>
 
           {/* Subtitle Quote */}
           <motion.p variants={itemVariants} className="hero-subtitle-quote">
-            K²V Technologies provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure &amp; Cybersecurity Solutions. Every Ticket Matters.
+            {heroData.subtitle}
           </motion.p>
 
           {/* Bullet-Separated Concept & Services List */}
           <motion.div variants={itemVariants} className="hero-services-tags">
-            <span>IT Service Desk</span>
-            <span className="bullet-dot">•</span>
-            <span>Managed IT Services</span>
-            <span className="bullet-dot">•</span>
-            <span>ServiceNow Workflows</span>
-            <span className="bullet-dot">•</span>
-            <span>Cloud &amp; Cybersecurity</span>
+            {heroData.tags.map((tag, tIdx) => (
+              <React.Fragment key={tIdx}>
+                <span>{tag}</span>
+                {tIdx < heroData.tags.length - 1 && <span className="bullet-dot">•</span>}
+              </React.Fragment>
+            ))}
           </motion.div>
 
         </motion.div>

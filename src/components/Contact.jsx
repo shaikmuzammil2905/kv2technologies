@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MessageSquare, Mail, Globe2, Send, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
   const [formData, setFormData] = useState({
@@ -37,9 +38,23 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
+      try {
+        await supabase.from('contact_requests').insert([{
+          id: Date.now().toString(),
+          name: formData.name.trim(),
+          phone: formData.phone.trim(),
+          email: formData.email.trim(),
+          service: formData.service,
+          message: formData.message.trim(),
+          status: 'unread',
+          created_at: new Date().toISOString()
+        }]);
+      } catch (err) {
+        console.warn('Contact request save error:', err);
+      }
       setSubmitted(true);
     }
   };

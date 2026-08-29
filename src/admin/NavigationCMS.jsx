@@ -1,0 +1,190 @@
+import React, { useState, useEffect } from 'react';
+import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { INITIAL_NAVIGATION } from '../lib/seedData';
+import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, CheckCircle2 } from 'lucide-react';
+
+export default function NavigationCMS() {
+  const [navItems, setNavItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [editingItem, setEditingItem] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
+  const [toast, setToast] = useState(null);
+
+  useEffect(() => {
+    loadNav();
+  }, []);
+
+  async function loadNav() {
+    const data = await fetchTableData('navigation_items', INITIAL_NAVIGATION);
+    setNavItems(data);
+    setLoading(false);
+  }
+
+  const handleOpenNew = () => {
+    setEditingItem({
+      id: Date.now().toString(),
+      name: '',
+      url: '#',
+      display_order: navItems.length + 1,
+      is_active: true
+    });
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    if (!editingItem.name.trim()) return;
+
+    try {
+      const payload = { ...editingItem, updated_at: new Date().toISOString() };
+      await supabase.from('navigation_items').upsert(payload);
+
+      const exists = navItems.find(n => n.id === editingItem.id);
+      if (exists) {
+        setNavItems(navItems.map(n => n.id === editingItem.id ? payload : n));
+      } else {
+        setNavItems([...navItems, payload]);
+      }
+      setEditingItem(null);
+      setToast({ type: 'success', text: 'Navigation menu item saved.' });
+    } catch (err) {
+      setToast({ type: 'error', text: 'Failed to save menu item.' });
+    } finally {
+      setTimeout(() => setToast(null), 3000);
+    }
+  };
+
+  const handleToggleStatus = async (item) => {
+    const updated = { ...item, is_active: !item.is_active };
+    setNavItems(navItems.map(n => n.id === item.id || n.name === item.name ? updated : n));
+
+    try {
+      await supabase.from('navigation_items').upsert(updated);
+    } catch (err) {
+      console.warn('Status toggle error:', err);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!deletingId) return;
+
+    try {
+      await supabase.from('navigation_items').delete().eq('id', deletingId);
+      setNavItems(navItems.filter(n => n.id !== deletingId));
+      setToast({ type: 'success', text: 'Navigation item deleted.' });
+    } catch (err) {
+      setToast({ type: 'error', text: 'Delete failed.' });
+    } finally {
+      setDeletingId(null);
+      setTimeout(() => setToast(null), 3000);
+    }
+  };
+
+  if (loading) {
+    return <div style={{ color: '#38bdf8', padding: '40px 0', textAlign: 'center' }}>Loading Navigation CMS...</div>;
+  }
+
+  return (
+    <div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+        <div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+            Header Navigation CMS
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginTop: '4px' }}>
+            Control desktop and mobile navigation links, labels, and visibility
+          </p>
+        </div>
+
+        <button onClick={handleOpenNew} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 18px', borderRadius: '8px', backgroundColor: '#0284c7', color: '#ffffff', fontWeight: 700, fontSize: '0.88rem', border: 'none', cursor: 'pointer' }}>
+          <Plus size={18} />
+          <span>Add Menu Item</span>
+        </button>
+      </div>
+
+      {toast && (
+        <div style={{ padding: '12px 16px', borderRadius: '8px', marginBottom: '20px', backgroundColor: toast.type === 'success' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)', color: toast.type === 'success' ? '#4ade80' : '#fca5a5' }}>
+          {toast.text}
+        </div>
+      )}
+
+      <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+          <thead>
+            <tr style={{ backgroundColor: '#0f172a', borderBottom: '1px solid #334155', color: '#94a3b8', fontSize: '0.78rem', textTransform: 'uppercase' }}>
+              <th style={{ padding: '14px 20px' }}>Order</th>
+              <th style={{ padding: '14px 20px' }}>Menu Label</th>
+              <th style={{ padding: '14px 20px' }}>Target URL / Hash</th>
+              <th style={{ padding: '14px 20px' }}>Status</th>
+              <th style={{ padding: '14px 20px', textAlign: 'right' }}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {navItems.map((item, idx) => (
+              <tr key={item.id || idx} style={{ borderBottom: '1px solid #334155', color: '#cbd5e1' }}>
+                <td style={{ padding: '16px 20px', fontWeight: 800, color: '#38bdf8' }}>{item.display_order || idx + 1}</td>
+                <td style={{ padding: '16px 20px', fontWeight: 700, color: '#ffffff' }}>{item.name}</td>
+                <td style={{ padding: '16px 20px', color: '#94a3b8' }}>{item.url}</td>
+                <td style={{ padding: '16px 20px' }}>
+                  <button
+                    onClick={() => handleToggleStatus(item)}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      border: 'none',
+                      backgroundColor: item.is_active !== false ? 'rgba(34, 197, 94, 0.15)' : 'rgba(100, 116, 139, 0.2)',
+                      color: item.is_active !== false ? '#4ade80' : '#94a3b8',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {item.is_active !== false ? <Eye size={13} /> : <EyeOff size={13} />}
+                    <span>{item.is_active !== false ? 'Visible' : 'Hidden'}</span>
+                  </button>
+                </td>
+                <td style={{ padding: '16px 20px', textAlign: 'right' }}>
+                  <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                    <button onClick={() => setEditingItem(item)} style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}>Edit</button>
+                    <button onClick={() => setDeletingId(item.id)} style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}>Delete</button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {editingItem && (
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.75)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+          <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', width: '100%', maxWidth: '480px', padding: '28px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>{editingItem.id ? 'Edit Menu Item' : 'Add Menu Item'}</h3>
+              <button onClick={() => setEditingItem(null)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}><X size={20} /></button>
+            </div>
+            <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>Menu Label Text</label>
+                <input type="text" value={editingItem.name} onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })} required style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#0f172a', border: '1px solid #334155', color: '#ffffff', boxSizing: 'border-box' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>Link URL (e.g. #services)</label>
+                <input type="text" value={editingItem.url} onChange={(e) => setEditingItem({ ...editingItem, url: e.target.value })} required style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#0f172a', border: '1px solid #334155', color: '#ffffff', boxSizing: 'border-box' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '6px' }}>Display Order Number</label>
+                <input type="number" value={editingItem.display_order} onChange={(e) => setEditingItem({ ...editingItem, display_order: parseInt(e.target.value, 10) })} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#0f172a', border: '1px solid #334155', color: '#ffffff', boxSizing: 'border-box' }} />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '10px' }}>
+                <button type="button" onClick={() => setEditingItem(null)} style={{ padding: '10px 16px', borderRadius: '8px', backgroundColor: '#334155', color: '#ffffff', border: 'none', cursor: 'pointer' }}>Cancel</button>
+                <button type="submit" style={{ padding: '10px 20px', borderRadius: '8px', backgroundColor: '#0284c7', color: '#ffffff', border: 'none', cursor: 'pointer', fontWeight: 700 }}>Save Item</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

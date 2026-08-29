@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+// Public Website Components
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -16,7 +19,27 @@ import WhatsAppModal from './components/WhatsAppModal';
 import PhoneModal from './components/PhoneModal';
 import Footer from './components/Footer';
 
-export default function App() {
+// Admin Panel CMS Components
+import AdminLayout from './admin/AdminLayout';
+import Login from './admin/Login';
+import Dashboard from './admin/Dashboard';
+import HomeCMS from './admin/HomeCMS';
+import AboutCMS from './admin/AboutCMS';
+import ServicesCMS from './admin/ServicesCMS';
+import WhyUsCMS from './admin/WhyUsCMS';
+import ProcessCMS from './admin/ProcessCMS';
+import ProjectsCMS from './admin/ProjectsCMS';
+import FaqCMS from './admin/FaqCMS';
+import ContactCMS from './admin/ContactCMS';
+import WhatsAppCMS from './admin/WhatsAppCMS';
+import TalkToExpertCMS from './admin/TalkToExpertCMS';
+import NavigationCMS from './admin/NavigationCMS';
+import MediaCMS from './admin/MediaCMS';
+import SettingsCMS from './admin/SettingsCMS';
+import SeoCMS from './admin/SeoCMS';
+
+// Public Website Page Wrapper
+function PublicSite() {
   const [loading, setLoading] = useState(true);
 
   // Modal controls
@@ -118,5 +141,43 @@ export default function App() {
         />
       </div>
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Public Website Route */}
+        <Route path="/" element={<PublicSite />} />
+
+        {/* Admin Login Route */}
+        <Route path="/admin/login" element={<Login />} />
+
+        {/* Protected Admin CMS Panel Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="home" element={<HomeCMS />} />
+          <Route path="about" element={<AboutCMS />} />
+          <Route path="services" element={<ServicesCMS />} />
+          <Route path="why-us" element={<WhyUsCMS />} />
+          <Route path="process" element={<ProcessCMS />} />
+          <Route path="projects" element={<ProjectsCMS />} />
+          <Route path="faq" element={<FaqCMS />} />
+          <Route path="contact" element={<ContactCMS />} />
+          <Route path="whatsapp" element={<WhatsAppCMS />} />
+          <Route path="talk-to-expert" element={<TalkToExpertCMS />} />
+          <Route path="navigation" element={<NavigationCMS />} />
+          <Route path="media" element={<MediaCMS />} />
+          <Route path="settings" element={<SettingsCMS />} />
+          <Route path="seo" element={<SeoCMS />} />
+          <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+        </Route>
+
+        {/* Catch-all fallback redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

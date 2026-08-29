@@ -1,19 +1,42 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  FolderGit2,
+  ExternalLink,
+  ArrowRight,
+  TrendingUp,
+  Clock,
+  Building2,
+  CheckCircle2,
+  Sparkles,
+  ChevronRight
+} from 'lucide-react';
 import { PROJECTS_DATA } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
-import { ArrowRight, Sparkles, FolderGit2 } from 'lucide-react';
+import { fetchTableData } from '../lib/supabaseClient';
 
 export default function Projects({ onOpenTicketWidget }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projectsList, setProjectsList] = useState(PROJECTS_DATA);
+
+  useEffect(() => {
+    async function loadProjects() {
+      const data = await fetchTableData('projects', PROJECTS_DATA);
+      const activeData = data.filter(p => p.is_active !== false);
+      if (activeData.length > 0) {
+        setProjectsList(activeData);
+      }
+    }
+    loadProjects();
+  }, []);
 
   const categories = ['All', 'IT Service Desk', 'ServiceNow', 'Cloud Services', 'Cybersecurity', 'NOC & Infra'];
 
   const filteredProjects =
     activeCategory === 'All'
-      ? PROJECTS_DATA
-      : PROJECTS_DATA.filter((p) => p.category.toLowerCase().includes(activeCategory.toLowerCase()));
+      ? projectsList
+      : projectsList.filter((p) => p.category && p.category.toLowerCase().includes(activeCategory.toLowerCase()));
 
   return (
     <section id="work" className="section-padding" style={{ position: 'relative', background: 'var(--white)' }}>

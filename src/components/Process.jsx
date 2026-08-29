@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   MessageSquare,
@@ -11,34 +11,22 @@ import {
   TrendingUp,
   ChevronRight
 } from 'lucide-react';
+import { fetchTableData } from '../lib/supabaseClient';
+import { INITIAL_PROCESS_STEPS } from '../lib/seedData';
 
 export default function Process() {
-  const steps = [
-    {
-      num: '01',
-      title: 'Discover',
-      icon: MessageSquare,
-      desc: 'We understand your users, systems, challenges, and business requirements.'
-    },
-    {
-      num: '02',
-      title: 'Assess',
-      icon: Search,
-      desc: 'We evaluate your current IT environment, workflows, service gaps, and operational needs.'
-    },
-    {
-      num: '03',
-      title: 'Design',
-      icon: Settings,
-      desc: 'We build a structured service model aligned with your business and technology requirements.'
-    },
-    {
-      num: '04',
-      title: 'Implement & Optimize',
-      icon: RotateCw,
-      desc: 'We deploy, monitor, measure, and continuously improve IT operations and service delivery.'
+  const [steps, setSteps] = useState(INITIAL_PROCESS_STEPS);
+
+  useEffect(() => {
+    async function loadProcess() {
+      const data = await fetchTableData('process_steps', INITIAL_PROCESS_STEPS);
+      const activeData = data.filter(s => s.is_active !== false);
+      if (activeData.length > 0) {
+        setSteps(activeData);
+      }
     }
-  ];
+    loadProcess();
+  }, []);
 
   const features = [
     {

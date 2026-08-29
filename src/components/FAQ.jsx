@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Search, HelpCircle } from 'lucide-react';
 import { FAQ_DATA } from '../data/faqData';
+import { fetchTableData } from '../lib/supabaseClient';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
+  const [faqList, setFaqList] = useState(FAQ_DATA);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredFaqs = FAQ_DATA.filter(
+  useEffect(() => {
+    async function loadFaqs() {
+      const data = await fetchTableData('faqs', FAQ_DATA);
+      const activeData = data.filter(f => f.is_active !== false);
+      if (activeData.length > 0) {
+        setFaqList(activeData);
+      }
+    }
+    loadFaqs();
+  }, []);
+
+  const filteredFaqs = faqList.filter(
     (faq) =>
       faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
       faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
