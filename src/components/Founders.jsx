@@ -10,7 +10,7 @@ const foundersData = [
     subtitle: 'Service Desk & Cloud',
     experience: '8+ Years IT Experience',
     photo: '/assets/vinay.png',
-    philosophy: '“Head of ITSM”',
+    philosophy: 'Head of IT Service Management (ITSM)',
     highlights: [
       '8+ Years of IT Experience',
       'Service Desk',
@@ -43,7 +43,7 @@ const foundersData = [
   {
     id: 'kingston',
     name: 'Kingston',
-    title: 'Co-Founder & CIO (Chief Information Officer) & Desktop & Network Engineer',
+    title: 'Co-Founder & CIO | IT Infrastructure, Desktop & Network Engineering',
     subtitle: 'Desktop Support & Network Infrastructure',
     experience: '10+ Years IT Experience',
     photo: '/assets/kingston.png',
@@ -300,7 +300,7 @@ export default function Founders() {
           height: 170px;
           border-radius: 50%;
           object-fit: cover;
-          object-position: top center;
+          object-position: center 15%;
           border: 4px solid #ffffff;
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }

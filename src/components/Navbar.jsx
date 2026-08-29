@@ -125,6 +125,7 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
                   padding: '8px 14px',
                   borderRadius: '8px',
                   backgroundColor: isActive ? 'var(--light-blue)' : 'transparent',
+                  whiteSpace: 'nowrap',
                   transition: 'all 0.2s ease'
                 }}
               >
@@ -133,28 +134,6 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
             );
           })}
         </nav>
-
-        {/* Desktop CTA Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="desktop-ctas">
-          <button
-            className="btn btn-outline btn-sm"
-            onClick={onOpenWhatsApp}
-            title="Chat on WhatsApp"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-          >
-            <MessageSquare size={16} color="#25D366" />
-            <span>WhatsApp</span>
-          </button>
-
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={onOpenTicketWidget}
-            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
-          >
-            <Ticket size={16} />
-            <span>Talk to an Expert</span>
-          </button>
-        </div>
 
         {/* Mobile Hamburger Toggle */}
         <button
@@ -206,53 +185,14 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     padding: '12px 8px',
-                    borderBottom: '1px solid var(--line)'
+                    borderBottom: '1px solid var(--line)',
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   <span>{item.label}</span>
                   <ChevronRight size={18} color="var(--ink-40)" />
                 </a>
               ))}
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '16px' }}>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenTicketWidget();
-                  }}
-                  style={{ width: '100%', justifyContent: 'center' }}
-                >
-                  <Ticket size={18} />
-                  <span>Talk to an Expert</span>
-                </button>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                  <button
-                    className="btn btn-outline btn-sm"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      onOpenWhatsApp();
-                    }}
-                    style={{ justifyContent: 'center' }}
-                  >
-                    <MessageSquare size={16} color="#25D366" />
-                    <span>WhatsApp</span>
-                  </button>
-
-                  <button
-                    className="btn btn-outline btn-sm"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      onOpenPhone();
-                    }}
-                    style={{ justifyContent: 'center' }}
-                  >
-                    <Phone size={16} color="var(--blue)" />
-                    <span>Call Us</span>
-                  </button>
-                </div>
-              </div>
             </div>
           </motion.div>
         )}

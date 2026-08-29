@@ -100,7 +100,16 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
 
           {/* Subtitle Quote */}
           <motion.p variants={itemVariants} className="hero-subtitle-quote">
-            {heroData.subtitle}
+            {heroData.subtitle.includes('Every Ticket Matters') ? (
+              <>
+                {heroData.subtitle.replace(/Every Ticket Matters\.?/, '').trim()}
+                <span style={{ display: 'block', marginTop: '8px', fontWeight: 800, color: '#00e5ff' }}>
+                  Every Ticket Matters.
+                </span>
+              </>
+            ) : (
+              heroData.subtitle
+            )}
           </motion.p>
 
           {/* Bullet-Separated Concept & Services List */}
