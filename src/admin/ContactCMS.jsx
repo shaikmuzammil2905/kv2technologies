@@ -109,7 +109,8 @@ export default function ContactCMS() {
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
             Contact & Requests CMS
@@ -124,28 +125,28 @@ export default function ContactCMS() {
           <button
             onClick={() => setActiveTab('inbox')}
             style={{
-              padding: '8px 16px',
+              padding: '8px 14px',
               borderRadius: '6px',
               border: 'none',
               backgroundColor: activeTab === 'inbox' ? '#0284c7' : 'transparent',
               color: activeTab === 'inbox' ? '#ffffff' : '#94a3b8',
               fontWeight: 700,
-              fontSize: '0.85rem',
+              fontSize: '0.82rem',
               cursor: 'pointer'
             }}
           >
-            Inquiries Inbox ({requests.filter(r => r.status === 'unread').length} Unread)
+            Inbox ({requests.filter(r => r.status === 'unread').length} Unread)
           </button>
           <button
             onClick={() => setActiveTab('info')}
             style={{
-              padding: '8px 16px',
+              padding: '8px 14px',
               borderRadius: '6px',
               border: 'none',
               backgroundColor: activeTab === 'info' ? '#0284c7' : 'transparent',
               color: activeTab === 'info' ? '#ffffff' : '#94a3b8',
               fontWeight: 700,
-              fontSize: '0.85rem',
+              fontSize: '0.82rem',
               cursor: 'pointer'
             }}
           >
@@ -164,7 +165,7 @@ export default function ContactCMS() {
         <div>
           {/* Controls Bar */}
           <div style={{ display: 'flex', gap: '16px', marginBottom: '20px', flexWrap: 'wrap' }}>
-            <div style={{ flex: 1, minWidth: '240px', position: 'relative' }}>
+            <div style={{ flex: 1, minWidth: '220px', position: 'relative' }}>
               <Search size={18} color="#64748b" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
               <input
                 type="text"
@@ -186,14 +187,14 @@ export default function ContactCMS() {
             </select>
           </div>
 
-          {/* Table */}
-          <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', overflow: 'hidden' }}>
+          {/* Desktop Table View */}
+          <div className="cms-table-desktop" style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', overflowX: 'auto' }}>
             {filteredRequests.length === 0 ? (
               <div style={{ padding: '40px', textAlign: 'center', color: '#64748b' }}>
                 No contact requests match the selected filters.
               </div>
             ) : (
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+              <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                 <thead>
                   <tr style={{ backgroundColor: '#0f172a', borderBottom: '1px solid #334155', color: '#94a3b8', fontSize: '0.78rem', textTransform: 'uppercase' }}>
                     <th style={{ padding: '14px 20px' }}>Name</th>
@@ -236,10 +237,46 @@ export default function ContactCMS() {
               </table>
             )}
           </div>
+
+          {/* Mobile Card View */}
+          <div className="cms-mobile-cards" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            {filteredRequests.map((req) => (
+              <div key={req.id} style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '14px', padding: '16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                    {req.name}
+                  </h3>
+                  <span style={{ padding: '3px 8px', borderRadius: '6px', backgroundColor: req.status === 'unread' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)', color: req.status === 'unread' ? '#ef4444' : '#22c55e', fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase' }}>
+                    {req.status || 'Received'}
+                  </span>
+                </div>
+
+                <div style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: 700 }}>
+                  Service: {req.service}
+                </div>
+
+                <div style={{ fontSize: '0.84rem', color: '#94a3b8' }}>
+                  Phone: <a href={`tel:${req.phone}`} style={{ color: '#ffffff', fontWeight: 700, textDecoration: 'none' }}>{req.phone}</a> {req.email ? `• ${req.email}` : ''}
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+                  <button onClick={() => setSelectedReq(req)} style={{ flex: 1, background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 700 }}>
+                    View Inquiry
+                  </button>
+                  <button onClick={() => handleToggleRead(req)} style={{ flex: 1, background: 'rgba(100, 116, 139, 0.2)', border: '1px solid #334155', color: '#cbd5e1', padding: '8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}>
+                    {req.status === 'unread' ? 'Mark Read' : 'Mark Unread'}
+                  </button>
+                  <button onClick={() => handleDeleteRequest(req.id)} style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444', padding: '8px 12px', borderRadius: '6px', cursor: 'pointer' }}>
+                    <Trash2 size={15} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         /* Public Contact Info Form */
-        <form onSubmit={handleSaveContactInfo} style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '32px', maxWidth: '640px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <form onSubmit={handleSaveContactInfo} style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '24px', maxWidth: '640px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
             <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '8px' }}>CEO Line (Line 1)</label>
             <input type="text" value={contactInfo.phone1} onChange={(e) => setContactInfo({ ...contactInfo, phone1: e.target.value })} style={{ width: '100%', padding: '12px 14px', borderRadius: '8px', backgroundColor: '#0f172a', border: '1px solid #334155', color: '#ffffff', boxSizing: 'border-box' }} />
@@ -274,8 +311,8 @@ export default function ContactCMS() {
 
       {/* Details View Modal */}
       {selectedReq && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.75)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-          <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', width: '100%', maxWidth: '540px', padding: '28px' }}>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.8)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+          <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', width: '100%', maxWidth: '540px', padding: '24px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>Inquiry Details</h3>
               <button onClick={() => setSelectedReq(null)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer' }}>✕</button>
@@ -299,6 +336,25 @@ export default function ContactCMS() {
           </div>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 767px) {
+          .cms-table-desktop {
+            display: none !important;
+          }
+          .cms-mobile-cards {
+            display: flex !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .cms-table-desktop {
+            display: block !important;
+          }
+          .cms-mobile-cards {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

@@ -99,13 +99,14 @@ export default function ServicesCMS() {
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '24px' }}>
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
             IT Services CMS (Full CRUD)
           </h2>
           <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginTop: '4px' }}>
-            Manage the 8 core IT service cards displayed on the public website
+            Manage the core IT service cards displayed on the public website
           </p>
         </div>
 
@@ -149,9 +150,9 @@ export default function ServicesCMS() {
         </div>
       )}
 
-      {/* Services Table */}
-      <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+      {/* Desktop Table Container (hidden on small mobile screens) */}
+      <div className="cms-table-desktop" style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', overflowX: 'auto' }}>
+        <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
           <thead>
             <tr style={{ backgroundColor: '#0f172a', borderBottom: '1px solid #334155', color: '#94a3b8', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               <th style={{ padding: '14px 20px' }}>Num</th>
@@ -168,7 +169,7 @@ export default function ServicesCMS() {
                 <td style={{ padding: '16px 20px', fontWeight: 800, color: '#38bdf8' }}>{item.num}</td>
                 <td style={{ padding: '16px 20px', color: '#94a3b8' }}>{item.icon}</td>
                 <td style={{ padding: '16px 20px', fontWeight: 700, color: '#ffffff' }}>{item.title}</td>
-                <td style={{ padding: '16px 20px', color: '#94a3b8', maxWidth: '300px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <td style={{ padding: '16px 20px', color: '#94a3b8', maxWidth: '240px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {item.shortDesc}
                 </td>
                 <td style={{ padding: '16px 20px' }}>
@@ -196,14 +197,14 @@ export default function ServicesCMS() {
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '8px' }}>
                     <button
                       onClick={() => setEditingItem(item)}
-                      style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 600 }}
+                      style={{ background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 600 }}
                     >
                       <Edit2 size={14} />
                       <span>Edit</span>
                     </button>
                     <button
                       onClick={() => setDeletingId(item.id)}
-                      style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444', padding: '6px 10px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 600 }}
+                      style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.8rem', fontWeight: 600 }}
                     >
                       <Trash2 size={14} />
                       <span>Delete</span>
@@ -216,10 +217,80 @@ export default function ServicesCMS() {
         </table>
       </div>
 
+      {/* Mobile Card List (optimized view for small screens) */}
+      <div className="cms-mobile-cards" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        {services.map((item) => (
+          <div
+            key={item.id}
+            style={{
+              backgroundColor: '#1e293b',
+              border: '1px solid #334155',
+              borderRadius: '14px',
+              padding: '18px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.15)', padding: '2px 8px', borderRadius: '4px' }}>
+                  {item.num}
+                </span>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                  {item.title}
+                </h3>
+              </div>
+
+              <button
+                onClick={() => handleToggleStatus(item)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  padding: '4px 10px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: item.is_active !== false ? 'rgba(34, 197, 94, 0.15)' : 'rgba(100, 116, 139, 0.2)',
+                  color: item.is_active !== false ? '#4ade80' : '#94a3b8',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  cursor: 'pointer'
+                }}
+              >
+                {item.is_active !== false ? <Eye size={12} /> : <EyeOff size={12} />}
+                <span>{item.is_active !== false ? 'Active' : 'Disabled'}</span>
+              </button>
+            </div>
+
+            <p style={{ color: '#94a3b8', fontSize: '0.85rem', lineHeight: 1.45, margin: 0 }}>
+              {item.shortDesc}
+            </p>
+
+            <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
+              <button
+                onClick={() => setEditingItem(item)}
+                style={{ flex: 1, background: 'rgba(56, 189, 248, 0.15)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8', padding: '10px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 700 }}
+              >
+                <Edit2 size={15} />
+                <span>Edit Service</span>
+              </button>
+              <button
+                onClick={() => setDeletingId(item.id)}
+                style={{ flex: 1, background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444', padding: '10px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '0.85rem', fontWeight: 700 }}
+              >
+                <Trash2 size={15} />
+                <span>Delete</span>
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {/* Edit / Add Modal */}
       {editingItem && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.75)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-          <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', width: '100%', maxWidth: '640px', maxHeight: '90vh', overflowY: 'auto', padding: '28px' }}>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.8)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
+          <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', width: '100%', maxWidth: '640px', maxHeight: '90vh', overflowY: 'auto', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
                 {editingItem.id ? 'Edit Service' : 'Add New Service'}
@@ -230,7 +301,7 @@ export default function ServicesCMS() {
             </div>
 
             <form onSubmit={handleSaveItem} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '14px' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '6px' }}>Number Code</label>
                   <input type="text" value={editingItem.num} onChange={(e) => setEditingItem({ ...editingItem, num: e.target.value })} style={{ width: '100%', padding: '10px 12px', borderRadius: '8px', backgroundColor: '#0f172a', border: '1px solid #334155', color: '#ffffff', outline: 'none', boxSizing: 'border-box' }} />
@@ -267,18 +338,37 @@ export default function ServicesCMS() {
 
       {/* Delete Confirmation Modal */}
       {deletingId && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.75)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0, 0, 0, 0.8)', zIndex: 110, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
           <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', width: '100%', maxWidth: '420px', padding: '24px', textAlign: 'center' }}>
             <AlertTriangle size={36} color="#ef4444" style={{ margin: '0 auto 12px auto' }} />
             <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>Are you sure you want to delete this service?</h3>
             <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginBottom: '20px' }}>This action will remove the service card from the public website.</p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-              <button onClick={() => setDeletingId(null)} style={{ padding: '10px 18px', borderRadius: '8px', backgroundColor: '#334155', color: '#ffffff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Cancel</button>
+              <button onClick={() => setDeletingId(null)} style={{ padding: '10px 16px', borderRadius: '8px', backgroundColor: '#334155', color: '#ffffff', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Cancel</button>
               <button onClick={handleDeleteConfirm} style={{ padding: '10px 20px', borderRadius: '8px', backgroundColor: '#ef4444', color: '#ffffff', border: 'none', cursor: 'pointer', fontWeight: 700 }}>Delete</button>
             </div>
           </div>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 767px) {
+          .cms-table-desktop {
+            display: none !important;
+          }
+          .cms-mobile-cards {
+            display: flex !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .cms-table-desktop {
+            display: block !important;
+          }
+          .cms-mobile-cards {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
