@@ -119,9 +119,10 @@ export default function Founders() {
     <div style={{ marginTop: '72px', paddingTop: '64px', borderTop: '1px solid var(--line)' }}>
       {/* Section Header */}
       <div style={{ textAlign: 'center', maxWidth: '780px', margin: '0 auto 48px' }}>
-        <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+        <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
           <Sparkles size={15} color="var(--blue)" />
           <span>Executive Leadership &amp; Founders</span>
+          <Sparkles size={15} color="var(--blue)" />
         </div>
         <h2 className="section-title" style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.75rem)', marginTop: '8px' }}>
           Meet the Minds Behind <span style={{ color: 'var(--blue)' }}>K²V Technologies</span>

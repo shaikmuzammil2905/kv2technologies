@@ -9,7 +9,8 @@ import {
   ShieldCheck,
   Gauge,
   TrendingUp,
-  ChevronRight
+  ChevronRight,
+  Sparkles
 } from 'lucide-react';
 import { fetchTableData } from '../lib/supabaseClient';
 import { INITIAL_PROCESS_STEPS } from '../lib/seedData';
@@ -57,7 +58,9 @@ export default function Process() {
         {/* Section Header */}
         <div className="section-head" style={{ textAlign: 'center', marginBottom: '56px' }}>
           <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            <span>— HOW WE WORK —</span>
+            <Sparkles size={14} color="#0757d9" />
+            <span>HOW WE WORK</span>
+            <Sparkles size={14} color="#0757d9" />
           </div>
           <h2 className="section-title" style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, marginTop: '8px' }}>
             A Structured Approach From <br className="hidden-mobile" />

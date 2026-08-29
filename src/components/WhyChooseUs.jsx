@@ -23,8 +23,9 @@ export default function WhyChooseUs() {
       <div className="container">
         <div className="section-head">
           <div className="eyebrow">
+            <Sparkles size={14} color="var(--blue)" />
             <span>WHY K²V</span>
-            <Sparkles size={14} color="var(--blue)" style={{ marginLeft: '6px' }} />
+            <Sparkles size={14} color="var(--blue)" />
           </div>
           <h2 className="section-title">
             More Than IT Support. <span style={{ color: 'var(--blue)' }}>A Technology Partner.</span>

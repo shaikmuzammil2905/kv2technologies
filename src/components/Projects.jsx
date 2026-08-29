@@ -46,6 +46,7 @@ export default function Projects({ onOpenTicketWidget }) {
           <div className="eyebrow">
             <Sparkles size={14} color="var(--blue)" />
             <span>Case Studies</span>
+            <Sparkles size={14} color="var(--blue)" />
           </div>
           <h2 className="section-title">
             How Structured IT Operations <span style={{ color: 'var(--blue)' }}>Change Outcomes</span>

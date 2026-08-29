@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Landmark, Activity, Factory, ShoppingCart, Cpu, GraduationCap } from 'lucide-react';
+import { Landmark, Activity, Factory, ShoppingCart, Cpu, GraduationCap, Sparkles } from 'lucide-react';
 
 export default function Industries() {
   const industries = [
@@ -26,7 +26,11 @@ export default function Industries() {
       <div className="container">
         {/* Industries Head */}
         <div className="section-head">
-          <div className="eyebrow">Industries</div>
+          <div className="eyebrow">
+            <Sparkles size={14} color="var(--blue)" />
+            <span>Industries We Serve</span>
+            <Sparkles size={14} color="var(--blue)" />
+          </div>
           <h2 className="section-title">
             Solutions Designed For <span style={{ color: 'var(--blue)' }}>Organizations Like Yours</span>
           </h2>
@@ -77,7 +81,11 @@ export default function Industries() {
 
         {/* Tech Ecosystem */}
         <div className="section-head" style={{ marginBottom: '32px' }}>
-          <div className="eyebrow">Technology Ecosystem</div>
+          <div className="eyebrow">
+            <Sparkles size={14} color="var(--blue)" />
+            <span>Technology Ecosystem</span>
+            <Sparkles size={14} color="var(--blue)" />
+          </div>
           <h2 className="section-title">Built On the Platforms Enterprise IT Runs On</h2>
         </div>
 

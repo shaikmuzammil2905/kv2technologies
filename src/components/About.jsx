@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { HeartHandshake, Zap, Globe2 } from 'lucide-react';
+import { HeartHandshake, Zap, Globe2, Sparkles } from 'lucide-react';
 import Founders from './Founders';
 import { fetchSingleRecord } from '../lib/supabaseClient';
 import { INITIAL_ABOUT } from '../lib/seedData';
@@ -36,7 +36,11 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="eyebrow">{aboutData.eyebrow}</div>
+            <div className="eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <Sparkles size={14} color="var(--blue)" />
+              <span>{aboutData.eyebrow}</span>
+              <Sparkles size={14} color="var(--blue)" />
+            </div>
 
             <h2 className="section-title">
               {aboutData.heading}

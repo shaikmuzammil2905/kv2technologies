@@ -50,6 +50,7 @@ export default function Services({ onOpenTicketWidget }) {
           <div className="eyebrow">
             <Sparkles size={14} color="var(--blue)" />
             <span>OUR IT SERVICES</span>
+            <Sparkles size={14} color="var(--blue)" />
           </div>
           <h2 className="section-title">
             IT Services Built Around <span style={{ color: 'var(--blue)' }}>Your Business</span>

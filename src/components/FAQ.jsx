@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Search, HelpCircle } from 'lucide-react';
+import { ChevronDown, Search, HelpCircle, Sparkles } from 'lucide-react';
 import { FAQ_DATA } from '../data/faqData';
 import { fetchTableData } from '../lib/supabaseClient';
 
@@ -32,8 +32,9 @@ export default function FAQ() {
         {/* Head */}
         <div className="section-head">
           <div className="eyebrow">
-            <HelpCircle size={14} color="var(--blue)" />
+            <Sparkles size={14} color="var(--blue)" />
             <span>FAQs</span>
+            <Sparkles size={14} color="var(--blue)" />
           </div>
           <h2 className="section-title">
             Frequently Asked <span style={{ color: 'var(--blue)' }}>Questions</span>

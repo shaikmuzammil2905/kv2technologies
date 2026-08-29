@@ -66,6 +66,7 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
           <div className="eyebrow">
             <Sparkles size={14} color="var(--blue)" />
             <span>Get In Touch</span>
+            <Sparkles size={14} color="var(--blue)" />
           </div>
           <h2 className="section-title">
             Let's Make IT <span style={{ color: 'var(--blue)' }}>Simpler</span>
