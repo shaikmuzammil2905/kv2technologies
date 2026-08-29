@@ -122,11 +122,13 @@ export default function ContactCMS() {
         message: 'Looking for 24/7 Service Desk & ITSM infrastructure support for a 50+ user team.',
         status: 'unread'
       });
-      setToast({ type: 'success', text: 'Test inquiry submitted and saved successfully!' });
+      await loadData();
+      setToast({ type: 'success', text: 'Test inquiry created & saved successfully!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to create test inquiry.' });
+      console.error('Test inquiry error:', err);
+      setToast({ type: 'error', text: `Failed to create test inquiry: ${err?.message || err}` });
     } finally {
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

@@ -32,13 +32,23 @@ export function getCachedData(key, defaultData) {
   try {
     if (typeof localStorage !== 'undefined') {
       const cached = localStorage.getItem(`k2v_cms_${key}`);
-      if (cached) return JSON.parse(cached);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(defaultData)) {
+          return Array.isArray(parsed) ? parsed : defaultData;
+        }
+        return parsed;
+      }
     }
   } catch (e) {
     // Ignore parse error
   }
   if (memoryCache.has(key)) {
-    return memoryCache.get(key);
+    const cached = memoryCache.get(key);
+    if (Array.isArray(defaultData)) {
+      return Array.isArray(cached) ? cached : defaultData;
+    }
+    return cached;
   }
   return defaultData;
 }
@@ -171,10 +181,15 @@ export async function saveContactSubmission(submission) {
   };
 
   // 1. Immediately store in local cache so it appears in Admin panel right away
-  const existing = getCachedData('contact_requests', []);
-  const updatedList = [reqRecord, ...existing.filter(r => r.id !== reqRecord.id)];
-  setCachedData('contact_requests', updatedList);
-  notifyCmsUpdate('contact_requests');
+  try {
+    const rawExisting = getCachedData('contact_requests', []);
+    const existing = Array.isArray(rawExisting) ? rawExisting : [];
+    const updatedList = [reqRecord, ...existing.filter(r => r && r.id !== reqRecord.id)];
+    setCachedData('contact_requests', updatedList);
+    notifyCmsUpdate('contact_requests');
+  } catch (cacheErr) {
+    console.warn('Local cache save note:', cacheErr);
+  }
 
   // 2. Persist to Supabase Database
   try {
@@ -187,7 +202,9 @@ export async function saveContactSubmission(submission) {
       console.warn('Supabase contact_requests insert note:', error.message);
     } else if (data && data.length > 0) {
       const savedRecord = data[0];
-      const freshList = [savedRecord, ...existing.filter(r => r.id !== reqRecord.id && r.id !== savedRecord.id)];
+      const rawExisting = getCachedData('contact_requests', []);
+      const existing = Array.isArray(rawExisting) ? rawExisting : [];
+      const freshList = [savedRecord, ...existing.filter(r => r && r.id !== reqRecord.id && r.id !== savedRecord.id)];
       setCachedData('contact_requests', freshList);
       notifyCmsUpdate('contact_requests');
       return savedRecord;
@@ -201,7 +218,8 @@ export async function saveContactSubmission(submission) {
 
 // Helper to fetch combined contact requests from Supabase & Local Cache
 export async function getContactRequests() {
-  const localItems = getCachedData('contact_requests', []);
+  const rawLocal = getCachedData('contact_requests', []);
+  const localItems = Array.isArray(rawLocal) ? rawLocal : [];
   let dbItems = [];
 
   try {
@@ -212,36 +230,32 @@ export async function getContactRequests() {
 
     if (!error && Array.isArray(data)) {
       dbItems = data;
+    } else if (error) {
+      console.warn('Supabase getContactRequests note:', error.message);
     }
   } catch (err) {
     console.warn('Contact requests DB fetch exception:', err);
   }
 
-  // Merge local & DB items by ID, prioritizing newest
+  // Merge local & DB items by ID, prioritizing local updates
   const itemMap = new Map();
 
-  // Add DB items first
-  dbItems.forEach(item => {
+  // Add local items first so locally submitted inquiries are always preserved
+  localItems.forEach(item => {
     if (item && item.id) itemMap.set(String(item.id), item);
   });
 
-  // Merge local items
-  localItems.forEach(item => {
+  // Merge DB items
+  dbItems.forEach(item => {
     if (item && item.id) {
-      if (!itemMap.has(String(item.id))) {
-        itemMap.set(String(item.id), item);
-      } else {
-        // If local item has updated status (e.g. read/unread toggled), keep newest status
-        const dbItem = itemMap.get(String(item.id));
-        itemMap.set(String(item.id), { ...dbItem, ...item });
-      }
+      const existingLocal = itemMap.get(String(item.id));
+      itemMap.set(String(item.id), { ...item, ...existingLocal });
     }
   });
 
   const merged = Array.from(itemMap.values());
   merged.sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
 
-  // Update local cache with complete merged view
   setCachedData('contact_requests', merged);
   return merged;
 }
