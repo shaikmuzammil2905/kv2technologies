@@ -70,21 +70,14 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      try {
-        await saveContactSubmission({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          service: formData.service,
-          message: formData.message,
-          status: 'unread'
-        });
-      } catch (err) {
-        console.warn('Contact request save error:', err);
-      }
+      const rawPhone = contactDetails.phone1 ? contactDetails.phone1.replace(/\D/g, '') : '919741676105';
+      const text = encodeURIComponent(
+        `Hello K²V Technologies!\nI would like to submit an inquiry:\n• Name: ${formData.name.trim()}\n• Phone: ${formData.phone.trim()}\n• Email: ${formData.email.trim() || 'Not Provided'}\n• Service Interested: ${formData.service}\n• Requirement Details: ${formData.message.trim()}`
+      );
+      window.open(`https://wa.me/${rawPhone}?text=${text}`, '_blank');
       setSubmitted(true);
     }
   };

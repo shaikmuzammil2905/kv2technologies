@@ -28,20 +28,12 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
     '24/7 NOC Telemetry'
   ];
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await saveContactSubmission({
-        name: name.trim() || 'Portal Visitor',
-        phone: phone.trim() || 'Not provided',
-        email: '',
-        service: `${service} (${priority})`,
-        message: description.trim() || `Priority ${priority} ticket request for ${service}`,
-        status: 'unread'
-      });
-    } catch (err) {
-      console.warn('Ticket request save note:', err);
-    }
+    const text = encodeURIComponent(
+      `Hello K²V Technologies!\nI would like to raise a support ticket:\n• Priority: ${priority}\n• Service Category: ${service}\n• Visitor Name: ${name.trim() || 'N/A'}\n• Phone/Contact: ${phone.trim() || 'N/A'}\n• Requirement Summary: ${description.trim() || 'General Support Inquiry'}`
+    );
+    window.open(`https://wa.me/919741676105?text=${text}`, '_blank');
     setSubmitted(true);
   };
 

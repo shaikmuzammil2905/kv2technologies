@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase, getContactRequests, subscribeCmsUpdate } from '../lib/supabaseClient';
+import { supabase } from '../lib/supabaseClient';
 import {
   Briefcase,
   FolderGit2,
   HelpCircle,
-  Mail,
   Image,
-  Menu as MenuIcon,
   MessageSquare,
   PhoneCall,
   ArrowUpRight,
-  Sparkles,
-  CheckCircle,
-  Clock
+  Sparkles
 } from 'lucide-react';
 import { SERVICES_DATA, PROJECTS_DATA, FAQ_DATA } from '../lib/seedData';
 
@@ -23,12 +19,9 @@ export default function Dashboard() {
     projectsCount: PROJECTS_DATA.length,
     faqsCount: FAQ_DATA.length,
     mediaCount: 0,
-    contactRequestsCount: 0,
-    unreadRequestsCount: 0,
     navItemsCount: 8
   });
 
-  const [recentRequests, setRecentRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,21 +36,13 @@ export default function Dashboard() {
         // Fetch media count
         const { count: mediaCount } = await supabase.from('media_library').select('*', { count: 'exact', head: true });
 
-        // Fetch contact requests merged from DB & Local Cache
-        const allRequests = await getContactRequests();
-        const unreadCount = allRequests.filter(r => r.status === 'unread').length;
-
         setStats({
           servicesCount: svcCount ?? SERVICES_DATA.length,
           projectsCount: prjCount ?? PROJECTS_DATA.length,
           faqsCount: faqCount ?? FAQ_DATA.length,
           mediaCount: mediaCount ?? 0,
-          contactRequestsCount: allRequests.length,
-          unreadRequestsCount: unreadCount,
           navItemsCount: 8
         });
-
-        setRecentRequests(allRequests.slice(0, 5));
       } catch (err) {
         console.warn('Dashboard stats fetch fallback:', err);
       } finally {
@@ -66,22 +51,13 @@ export default function Dashboard() {
     }
 
     loadDashboardMetrics();
-
-    const unsubscribe = subscribeCmsUpdate((tableName) => {
-      if (tableName === 'contact_requests') {
-        loadDashboardMetrics();
-      }
-    });
-    return () => unsubscribe();
   }, []);
 
   const metricCards = [
     { label: 'Total Services', value: stats.servicesCount, icon: Briefcase, color: '#0284c7', link: '/admin/services' },
     { label: 'Total Projects', value: stats.projectsCount, icon: FolderGit2, color: '#8b5cf6', link: '/admin/projects' },
     { label: 'Total FAQs', value: stats.faqsCount, icon: HelpCircle, color: '#ec4899', link: '/admin/faq' },
-    { label: 'Media Assets', value: stats.mediaCount, icon: Image, color: '#10b981', link: '/admin/media' },
-    { label: 'Contact Requests', value: stats.contactRequestsCount, icon: Mail, color: '#f59e0b', link: '/admin/contact' },
-    { label: 'Unread Requests', value: stats.unreadRequestsCount, icon: Clock, color: '#ef4444', link: '/admin/contact' }
+    { label: 'Media Assets', value: stats.mediaCount, icon: Image, color: '#10b981', link: '/admin/media' }
   ];
 
   const quickLinks = [
@@ -153,7 +129,7 @@ export default function Dashboard() {
       </div>
 
       {/* Quick Links Section */}
-      <div style={{ marginBottom: '36px' }}>
+      <div>
         <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff', marginBottom: '16px' }}>
           Quick Management Actions
         </h3>
@@ -192,53 +168,6 @@ export default function Dashboard() {
             );
           })}
         </div>
-      </div>
-
-      {/* Recent Contact Submissions */}
-      <div style={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
-          <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-            Recent Contact Form Inquiries
-          </h3>
-          <Link to="/admin/contact" style={{ color: '#38bdf8', fontSize: '0.85rem', fontWeight: 700, textDecoration: 'none' }}>
-            View All Requests →
-          </Link>
-        </div>
-
-        {recentRequests.length === 0 ? (
-          <div style={{ padding: '32px 0', textAlign: 'center', color: '#64748b', fontSize: '0.9rem' }}>
-            No recent contact form submissions found in database.
-          </div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {recentRequests.map((req, rIdx) => (
-              <div
-                key={rIdx}
-                style={{
-                  padding: '14px 18px',
-                  backgroundColor: '#0f172a',
-                  border: '1px solid #334155',
-                  borderRadius: '10px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 800, color: '#ffffff' }}>
-                    {req.name} — <span style={{ color: '#38bdf8' }}>{req.service || 'Inquiry'}</span>
-                  </div>
-                  <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '2px' }}>
-                    {req.phone} • {req.email || 'No email provided'}
-                  </div>
-                </div>
-                <span style={{ fontSize: '0.72rem', padding: '4px 10px', borderRadius: '6px', backgroundColor: req.status === 'unread' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)', color: req.status === 'unread' ? '#ef4444' : '#22c55e', fontWeight: 800, textTransform: 'uppercase' }}>
-                  {req.status || 'Received'}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

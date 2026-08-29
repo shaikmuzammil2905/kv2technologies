@@ -105,7 +105,6 @@ export default function AdminLayout() {
     {
       title: 'COMMUNICATION',
       items: [
-        { path: '/admin/contact', label: 'Contact & Requests', icon: Mail },
         { path: '/admin/whatsapp', label: 'WhatsApp Settings', icon: MessageSquare },
         { path: '/admin/talk-to-expert', label: 'Talk to Expert', icon: PhoneCall }
       ]
