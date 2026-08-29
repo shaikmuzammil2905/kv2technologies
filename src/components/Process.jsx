@@ -1,19 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
+  Compass,
+  FileSearch,
+  Layout,
+  RotateCw,
   MessageSquare,
   Search,
   Settings,
-  RotateCw,
   Target,
   ShieldCheck,
   Gauge,
   TrendingUp,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  Sliders,
+  CheckCircle,
+  Zap,
+  Cpu
 } from 'lucide-react';
 import { fetchTableData } from '../lib/supabaseClient';
 import { INITIAL_PROCESS_STEPS } from '../lib/seedData';
+
+const iconMap = {
+  Compass: Compass,
+  FileSearch: FileSearch,
+  Layout: Layout,
+  RotateCw: RotateCw,
+  MessageSquare: MessageSquare,
+  Search: Search,
+  Settings: Settings,
+  Sliders: Sliders,
+  CheckCircle: CheckCircle,
+  Zap: Zap,
+  Cpu: Cpu
+};
+
+const defaultIcons = [Compass, FileSearch, Layout, RotateCw];
 
 export default function Process() {
   const [steps, setSteps] = useState(INITIAL_PROCESS_STEPS);
@@ -75,7 +98,9 @@ export default function Process() {
         <div className="process-grid-wrapper" style={{ position: 'relative', marginBottom: '40px' }}>
           <div className="grid-4" style={{ gap: '20px', position: 'relative', zIndex: 2 }}>
             {steps.map((step, idx) => {
-              const IconComp = step.icon;
+              const IconComp = (typeof step.icon === 'function' || typeof step.icon === 'object')
+                ? step.icon
+                : (iconMap[step.icon] || defaultIcons[idx % defaultIcons.length]);
 
               return (
                 <div key={idx} style={{ position: 'relative' }}>

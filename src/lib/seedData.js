@@ -30,9 +30,9 @@ export const INITIAL_WHY_US = [
 ];
 
 export const INITIAL_PROCESS_STEPS = [
-  { num: '01', title: 'Discover', desc: 'We understand your users, systems, challenges, and business requirements.', icon: 'MessageSquare', display_order: 1, is_active: true },
-  { num: '02', title: 'Assess', desc: 'We evaluate your current IT environment, workflows, service gaps, and operational needs.', icon: 'Search', display_order: 2, is_active: true },
-  { num: '03', title: 'Design', desc: 'We build a structured service model aligned with your business and technology requirements.', icon: 'Settings', display_order: 3, is_active: true },
+  { num: '01', title: 'Discover', desc: 'We understand your users, systems, challenges, and business requirements.', icon: 'Compass', display_order: 1, is_active: true },
+  { num: '02', title: 'Assess', desc: 'We evaluate your current IT environment, workflows, service gaps, and operational needs.', icon: 'FileSearch', display_order: 2, is_active: true },
+  { num: '03', title: 'Design', desc: 'We build a structured service model aligned with your business and technology requirements.', icon: 'Layout', display_order: 3, is_active: true },
   { num: '04', title: 'Implement & Optimize', desc: 'We deploy, monitor, measure, and continuously improve IT operations and service delivery.', icon: 'RotateCw', display_order: 4, is_active: true }
 ];
 
