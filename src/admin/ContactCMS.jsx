@@ -112,6 +112,24 @@ export default function ContactCMS() {
     }
   };
 
+  const handleAddTestInquiry = async () => {
+    try {
+      await saveContactSubmission({
+        name: 'Sample Client Inquiry',
+        phone: '+91 98765 43210',
+        email: 'client.test@domain.com',
+        service: 'Managed IT Services',
+        message: 'Looking for 24/7 Service Desk & ITSM infrastructure support for a 50+ user team.',
+        status: 'unread'
+      });
+      setToast({ type: 'success', text: 'Test inquiry submitted and saved successfully!' });
+    } catch (err) {
+      setToast({ type: 'error', text: 'Failed to create test inquiry.' });
+    } finally {
+      setTimeout(() => setToast(null), 3000);
+    }
+  };
+
   const filteredRequests = requests.filter(r => {
     const matchesSearch = (r.name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
                           (r.phone || '').includes(searchQuery) ||
@@ -140,38 +158,56 @@ export default function ContactCMS() {
           </p>
         </div>
 
-        {/* Tab Selector */}
-        <div style={{ display: 'flex', backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <button
-            onClick={() => setActiveTab('inbox')}
+            onClick={handleAddTestInquiry}
             style={{
               padding: '8px 14px',
-              borderRadius: '6px',
-              border: 'none',
-              backgroundColor: activeTab === 'inbox' ? '#0284c7' : 'transparent',
-              color: activeTab === 'inbox' ? '#ffffff' : '#94a3b8',
+              borderRadius: '8px',
+              border: '1px solid #334155',
+              backgroundColor: '#1e293b',
+              color: '#38bdf8',
               fontWeight: 700,
               fontSize: '0.82rem',
               cursor: 'pointer'
             }}
           >
-            Inbox ({requests.filter(r => r.status === 'unread').length} Unread)
+            + Create Test Inquiry
           </button>
-          <button
-            onClick={() => setActiveTab('info')}
-            style={{
-              padding: '8px 14px',
-              borderRadius: '6px',
-              border: 'none',
-              backgroundColor: activeTab === 'info' ? '#0284c7' : 'transparent',
-              color: activeTab === 'info' ? '#ffffff' : '#94a3b8',
-              fontWeight: 700,
-              fontSize: '0.82rem',
-              cursor: 'pointer'
-            }}
-          >
-            Public Contact Info
-          </button>
+
+          {/* Tab Selector */}
+          <div style={{ display: 'flex', backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px', padding: '4px' }}>
+            <button
+              onClick={() => setActiveTab('inbox')}
+              style={{
+                padding: '8px 14px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: activeTab === 'inbox' ? '#0284c7' : 'transparent',
+                color: activeTab === 'inbox' ? '#ffffff' : '#94a3b8',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                cursor: 'pointer'
+              }}
+            >
+              Inbox ({requests.filter(r => r.status === 'unread').length} Unread)
+            </button>
+            <button
+              onClick={() => setActiveTab('info')}
+              style={{
+                padding: '8px 14px',
+                borderRadius: '6px',
+                border: 'none',
+                backgroundColor: activeTab === 'info' ? '#0284c7' : 'transparent',
+                color: activeTab === 'info' ? '#ffffff' : '#94a3b8',
+                fontWeight: 700,
+                fontSize: '0.82rem',
+                cursor: 'pointer'
+              }}
+            >
+              Public Contact Info
+            </button>
+          </div>
         </div>
       </div>
 

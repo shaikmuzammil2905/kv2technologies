@@ -144,15 +144,28 @@ export async function verifyAndSaveRecord(tableName, idKey, idValue, payload, is
   return verified || payload;
 }
 
+export function generateUUID() {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 // Contact submission persistence helper (Saves to both Supabase & Local Cache)
 export async function saveContactSubmission(submission) {
+  const isUUID = submission.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(submission.id);
+  const reqId = isUUID ? submission.id : generateUUID();
+
   const reqRecord = {
-    id: submission.id || `req-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-    name: (submission.name || 'Anonymous User').trim(),
-    phone: (submission.phone || '').trim(),
-    email: (submission.email || '').trim(),
+    id: reqId,
+    name: (submission.name || 'Website Visitor').trim(),
+    phone: (submission.phone || '').trim() || 'N/A',
+    email: (submission.email || '').trim() || 'inquiry@k2vtechnologies.com',
     service: submission.service || 'IT Service Desk',
-    message: (submission.message || '').trim(),
+    message: (submission.message || '').trim() || 'No additional details provided.',
     status: submission.status || 'unread',
     created_at: submission.created_at || new Date().toISOString()
   };
@@ -165,9 +178,19 @@ export async function saveContactSubmission(submission) {
 
   // 2. Persist to Supabase Database
   try {
-    const { error } = await supabase.from('contact_requests').insert([reqRecord]);
+    const { data, error } = await supabase
+      .from('contact_requests')
+      .insert([reqRecord])
+      .select('*');
+
     if (error) {
       console.warn('Supabase contact_requests insert note:', error.message);
+    } else if (data && data.length > 0) {
+      const savedRecord = data[0];
+      const freshList = [savedRecord, ...existing.filter(r => r.id !== reqRecord.id && r.id !== savedRecord.id)];
+      setCachedData('contact_requests', freshList);
+      notifyCmsUpdate('contact_requests');
+      return savedRecord;
     }
   } catch (err) {
     console.warn('Supabase contact_requests insert exception:', err);
@@ -222,4 +245,5 @@ export async function getContactRequests() {
   setCachedData('contact_requests', merged);
   return merged;
 }
+
 
