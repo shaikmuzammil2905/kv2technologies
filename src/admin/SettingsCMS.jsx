@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchSingleRecord } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { INITIAL_SITE_SETTINGS } from '../lib/seedData';
 import { Settings, Save, CheckCircle2 } from 'lucide-react';
 
@@ -36,15 +36,21 @@ export default function SettingsCMS() {
     e.preventDefault();
     setSaving(true);
 
+    const payload = { id: 1, ...data, updated_at: new Date().toISOString() };
+    setCachedData('site_settings', payload);
+    notifyCmsUpdate('site_settings');
+
     try {
-      const payload = { id: 1, ...data, updated_at: new Date().toISOString() };
-      await supabase.from('site_settings').upsert(payload, { onConflict: 'id' });
-      setToast({ type: 'success', text: 'Global website settings updated!' });
+      const { error } = await supabase.from('site_settings').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
+
+      setToast({ type: 'success', text: 'Global website settings saved to database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save global settings.' });
+      console.error('SettingsCMS Save Error:', err);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
       setSaving(false);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

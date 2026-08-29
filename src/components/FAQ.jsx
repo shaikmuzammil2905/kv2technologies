@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Search, HelpCircle, Sparkles } from 'lucide-react';
 import { FAQ_DATA } from '../data/faqData';
-import { fetchTableData } from '../lib/supabaseClient';
+import { fetchTableData, subscribeCmsUpdate } from '../lib/supabaseClient';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -12,18 +12,30 @@ export default function FAQ() {
   useEffect(() => {
     async function loadFaqs() {
       const data = await fetchTableData('faqs', FAQ_DATA);
-      const activeData = data.filter(f => f.is_active !== false);
-      if (activeData.length > 0) {
+      if (Array.isArray(data)) {
+        const normalized = data.map(f => ({
+          ...f,
+          question: f.question || f.q || '',
+          answer: f.answer || f.a || ''
+        }));
+        const activeData = normalized.filter(f => f.is_active !== false);
         setFaqList(activeData);
       }
     }
     loadFaqs();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'faqs') {
+        loadFaqs();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   const filteredFaqs = faqList.filter(
     (faq) =>
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+      (faq.question || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (faq.answer || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (

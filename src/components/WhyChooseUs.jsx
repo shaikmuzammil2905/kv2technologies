@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
-import { fetchTableData } from '../lib/supabaseClient';
+import { fetchTableData, subscribeCmsUpdate } from '../lib/supabaseClient';
 import { INITIAL_WHY_US } from '../lib/seedData';
 
 export default function WhyChooseUs() {
@@ -10,12 +10,19 @@ export default function WhyChooseUs() {
   useEffect(() => {
     async function loadWhyUs() {
       const data = await fetchTableData('why_us', INITIAL_WHY_US);
-      const activeData = data.filter(w => w.is_active !== false);
-      if (activeData.length > 0) {
+      if (Array.isArray(data)) {
+        const activeData = data.filter(w => w.is_active !== false);
         setReasons(activeData);
       }
     }
     loadWhyUs();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'why_us') {
+        loadWhyUs();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   return (

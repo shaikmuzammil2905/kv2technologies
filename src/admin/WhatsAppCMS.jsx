@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchSingleRecord } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { INITIAL_WHATSAPP } from '../lib/seedData';
 import { MessageSquare, Save, ExternalLink, CheckCircle2, AlertCircle } from 'lucide-react';
 
@@ -31,15 +31,21 @@ export default function WhatsAppCMS() {
     e.preventDefault();
     setSaving(true);
 
+    const payload = { id: 1, ...data, updated_at: new Date().toISOString() };
+    setCachedData('whatsapp_settings', payload);
+    notifyCmsUpdate('whatsapp_settings');
+
     try {
-      const payload = { id: 1, ...data, updated_at: new Date().toISOString() };
-      await supabase.from('whatsapp_settings').upsert(payload, { onConflict: 'id' });
-      setToast({ type: 'success', text: 'WhatsApp configuration updated successfully!' });
+      const { error } = await supabase.from('whatsapp_settings').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
+
+      setToast({ type: 'success', text: 'WhatsApp configuration saved to database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save WhatsApp settings.' });
+      console.error('WhatsAppCMS Save Error:', err);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
       setSaving(false);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

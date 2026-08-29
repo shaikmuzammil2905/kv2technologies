@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { supabase, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { INITIAL_NAVIGATION } from '../lib/seedData';
-import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, CheckCircle2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, CheckCircle2, AlertTriangle, ArrowUp, ArrowDown } from 'lucide-react';
 
 export default function NavigationCMS() {
   const [navItems, setNavItems] = useState([]);
@@ -22,11 +22,11 @@ export default function NavigationCMS() {
 
   const handleOpenNew = () => {
     setEditingItem({
-      id: Date.now().toString(),
+      id: `nav-${Date.now()}`,
       name: '',
       url: '#',
-      display_order: navItems.length + 1,
-      is_active: true
+      is_active: true,
+      display_order: navItems.length + 1
     });
   };
 
@@ -34,48 +34,78 @@ export default function NavigationCMS() {
     e.preventDefault();
     if (!editingItem.name.trim()) return;
 
-    try {
-      const payload = { ...editingItem, updated_at: new Date().toISOString() };
-      await supabase.from('navigation_items').upsert(payload);
+    const payload = {
+      ...editingItem,
+      id: editingItem.id || `nav-${Date.now()}`,
+      updated_at: new Date().toISOString()
+    };
 
-      const exists = navItems.find(n => n.id === editingItem.id);
-      if (exists) {
-        setNavItems(navItems.map(n => n.id === editingItem.id ? payload : n));
-      } else {
-        setNavItems([...navItems, payload]);
-      }
+    const exists = navItems.find(n => n.id === payload.id);
+    let updatedList;
+    if (exists) {
+      updatedList = navItems.map(n => n.id === payload.id ? payload : n);
+    } else {
+      updatedList = [...navItems, payload];
+    }
+
+    try {
+      const { error } = await supabase.from('navigation_items').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
+
+      setNavItems(updatedList);
+      setCachedData('navigation_items', updatedList);
+      notifyCmsUpdate('navigation_items');
       setEditingItem(null);
-      setToast({ type: 'success', text: 'Navigation menu item saved.' });
+      setToast({ type: 'success', text: 'Navigation menu item saved to database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save menu item.' });
+      console.error('NavigationCMS Save Error:', err);
+      setNavItems(updatedList);
+      setCachedData('navigation_items', updatedList);
+      notifyCmsUpdate('navigation_items');
+      setEditingItem(null);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 
   const handleToggleStatus = async (item) => {
     const updated = { ...item, is_active: !item.is_active };
-    setNavItems(navItems.map(n => n.id === item.id || n.name === item.name ? updated : n));
+    const updatedList = navItems.map(n => n.id === item.id || n.name === item.name ? updated : n);
+    setNavItems(updatedList);
+    setCachedData('navigation_items', updatedList);
 
     try {
-      await supabase.from('navigation_items').upsert(updated);
+      const { error } = await supabase.from('navigation_items').upsert(updated, { onConflict: 'id' });
+      if (error) console.warn('Status toggle DB error:', error.message);
     } catch (err) {
       console.warn('Status toggle error:', err);
+    } finally {
+      notifyCmsUpdate('navigation_items');
     }
   };
 
   const handleDelete = async () => {
     if (!deletingId) return;
+    const updatedList = navItems.filter(n => n.id !== deletingId);
 
     try {
-      await supabase.from('navigation_items').delete().eq('id', deletingId);
-      setNavItems(navItems.filter(n => n.id !== deletingId));
-      setToast({ type: 'success', text: 'Navigation item deleted.' });
+      const { error } = await supabase.from('navigation_items').delete().eq('id', deletingId);
+      if (error) throw new Error(error.message);
+
+      setNavItems(updatedList);
+      setCachedData('navigation_items', updatedList);
+      notifyCmsUpdate('navigation_items');
+      setToast({ type: 'success', text: 'Navigation item deleted from database.' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Delete failed.' });
+      console.error('NavigationCMS Delete Error:', err);
+      setNavItems(updatedList);
+      setCachedData('navigation_items', updatedList);
+      notifyCmsUpdate('navigation_items');
+      setToast({ type: 'error', text: `Delete Note: ${err.message}` });
     } finally {
       setDeletingId(null);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { PROJECTS_DATA } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
-import { fetchTableData } from '../lib/supabaseClient';
+import { fetchTableData, subscribeCmsUpdate } from '../lib/supabaseClient';
 
 export default function Projects({ onOpenTicketWidget }) {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -23,12 +23,19 @@ export default function Projects({ onOpenTicketWidget }) {
   useEffect(() => {
     async function loadProjects() {
       const data = await fetchTableData('projects', PROJECTS_DATA);
-      const activeData = data.filter(p => p.is_active !== false);
-      if (activeData.length > 0) {
+      if (Array.isArray(data)) {
+        const activeData = data.filter(p => p.is_active !== false);
         setProjectsList(activeData);
       }
     }
     loadProjects();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'projects') {
+        loadProjects();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   const categories = ['All', 'IT Service Desk', 'ServiceNow', 'Cloud Services', 'Cybersecurity', 'NOC & Infra'];

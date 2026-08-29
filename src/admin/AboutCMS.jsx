@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchSingleRecord } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { INITIAL_ABOUT } from '../lib/seedData';
 import { Save, CheckCircle2, AlertCircle, RefreshCw } from 'lucide-react';
 
@@ -39,13 +39,17 @@ export default function AboutCMS() {
       updated_at: new Date().toISOString()
     };
 
+    setCachedData('about_section', payload);
+    notifyCmsUpdate('about_section');
+
     try {
       const { error } = await supabase.from('about_section').upsert(payload, { onConflict: 'id' });
-      if (error) console.warn('Supabase save warning:', error);
+      if (error) throw new Error(error.message);
 
-      setToast({ type: 'success', text: 'About section updated successfully!' });
+      setToast({ type: 'success', text: 'About section updated in database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to update About section.' });
+      console.error('AboutCMS Save Error:', err);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
       setSaving(false);
       setTimeout(() => setToast(null), 4000);

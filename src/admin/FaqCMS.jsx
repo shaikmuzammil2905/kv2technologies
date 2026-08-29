@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { supabase, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { FAQ_DATA } from '../lib/seedData';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
@@ -22,7 +22,9 @@ export default function FaqCMS() {
 
   const handleOpenNew = () => {
     setEditingItem({
-      id: Date.now().toString(),
+      id: `faq-${Date.now()}`,
+      question: '',
+      answer: '',
       q: '',
       a: '',
       is_active: true,
@@ -32,39 +34,69 @@ export default function FaqCMS() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    if (!editingItem.q.trim()) return;
+    const qText = editingItem.question || editingItem.q || '';
+    const aText = editingItem.answer || editingItem.a || '';
+    if (!qText.trim()) return;
+
+    const payload = {
+      ...editingItem,
+      question: qText,
+      answer: aText,
+      q: qText,
+      a: aText,
+      updated_at: new Date().toISOString()
+    };
+
+    const exists = faqs.find(f => f.id === editingItem.id);
+    let updatedList;
+    if (exists) {
+      updatedList = faqs.map(f => f.id === editingItem.id ? payload : f);
+    } else {
+      updatedList = [...faqs, payload];
+    }
 
     try {
-      const payload = { ...editingItem, updated_at: new Date().toISOString() };
-      await supabase.from('faqs').upsert(payload);
+      const { error } = await supabase.from('faqs').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
 
-      const exists = faqs.find(f => f.id === editingItem.id);
-      if (exists) {
-        setFaqs(faqs.map(f => f.id === editingItem.id ? payload : f));
-      } else {
-        setFaqs([...faqs, payload]);
-      }
+      setFaqs(updatedList);
+      setCachedData('faqs', updatedList);
+      notifyCmsUpdate('faqs');
       setEditingItem(null);
-      setToast({ type: 'success', text: 'FAQ saved successfully.' });
+      setToast({ type: 'success', text: 'FAQ saved to database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save FAQ.' });
+      console.error('FaqCMS Save Error:', err);
+      setFaqs(updatedList);
+      setCachedData('faqs', updatedList);
+      notifyCmsUpdate('faqs');
+      setEditingItem(null);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 
   const handleDelete = async () => {
     if (!deletingId) return;
+    const updatedList = faqs.filter(f => f.id !== deletingId);
 
     try {
-      await supabase.from('faqs').delete().eq('id', deletingId);
-      setFaqs(faqs.filter(f => f.id !== deletingId));
-      setToast({ type: 'success', text: 'FAQ deleted.' });
+      const { error } = await supabase.from('faqs').delete().eq('id', deletingId);
+      if (error) throw new Error(error.message);
+
+      setFaqs(updatedList);
+      setCachedData('faqs', updatedList);
+      notifyCmsUpdate('faqs');
+      setToast({ type: 'success', text: 'FAQ deleted from database.' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Delete failed.' });
+      console.error('FaqCMS Delete Error:', err);
+      setFaqs(updatedList);
+      setCachedData('faqs', updatedList);
+      notifyCmsUpdate('faqs');
+      setToast({ type: 'error', text: `Delete Note: ${err.message}` });
     } finally {
       setDeletingId(null);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

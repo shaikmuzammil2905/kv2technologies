@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, MessageSquare, Ticket, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { fetchTableData, subscribeCmsUpdate } from '../lib/supabaseClient';
+import { INITIAL_NAVIGATION } from '../lib/seedData';
 
 export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navItems = [
+  const [navItems, setNavItems] = useState([
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
     { label: 'Services', href: '#services' },
@@ -16,14 +17,29 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
     { label: 'Work', href: '#work' },
     { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
-  ];
+  ]);
 
   useEffect(() => {
+    async function loadNav() {
+      const data = await fetchTableData('navigation_items', INITIAL_NAVIGATION);
+      if (Array.isArray(data)) {
+        const activeData = data.filter(n => n.is_active !== false);
+        if (activeData.length > 0) {
+          setNavItems(activeData.map(n => ({ label: n.name, href: n.url })));
+        }
+      }
+    }
+    loadNav();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'navigation_items') {
+        loadNav();
+      }
+    });
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
-
-      // ScrollSpy active section detection
-      const sections = navItems.map((item) => item.href.substring(1));
+      const sections = navItems.map((item) => item.href.replace('#', ''));
       const scrollPos = window.scrollY + 120;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -36,7 +52,10 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      unsubscribe();
+    };
   }, []);
 
   const handleNavClick = (e, href) => {

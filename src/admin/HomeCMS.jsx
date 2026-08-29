@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchSingleRecord } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, notifyCmsUpdate } from '../lib/supabaseClient';
 import { INITIAL_HERO } from '../lib/seedData';
 import { Save, Sparkles, CheckCircle2, AlertCircle, RefreshCw } from 'lucide-react';
 
@@ -58,14 +58,18 @@ export default function HomeCMS() {
       const { error } = await supabase.from('hero_section').upsert(payload, { onConflict: 'id' });
 
       if (error) {
-        console.warn('Supabase save error (falling back to local state):', error);
+        throw new Error(error.message);
       }
 
       setFormData({ ...payload, tags: tagsArray });
-      setToast({ type: 'success', text: 'Home / Hero section successfully updated!' });
+      setToast({ type: 'success', text: 'Home / Hero section successfully updated in production database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Error saving changes to database.' });
+      console.error('HomeCMS Save Error:', err);
+      // Still update cache as fallback & notify subscribers
+      setFormData({ ...payload, tags: tagsArray });
+      setToast({ type: 'error', text: `Database Save Note: ${err.message || 'Updated in local session.'}` });
     } finally {
+      notifyCmsUpdate('hero_section');
       setSaving(false);
       setTimeout(() => setToast(null), 4000);
     }

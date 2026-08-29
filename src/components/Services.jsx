@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { SERVICES_DATA } from '../data/servicesData';
 import ServiceModal from './ServiceModal';
-import { fetchTableData } from '../lib/supabaseClient';
+import { fetchTableData, subscribeCmsUpdate } from '../lib/supabaseClient';
 
 export default function Services({ onOpenTicketWidget }) {
   const [selectedService, setSelectedService] = useState(null);
@@ -23,12 +23,19 @@ export default function Services({ onOpenTicketWidget }) {
   useEffect(() => {
     async function loadServices() {
       const data = await fetchTableData('services', SERVICES_DATA);
-      const activeData = data.filter(s => s.is_active !== false);
-      if (activeData.length > 0) {
+      if (Array.isArray(data)) {
+        const activeData = data.filter(s => s.is_active !== false);
         setServicesList(activeData);
       }
     }
     loadServices();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'services') {
+        loadServices();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   const iconMap = {

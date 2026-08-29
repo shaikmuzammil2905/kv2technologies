@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { supabase, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { PROJECTS_DATA } from '../lib/seedData';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
@@ -22,7 +22,7 @@ export default function ProjectsCMS() {
 
   const handleOpenNew = () => {
     setEditingItem({
-      id: Date.now().toString(),
+      id: `prj-${Date.now()}`,
       title: '',
       category: 'Service Desk',
       client: '',
@@ -40,37 +40,57 @@ export default function ProjectsCMS() {
     e.preventDefault();
     if (!editingItem.title.trim()) return;
 
-    try {
-      const payload = { ...editingItem, updated_at: new Date().toISOString() };
-      await supabase.from('projects').upsert(payload);
+    const payload = { ...editingItem, updated_at: new Date().toISOString() };
+    const exists = projects.find(p => p.id === editingItem.id);
+    let updatedList;
+    if (exists) {
+      updatedList = projects.map(p => p.id === editingItem.id ? payload : p);
+    } else {
+      updatedList = [...projects, payload];
+    }
 
-      const exists = projects.find(p => p.id === editingItem.id);
-      if (exists) {
-        setProjects(projects.map(p => p.id === editingItem.id ? payload : p));
-      } else {
-        setProjects([...projects, payload]);
-      }
+    try {
+      const { error } = await supabase.from('projects').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
+
+      setProjects(updatedList);
+      setCachedData('projects', updatedList);
+      notifyCmsUpdate('projects');
       setEditingItem(null);
-      setToast({ type: 'success', text: 'Project case study saved successfully.' });
+      setToast({ type: 'success', text: 'Project case study saved successfully to database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save project.' });
+      console.error('ProjectsCMS Save Error:', err);
+      setProjects(updatedList);
+      setCachedData('projects', updatedList);
+      notifyCmsUpdate('projects');
+      setEditingItem(null);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 
   const handleDelete = async () => {
     if (!deletingId) return;
+    const updatedList = projects.filter(p => p.id !== deletingId);
 
     try {
-      await supabase.from('projects').delete().eq('id', deletingId);
-      setProjects(projects.filter(p => p.id !== deletingId));
-      setToast({ type: 'success', text: 'Project deleted.' });
+      const { error } = await supabase.from('projects').delete().eq('id', deletingId);
+      if (error) throw new Error(error.message);
+
+      setProjects(updatedList);
+      setCachedData('projects', updatedList);
+      notifyCmsUpdate('projects');
+      setToast({ type: 'success', text: 'Project deleted from database.' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to delete.' });
+      console.error('ProjectsCMS Delete Error:', err);
+      setProjects(updatedList);
+      setCachedData('projects', updatedList);
+      notifyCmsUpdate('projects');
+      setToast({ type: 'error', text: `Delete Note: ${err.message}` });
     } finally {
       setDeletingId(null);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { supabase, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { INITIAL_WHY_US } from '../lib/seedData';
 import { Plus, Edit2, Trash2, Save, X, CheckCircle2, AlertTriangle } from 'lucide-react';
 
@@ -24,37 +24,62 @@ export default function WhyUsCMS() {
     e.preventDefault();
     if (!editingItem.title.trim()) return;
 
-    try {
-      const payload = { ...editingItem, updated_at: new Date().toISOString() };
-      await supabase.from('why_us').upsert(payload);
+    const payload = {
+      ...editingItem,
+      id: editingItem.id || `why-${editingItem.num || Date.now()}`,
+      updated_at: new Date().toISOString()
+    };
 
-      const exists = items.find(i => i.num === editingItem.num || i.id === editingItem.id);
-      if (exists) {
-        setItems(items.map(i => (i.id === editingItem.id || i.num === editingItem.num) ? payload : i));
-      } else {
-        setItems([...items, payload]);
-      }
+    const exists = items.find(i => i.id === payload.id || i.num === payload.num);
+    let updatedList;
+    if (exists) {
+      updatedList = items.map(i => (i.id === payload.id || i.num === payload.num) ? payload : i);
+    } else {
+      updatedList = [...items, payload];
+    }
+
+    try {
+      const { error } = await supabase.from('why_us').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
+
+      setItems(updatedList);
+      setCachedData('why_us', updatedList);
+      notifyCmsUpdate('why_us');
       setEditingItem(null);
-      setToast({ type: 'success', text: 'Why Us pillar saved successfully.' });
+      setToast({ type: 'success', text: 'Why Us pillar saved to database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save pillar.' });
+      console.error('WhyUsCMS Save Error:', err);
+      setItems(updatedList);
+      setCachedData('why_us', updatedList);
+      notifyCmsUpdate('why_us');
+      setEditingItem(null);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 
   const handleDelete = async () => {
     if (!deletingId) return;
+    const updatedList = items.filter(i => i.id !== deletingId && i.num !== deletingId);
 
     try {
-      await supabase.from('why_us').delete().eq('id', deletingId);
-      setItems(items.filter(i => i.id !== deletingId && i.num !== deletingId));
-      setToast({ type: 'success', text: 'Pillar deleted.' });
+      const { error } = await supabase.from('why_us').delete().eq('id', deletingId);
+      if (error) throw new Error(error.message);
+
+      setItems(updatedList);
+      setCachedData('why_us', updatedList);
+      notifyCmsUpdate('why_us');
+      setToast({ type: 'success', text: 'Pillar deleted from database.' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Delete failed.' });
+      console.error('WhyUsCMS Delete Error:', err);
+      setItems(updatedList);
+      setCachedData('why_us', updatedList);
+      notifyCmsUpdate('why_us');
+      setToast({ type: 'error', text: `Delete Note: ${err.message}` });
     } finally {
       setDeletingId(null);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

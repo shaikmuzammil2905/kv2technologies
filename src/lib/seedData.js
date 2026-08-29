@@ -1,6 +1,6 @@
-import { SERVICES_DATA } from '../data/servicesData';
-import { PROJECTS_DATA } from '../data/projectsData';
-import { FAQ_DATA } from '../data/faqData';
+import { SERVICES_DATA } from '../data/servicesData.js';
+import { PROJECTS_DATA } from '../data/projectsData.js';
+import { FAQ_DATA } from '../data/faqData.js';
 
 export const INITIAL_HERO = {
   badge: 'K²V TECHNOLOGIES • IT SERVICE DESK & MANAGED SUPPORT',

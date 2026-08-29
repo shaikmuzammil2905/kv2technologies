@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { supabase, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { uploadToCloudinary } from '../lib/cloudinary';
 import { UploadCloud, Image as ImageIcon, Copy, Check, Trash2, ExternalLink, RefreshCw } from 'lucide-react';
 
@@ -32,18 +32,26 @@ export default function MediaCMS() {
       const result = await uploadToCloudinary(file);
 
       const record = {
-        id: Date.now().toString(),
+        id: `med-${Date.now()}`,
+        name: file.name,
         title: file.name,
         url: result.url,
         public_id: result.public_id,
+        size: `${(file.size / 1024).toFixed(1)} KB`,
         file_size: `${(file.size / 1024).toFixed(1)} KB`,
         created_at: new Date().toISOString()
       };
 
-      await supabase.from('media_library').insert([record]);
-      setMediaList([record, ...mediaList]);
-      setToast({ type: 'success', text: `Image "${file.name}" uploaded successfully to Cloudinary!` });
+      const { error } = await supabase.from('media_library').insert([record]);
+      if (error) console.warn('Media DB insert warning:', error.message);
+
+      const updated = [record, ...mediaList];
+      setMediaList(updated);
+      setCachedData('media_library', updated);
+      notifyCmsUpdate('media_library');
+      setToast({ type: 'success', text: `Image "${file.name}" uploaded successfully!` });
     } catch (err) {
+      console.error('MediaCMS Upload Error:', err);
       setToast({ type: 'error', text: err.message || 'Image upload failed.' });
     } finally {
       setUploading(false);
@@ -58,12 +66,21 @@ export default function MediaCMS() {
   };
 
   const handleDeleteMedia = async (id) => {
+    const updated = mediaList.filter(m => m.id !== id);
     try {
-      await supabase.from('media_library').delete().eq('id', id);
-      setMediaList(mediaList.filter(m => m.id !== id));
+      const { error } = await supabase.from('media_library').delete().eq('id', id);
+      if (error) console.warn('Media delete error:', error.message);
+
+      setMediaList(updated);
+      setCachedData('media_library', updated);
+      notifyCmsUpdate('media_library');
       setToast({ type: 'success', text: 'Media item deleted.' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Delete failed.' });
+      console.error('MediaCMS Delete Error:', err);
+      setMediaList(updated);
+      setCachedData('media_library', updated);
+      notifyCmsUpdate('media_library');
+      setToast({ type: 'error', text: `Delete Note: ${err.message}` });
     } finally {
       setTimeout(() => setToast(null), 3000);
     }

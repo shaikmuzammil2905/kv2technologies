@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MessageSquare, Mail, Globe2, Send, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
-import { supabase } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, subscribeCmsUpdate } from '../lib/supabaseClient';
 
 export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
   const [formData, setFormData] = useState({
@@ -14,11 +14,43 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [contactDetails, setContactDetails] = useState({
+    email: 'info@k2vtechnologies.com',
+    phone1: '+91 97416 76105',
+    phone2: '+91 89034 12599',
+    phone3: '+91 95000 00449',
+    address: 'Remote-First IT Services Company Worldwide',
+    hours: '24/7 Support Desk Available Round the Clock'
+  });
+
+  useEffect(() => {
+    async function loadContactInfo() {
+      const data = await fetchSingleRecord('contact_info', contactDetails);
+      if (data) {
+        setContactDetails({
+          email: data.email || contactDetails.email,
+          phone1: data.phone1 || contactDetails.phone1,
+          phone2: data.phone2 || contactDetails.phone2,
+          phone3: data.phone3 || contactDetails.phone3,
+          address: data.address || contactDetails.address,
+          hours: data.hours || contactDetails.hours
+        });
+      }
+    }
+    loadContactInfo();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'contact_info') {
+        loadContactInfo();
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const phoneNumbers = [
-    { display: '+91 97416 76105', raw: '+919741676105', label: 'CEO' },
-    { display: '+91 89034 12599', raw: '+918903412599', label: 'CTO' },
-    { display: '+91 95000 00449', raw: '+919500000449', label: 'CIO' }
+    { display: contactDetails.phone1, raw: contactDetails.phone1.replace(/\s+/g, ''), label: 'CEO' },
+    { display: contactDetails.phone2, raw: contactDetails.phone2.replace(/\s+/g, ''), label: 'CTO' },
+    { display: contactDetails.phone3, raw: contactDetails.phone3.replace(/\s+/g, ''), label: 'CIO' }
   ];
 
   const validate = () => {

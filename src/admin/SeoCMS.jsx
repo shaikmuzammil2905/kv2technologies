@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchSingleRecord } from '../lib/supabaseClient';
+import { supabase, fetchSingleRecord, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { INITIAL_SEO } from '../lib/seedData';
 import { Search, Save, CheckCircle2 } from 'lucide-react';
 
@@ -33,21 +33,25 @@ export default function SeoCMS() {
     e.preventDefault();
     setSaving(true);
 
+    const payload = { id: 1, ...data, updated_at: new Date().toISOString() };
+    setCachedData('seo_settings', payload);
+    notifyCmsUpdate('seo_settings');
+
+    if (data.pageTitle) {
+      document.title = data.pageTitle;
+    }
+
     try {
-      const payload = { id: 1, ...data, updated_at: new Date().toISOString() };
-      await supabase.from('seo_settings').upsert(payload, { onConflict: 'id' });
+      const { error } = await supabase.from('seo_settings').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
 
-      // Dynamically update page title in document head
-      if (data.pageTitle) {
-        document.title = data.pageTitle;
-      }
-
-      setToast({ type: 'success', text: 'SEO & OpenGraph meta tags updated!' });
+      setToast({ type: 'success', text: 'SEO & OpenGraph meta tags updated in database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save SEO settings.' });
+      console.error('SeoCMS Save Error:', err);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
       setSaving(false);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

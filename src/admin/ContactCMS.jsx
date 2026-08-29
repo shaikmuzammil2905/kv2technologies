@@ -1,42 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchSingleRecord, fetchTableData } from '../lib/supabaseClient';
-import { INITIAL_SITE_SETTINGS } from '../lib/seedData';
-import { Mail, Phone, Search, Trash2, Eye, CheckCircle2, Clock, Filter, Save } from 'lucide-react';
+import { supabase, fetchSingleRecord, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
+import { Mail, Phone, MapPin, Clock, CheckCircle2, AlertCircle, RefreshCw, MessageSquare, Trash2, Eye, EyeOff, Shield, Search, Filter, Save } from 'lucide-react';
 
 export default function ContactCMS() {
-  const [activeTab, setActiveTab] = useState('inbox'); // 'inbox' | 'info'
-  const [requests, setRequests] = useState([]);
+  const [activeTab, setActiveTab] = useState('channels'); // 'channels' | 'requests'
   const [contactInfo, setContactInfo] = useState({
-    phone1: INITIAL_SITE_SETTINGS.phone1,
-    phone2: INITIAL_SITE_SETTINGS.phone2,
-    phone3: INITIAL_SITE_SETTINGS.phone3,
-    email: INITIAL_SITE_SETTINGS.email,
-    address: INITIAL_SITE_SETTINGS.address,
-    businessHours: '24/7 Multi-Timezone Operations Support'
+    email: 'info@k2vtechnologies.com',
+    phone1: '+91 97416 76105',
+    phone2: '+91 89034 12599',
+    phone3: '+91 95000 00449',
+    address: 'Remote-First IT Services Company Worldwide',
+    hours: '24/7 Support Desk Available Round the Clock'
   });
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
-  const [selectedReq, setSelectedReq] = useState(null);
+  const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [savingInfo, setSavingInfo] = useState(false);
+  const [selectedReq, setSelectedReq] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
   const [toast, setToast] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
 
   useEffect(() => {
     loadData();
   }, []);
 
   async function loadData() {
-    // Load contact info
     const info = await fetchSingleRecord('contact_info', contactInfo);
     if (info) {
       setContactInfo({
+        email: info.email || contactInfo.email,
         phone1: info.phone1 || contactInfo.phone1,
         phone2: info.phone2 || contactInfo.phone2,
         phone3: info.phone3 || contactInfo.phone3,
-        email: info.email || contactInfo.email,
         address: info.address || contactInfo.address,
-        businessHours: info.businessHours || contactInfo.businessHours
+        hours: info.hours || contactInfo.hours
       });
     }
 
@@ -54,15 +52,21 @@ export default function ContactCMS() {
     e.preventDefault();
     setSavingInfo(true);
 
+    const payload = { id: 1, ...contactInfo, updated_at: new Date().toISOString() };
+    setCachedData('contact_info', payload);
+    notifyCmsUpdate('contact_info');
+
     try {
-      const payload = { id: 1, ...contactInfo, updated_at: new Date().toISOString() };
-      await supabase.from('contact_info').upsert(payload, { onConflict: 'id' });
-      setToast({ type: 'success', text: 'Public contact channels updated!' });
+      const { error } = await supabase.from('contact_info').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
+
+      setToast({ type: 'success', text: 'Public contact channels updated in database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to update contact channels.' });
+      console.error('ContactCMS Save Error:', err);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
       setSavingInfo(false);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

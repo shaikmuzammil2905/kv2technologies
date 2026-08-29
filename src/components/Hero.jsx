@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Monitor, MessageSquare } from 'lucide-react';
 import HeroCanvas from './HeroCanvas';
-import { fetchSingleRecord } from '../lib/supabaseClient';
+import { fetchSingleRecord, subscribeCmsUpdate } from '../lib/supabaseClient';
 import { INITIAL_HERO } from '../lib/seedData';
 
 export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
@@ -25,6 +25,13 @@ export default function Hero({ onOpenTicketWidget, onOpenWhatsApp }) {
       }
     }
     loadHero();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'hero_section') {
+        loadHero();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   const containerVariants = {

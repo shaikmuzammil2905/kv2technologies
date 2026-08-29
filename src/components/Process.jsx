@@ -19,7 +19,7 @@ import {
   Zap,
   Cpu
 } from 'lucide-react';
-import { fetchTableData } from '../lib/supabaseClient';
+import { fetchTableData, subscribeCmsUpdate } from '../lib/supabaseClient';
 import { INITIAL_PROCESS_STEPS } from '../lib/seedData';
 
 const iconMap = {
@@ -44,12 +44,19 @@ export default function Process() {
   useEffect(() => {
     async function loadProcess() {
       const data = await fetchTableData('process_steps', INITIAL_PROCESS_STEPS);
-      const activeData = data.filter(s => s.is_active !== false);
-      if (activeData.length > 0) {
+      if (Array.isArray(data)) {
+        const activeData = data.filter(s => s.is_active !== false);
         setSteps(activeData);
       }
     }
     loadProcess();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'process_steps') {
+        loadProcess();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   const features = [

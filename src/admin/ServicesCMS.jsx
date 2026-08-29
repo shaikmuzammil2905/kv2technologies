@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { supabase, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { SERVICES_DATA } from '../lib/seedData';
 import { Plus, Edit2, Trash2, Eye, EyeOff, Save, X, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
@@ -22,7 +22,7 @@ export default function ServicesCMS() {
 
   const handleOpenNew = () => {
     setEditingItem({
-      id: Date.now().toString(),
+      id: `svc-${Date.now()}`,
       num: `0${services.length + 1}`,
       title: '',
       shortDesc: '',
@@ -39,30 +39,37 @@ export default function ServicesCMS() {
     e.preventDefault();
     if (!editingItem.title.trim()) return;
 
+    const payload = {
+      ...editingItem,
+      updated_at: new Date().toISOString()
+    };
+
+    const exists = services.find(s => s.id === editingItem.id);
+    let updatedList;
+    if (exists) {
+      updatedList = services.map(s => s.id === editingItem.id ? payload : s);
+    } else {
+      updatedList = [...services, payload];
+    }
+
     try {
-      const payload = {
-        ...editingItem,
-        updated_at: new Date().toISOString()
-      };
-
-      const { error } = await supabase.from('services').upsert(payload);
-      if (error) console.warn('Supabase upsert warning:', error);
-
-      const exists = services.find(s => s.id === editingItem.id);
-      let updatedList;
-      if (exists) {
-        updatedList = services.map(s => s.id === editingItem.id ? payload : s);
-      } else {
-        updatedList = [...services, payload];
-      }
+      const { error } = await supabase.from('services').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
 
       setServices(updatedList);
+      setCachedData('services', updatedList);
+      notifyCmsUpdate('services');
       setEditingItem(null);
-      setToast({ type: 'success', text: 'Service saved successfully!' });
+      setToast({ type: 'success', text: 'Service saved successfully to production database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save service.' });
+      console.error('ServicesCMS Save Error:', err);
+      setServices(updatedList);
+      setCachedData('services', updatedList);
+      notifyCmsUpdate('services');
+      setEditingItem(null);
+      setToast({ type: 'error', text: `Database Save Note: ${err.message}` });
     } finally {
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 
@@ -70,26 +77,39 @@ export default function ServicesCMS() {
     const updated = { ...item, is_active: !item.is_active };
     const updatedList = services.map(s => s.id === item.id ? updated : s);
     setServices(updatedList);
+    setCachedData('services', updatedList);
 
     try {
-      await supabase.from('services').upsert(updated);
+      const { error } = await supabase.from('services').upsert(updated, { onConflict: 'id' });
+      if (error) console.warn('Status DB error:', error.message);
     } catch (err) {
       console.warn('Status update error:', err);
+    } finally {
+      notifyCmsUpdate('services');
     }
   };
 
   const handleDeleteConfirm = async () => {
     if (!deletingId) return;
+    const updatedList = services.filter(s => s.id !== deletingId);
 
     try {
-      await supabase.from('services').delete().eq('id', deletingId);
-      setServices(services.filter(s => s.id !== deletingId));
-      setToast({ type: 'success', text: 'Service deleted successfully.' });
+      const { error } = await supabase.from('services').delete().eq('id', deletingId);
+      if (error) throw new Error(error.message);
+
+      setServices(updatedList);
+      setCachedData('services', updatedList);
+      notifyCmsUpdate('services');
+      setToast({ type: 'success', text: 'Service deleted from production database.' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to delete service.' });
+      console.error('ServicesCMS Delete Error:', err);
+      setServices(updatedList);
+      setCachedData('services', updatedList);
+      notifyCmsUpdate('services');
+      setToast({ type: 'error', text: `Delete Note: ${err.message}` });
     } finally {
       setDeletingId(null);
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

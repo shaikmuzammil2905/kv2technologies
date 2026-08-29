@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { supabase, fetchTableData } from '../lib/supabaseClient';
+import { supabase, fetchTableData, notifyCmsUpdate, setCachedData } from '../lib/supabaseClient';
 import { INITIAL_PROCESS_STEPS } from '../lib/seedData';
 import { Plus, Edit2, Trash2, Save, X, CheckCircle2 } from 'lucide-react';
 
@@ -23,22 +23,38 @@ export default function ProcessCMS() {
     e.preventDefault();
     if (!editingStep.title.trim()) return;
 
-    try {
-      const payload = { ...editingStep, updated_at: new Date().toISOString() };
-      await supabase.from('process_steps').upsert(payload);
+    const payload = {
+      ...editingStep,
+      id: editingStep.id || `proc-${editingStep.num || Date.now()}`,
+      updated_at: new Date().toISOString()
+    };
 
-      const exists = steps.find(s => s.num === editingStep.num || s.id === editingStep.id);
-      if (exists) {
-        setSteps(steps.map(s => (s.id === editingStep.id || s.num === editingStep.num) ? payload : s));
-      } else {
-        setSteps([...steps, payload]);
-      }
+    const exists = steps.find(s => s.id === payload.id || s.num === payload.num);
+    let updatedList;
+    if (exists) {
+      updatedList = steps.map(s => (s.id === payload.id || s.num === payload.num) ? payload : s);
+    } else {
+      updatedList = [...steps, payload];
+    }
+
+    try {
+      const { error } = await supabase.from('process_steps').upsert(payload, { onConflict: 'id' });
+      if (error) throw new Error(error.message);
+
+      setSteps(updatedList);
+      setCachedData('process_steps', updatedList);
+      notifyCmsUpdate('process_steps');
       setEditingStep(null);
-      setToast({ type: 'success', text: 'Process step saved.' });
+      setToast({ type: 'success', text: 'Process step saved to database!' });
     } catch (err) {
-      setToast({ type: 'error', text: 'Failed to save step.' });
+      console.error('ProcessCMS Save Error:', err);
+      setSteps(updatedList);
+      setCachedData('process_steps', updatedList);
+      notifyCmsUpdate('process_steps');
+      setEditingStep(null);
+      setToast({ type: 'error', text: `Save Note: ${err.message}` });
     } finally {
-      setTimeout(() => setToast(null), 3000);
+      setTimeout(() => setToast(null), 4000);
     }
   };
 

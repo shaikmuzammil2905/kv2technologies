@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HeartHandshake, Zap, Globe2, Sparkles } from 'lucide-react';
 import Founders from './Founders';
-import { fetchSingleRecord } from '../lib/supabaseClient';
+import { fetchSingleRecord, subscribeCmsUpdate } from '../lib/supabaseClient';
 import { INITIAL_ABOUT } from '../lib/seedData';
 
 export default function About() {
@@ -23,6 +23,13 @@ export default function About() {
       }
     }
     loadAbout();
+
+    const unsubscribe = subscribeCmsUpdate((tableName) => {
+      if (tableName === 'about_section') {
+        loadAbout();
+      }
+    });
+    return () => unsubscribe();
   }, []);
 
   return (
