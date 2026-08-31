@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HeartHandshake, Zap, Globe2, Sparkles } from 'lucide-react';
-import Founders from './Founders';
 import { fetchSingleRecord, subscribeCmsUpdate } from '../lib/supabaseClient';
 import { INITIAL_ABOUT } from '../lib/seedData';
 
@@ -180,9 +179,6 @@ export default function About() {
             </div>
           </motion.div>
         </div>
-
-        {/* Founders & Leadership Showcase */}
-        <Founders />
       </div>
     </section>
   );

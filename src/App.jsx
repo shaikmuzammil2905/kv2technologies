@@ -15,6 +15,7 @@ import Projects from './components/Projects';
 import Industries from './components/Industries';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
+import Founders from './components/Founders';
 import WhatsAppModal from './components/WhatsAppModal';
 import PhoneModal from './components/PhoneModal';
 import Footer from './components/Footer';
@@ -112,6 +113,9 @@ function PublicSite() {
           }}
           onOpenPhone={() => setPhoneModalOpen(true)}
         />
+
+        {/* Executive Leadership & Founders */}
+        <Founders />
 
         {/* Footer */}
         <Footer
