@@ -90,7 +90,7 @@ function PublicSite() {
         {/* Live Metrics & Animated Number Counters */}
         <Stats />
 
-        {/* Why K2V Technologies */}
+        {/* Why Kognexa Technology solutions */}
         <WhyChooseUs />
 
         {/* Interactive Process Workflow */}

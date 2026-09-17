@@ -50,7 +50,7 @@ export default function PhoneModal({ isOpen, onClose }) {
             <Phone size={24} />
           </div>
           <div>
-            <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--navy)' }}>Call K²V Technologies</h3>
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--navy)' }}>Call Kognexa Technology solutions</h3>
             <p style={{ color: 'var(--ink-60)', fontSize: '0.88rem' }}>Tap to dial on mobile or copy phone number</p>
           </div>
         </div>

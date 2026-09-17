@@ -3,9 +3,9 @@ import { PROJECTS_DATA } from '../data/projectsData.js';
 import { FAQ_DATA } from '../data/faqData.js';
 
 export const INITIAL_HERO = {
-  badge: 'K²V TECHNOLOGIES • IT SERVICE DESK & MANAGED SUPPORT',
+  badge: 'KOGNEXA TECHNOLOGY SOLUTIONS • IT SERVICE DESK & MANAGED SUPPORT',
   title: 'Enterprise IT Support That Keeps Business Moving.',
-  subtitle: 'K²V Technologies provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure & Cybersecurity Solutions. Every Ticket Matters.',
+  subtitle: 'Kognexa Technology solutions provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure & Cybersecurity Solutions. Every Ticket Matters.',
   tags: ['IT Service Desk', 'Managed IT Services', 'ServiceNow Workflows', 'Cloud & Cybersecurity'],
   primaryCtaText: 'Explore IT Services',
   primaryCtaUrl: '#services',
@@ -14,9 +14,9 @@ export const INITIAL_HERO = {
 };
 
 export const INITIAL_ABOUT = {
-  eyebrow: 'About K²V Technologies',
+  eyebrow: 'About Kognexa Technology solutions',
   heading: 'Technology problems shouldn\'t slow your business down.',
-  description: 'K²V Technologies helps organizations reduce downtime, resolve issues faster, and bring structure to everyday IT operations — from the service desk to the data center to the cloud.',
+  description: 'Kognexa Technology solutions helps organizations reduce downtime, resolve issues faster, and bring structure to everyday IT operations — from the service desk to the data center to the cloud.',
   subText: 'In today\'s fast-moving enterprise landscape, IT support must be proactive, responsive, and reliable. Whether managing multi-site cloud environments, structuring ServiceNow workflows, or providing 24/7 Service Desk assistance, our team delivers with speed and precision.',
   philosophyTitle: 'Every Ticket Matters.',
   philosophyText: 'Every request deserves immediate attention. Every problem deserves a permanent solution. No issue is too small, no infrastructure too complex. Every ticket matters to your business—and to ours.'
@@ -43,7 +43,7 @@ export const INITIAL_WHATSAPP = {
     { display: '+91 89034 12599', raw: '918903412599', label: 'CTO' },
     { display: '+91 95000 00449', raw: '919500000449', label: 'CIO' }
   ],
-  defaultMessage: 'Hello K2V Technologies! I would like to inquire about your IT Service Desk and Managed IT services.',
+  defaultMessage: 'Hello Kognexa Technology solutions! I would like to inquire about your IT Service Desk and Managed IT services.',
   buttonText: 'Chat with Us on WhatsApp',
   isVisible: true
 };
@@ -53,7 +53,7 @@ export const INITIAL_TALK_EXPERT = {
   buttonUrl: '#contact',
   actionType: 'ticket_widget',
   phone: '+91 97416 76105',
-  whatsappMsg: 'Hello K2V Technologies! I want to talk to an IT expert.',
+  whatsappMsg: 'Hello Kognexa Technology solutions! I want to talk to an IT expert.',
   isVisible: true
 };
 
@@ -61,7 +61,7 @@ export const INITIAL_NAVIGATION = [
   { name: 'Home', url: '#home', display_order: 1, is_active: true },
   { name: 'About Us', url: '#about', display_order: 2, is_active: true },
   { name: 'IT Services', url: '#services', display_order: 3, is_active: true },
-  { name: 'Why K²V', url: '#why-us', display_order: 4, is_active: true },
+  { name: 'Why Kognexa', url: '#why-us', display_order: 4, is_active: true },
   { name: 'Our Process', url: '#process', display_order: 5, is_active: true },
   { name: 'Case Studies', url: '#work', display_order: 6, is_active: true },
   { name: 'FAQs', url: '#faq', display_order: 7, is_active: true },
@@ -69,11 +69,11 @@ export const INITIAL_NAVIGATION = [
 ];
 
 export const INITIAL_SITE_SETTINGS = {
-  siteName: 'K²V Technologies',
+  siteName: 'Kognexa Technology solutions',
   tagline: 'Smart Solutions. Reliable Support. Real Impact.',
   logoIcon: '/assets/logo-icon.png',
   logoFull: '/assets/logo-full.png',
-  copyright: '© 2026 K²V Technologies. All rights reserved.',
+  copyright: '© 2026 Kognexa Technology solutions. All rights reserved.',
   phone1: '+91 97416 76105',
   phone2: '+91 89034 12599',
   phone3: '+91 95000 00449',
@@ -82,10 +82,10 @@ export const INITIAL_SITE_SETTINGS = {
 };
 
 export const INITIAL_SEO = {
-  pageTitle: 'K²V Technologies | Enterprise IT Support & Managed Services',
+  pageTitle: 'Kognexa Technology solutions | Enterprise IT Support & Managed Services',
   metaDescription: '24/7 IT Service Desk, Managed IT Operations, ServiceNow Workflows, Cloud Infrastructure & Cybersecurity Solutions. Every Ticket Matters.',
   keywords: 'IT Service Desk, Managed IT Services, ServiceNow, Cloud Support, Cybersecurity, IT Operations',
-  ogTitle: 'K²V Technologies — Enterprise IT Support',
+  ogTitle: 'Kognexa Technology solutions — Enterprise IT Support',
   ogDescription: 'Enterprise IT support that keeps business moving with 24/7 Service Desk and ServiceNow automation.',
   ogImage: '/assets/logo-full.png',
   canonicalUrl: 'https://kv2technologies.vercel.app/'

@@ -50,7 +50,7 @@ export default function Preloader({ onComplete }) {
         >
           <img
             src="/assets/logo-icon.png"
-            alt="K²V Technologies"
+            alt="Kognexa Technology solutions"
             onError={(e) => { e.target.src = '/logo.png'; }}
             style={{
               maxHeight: '48px',
@@ -59,7 +59,7 @@ export default function Preloader({ onComplete }) {
             }}
           />
           <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 800, fontSize: '1.6rem', color: 'var(--navy)' }}>
-            K²V Technologies
+            Kognexa Technology solutions
           </span>
         </motion.div>
 

@@ -52,7 +52,7 @@ export default function FAQ() {
             Frequently Asked <span style={{ color: 'var(--blue)' }}>Questions</span>
           </h2>
           <p className="section-sub">
-            Learn more about K²V Technologies' IT service desk capabilities, support model, and ServiceNow integrations.
+            Learn more about Kognexa Technology solutions' IT service desk capabilities, support model, and ServiceNow integrations.
           </p>
 
           {/* Search Box */}

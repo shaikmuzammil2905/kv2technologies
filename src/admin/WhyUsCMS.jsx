@@ -92,10 +92,10 @@ export default function WhyUsCMS() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-            Why K²V Section CMS
+            Why Kognexa Section CMS
           </h2>
           <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginTop: '4px' }}>
-            Manage the pillar cards in the "Why Choose K²V" section
+            Manage the pillar cards in the "Why Choose Kognexa" section
           </p>
         </div>
 

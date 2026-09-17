@@ -75,7 +75,7 @@ export default function Dashboard() {
           CMS Dashboard Overview
         </h2>
         <p style={{ color: '#94a3b8', fontSize: '0.9rem', margin: 0 }}>
-          Real-time metrics and dynamic content management for K²V Technologies
+          Real-time metrics and dynamic content management for Kognexa Technology solutions
         </p>
       </div>
 

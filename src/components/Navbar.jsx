@@ -105,7 +105,7 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
         >
           <img
             src="/assets/logo-icon.png"
-            alt="K²V Technologies Logo"
+            alt="Kognexa Technology solutions Logo"
             onError={(e) => { e.target.src = '/logo.png'; }}
             style={{
               height: scrolled ? '34px' : '40px',
@@ -123,7 +123,7 @@ export default function Navbar({ onOpenTicketWidget, onOpenWhatsApp, onOpenPhone
               letterSpacing: '-0.01em'
             }}
           >
-            K²V Technologies
+            Kognexa Technology solutions
           </span>
         </a>
 

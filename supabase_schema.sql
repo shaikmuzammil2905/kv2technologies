@@ -1,4 +1,4 @@
--- K²V TECHNOLOGIES — SUPABASE DATABASE SCHEMA & INITIAL SEED DATA
+-- KOGNEXA TECHNOLOGY SOLUTIONS — SUPABASE DATABASE SCHEMA & INITIAL SEED DATA
 -- Run this complete script in the Supabase SQL Editor for project `tgrbblexrtkiowoglhfo`
 
 -- 1. HERO SECTION TABLE
@@ -226,9 +226,9 @@ END $$;
 INSERT INTO public.hero_section (id, badge, title, subtitle, tags, "primaryCtaText", "primaryCtaUrl", "secondaryCtaText", "secondaryCtaUrl")
 VALUES (
   1,
-  'K²V TECHNOLOGIES • IT SERVICE DESK & MANAGED SUPPORT',
+  'KOGNEXA TECHNOLOGY SOLUTIONS • IT SERVICE DESK & MANAGED SUPPORT',
   'Enterprise IT Support That Keeps Business Moving.',
-  'K²V Technologies provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure & Cybersecurity Solutions. Every Ticket Matters.',
+  'Kognexa Technology solutions provides 24/7 IT Service Desk, Managed Operations, ServiceNow Workflows, Cloud Infrastructure & Cybersecurity Solutions. Every Ticket Matters.',
   '["IT Service Desk", "Managed IT Services", "ServiceNow Workflows", "Cloud & Cybersecurity"]'::jsonb,
   'Explore IT Services', '#services', 'Talk to an Expert', '#contact'
 ) ON CONFLICT (id) DO NOTHING;
@@ -237,9 +237,9 @@ VALUES (
 INSERT INTO public.about_section (id, eyebrow, heading, description, "subText", "philosophyTitle", "philosophyText")
 VALUES (
   1,
-  'About K²V Technologies',
+  'About Kognexa Technology solutions',
   'Technology problems shouldn''t slow your business down.',
-  'K²V Technologies helps organizations reduce downtime, resolve issues faster, and bring structure to everyday IT operations — from the service desk to the data center to the cloud.',
+  'Kognexa Technology solutions helps organizations reduce downtime, resolve issues faster, and bring structure to everyday IT operations — from the service desk to the data center to the cloud.',
   'In today''s fast-moving enterprise landscape, IT support must be proactive, responsive, and reliable. Whether managing multi-site cloud environments, structuring ServiceNow workflows, or providing 24/7 Service Desk assistance, our team delivers with speed and precision.',
   'Every Ticket Matters.',
   'Every request deserves immediate attention. Every problem deserves a permanent solution. No issue is too small, no infrastructure too complex. Every ticket matters to your business—and to ours.'
@@ -261,11 +261,11 @@ VALUES (
 INSERT INTO public.site_settings (id, "siteName", tagline, "logoIcon", "logoFull", copyright, phone1, phone2, phone3, email, address)
 VALUES (
   1,
-  'K²V Technologies',
+  'Kognexa Technology solutions',
   'Smart Solutions. Reliable Support. Real Impact.',
   '/assets/logo-icon.png',
   '/assets/logo-full.png',
-  '© 2026 K²V Technologies. All rights reserved.',
+  '© 2026 Kognexa Technology solutions. All rights reserved.',
   '+91 97416 76105',
   '+91 89034 12599',
   '+91 95000 00449',
@@ -277,10 +277,10 @@ VALUES (
 INSERT INTO public.seo_settings (id, "pageTitle", "metaDescription", keywords, "ogTitle", "ogDescription", "ogImage", "canonicalUrl")
 VALUES (
   1,
-  'K²V Technologies | Enterprise IT Support & Managed Services',
+  'Kognexa Technology solutions | Enterprise IT Support & Managed Services',
   '24/7 IT Service Desk, Managed IT Operations, ServiceNow Workflows, Cloud Infrastructure & Cybersecurity Solutions. Every Ticket Matters.',
   'IT Service Desk, Managed IT Services, ServiceNow, Cloud Support, Cybersecurity, IT Operations',
-  'K²V Technologies — Enterprise IT Support',
+  'Kognexa Technology solutions — Enterprise IT Support',
   'Enterprise IT support that keeps business moving with 24/7 Service Desk and ServiceNow automation.',
   '/assets/logo-full.png',
   'https://kv2technologies.vercel.app/'
@@ -292,7 +292,7 @@ VALUES (
   1,
   '+91',
   '[{"display": "+91 97416 76105", "raw": "919741676105", "label": "CEO"}, {"display": "+91 89034 12599", "raw": "918903412599", "label": "CTO"}, {"display": "+91 95000 00449", "raw": "919500000449", "label": "CIO"}]'::jsonb,
-  'Hello K2V Technologies! I would like to inquire about your IT Service Desk and Managed IT services.',
+  'Hello Kognexa Technology solutions! I would like to inquire about your IT Service Desk and Managed IT services.',
   'Chat with Us on WhatsApp',
   true
 ) ON CONFLICT (id) DO NOTHING;
@@ -305,7 +305,7 @@ VALUES (
   '#contact',
   'ticket_widget',
   '+91 97416 76105',
-  'Hello K2V Technologies! I want to talk to an IT expert.',
+  'Hello Kognexa Technology solutions! I want to talk to an IT expert.',
   true
 ) ON CONFLICT (id) DO NOTHING;
 
@@ -351,10 +351,10 @@ ON CONFLICT (id) DO NOTHING;
 -- 12. FAQs Seed
 INSERT INTO public.faqs (id, num, category, question, answer, display_order, is_active)
 VALUES
-('faq-1', '01', 'Service Desk', 'What hours does K²V Technologies Service Desk operate?', 'Our IT Service Desk operates 24/7/365. Support engineers are available around the clock via email, phone, web portal, and WhatsApp for critical incident handling.', 1, true),
+('faq-1', '01', 'Service Desk', 'What hours does Kognexa Technology solutions Service Desk operate?', 'Our IT Service Desk operates 24/7/365. Support engineers are available around the clock via email, phone, web portal, and WhatsApp for critical incident handling.', 1, true),
 ('faq-2', '02', 'Managed IT', 'What IT infrastructure do you support?', 'We support servers (Windows/Linux), cloud platforms (AWS, Azure, GCP), endpoints (laptops, desktops, mobile), networks (routers, switches, firewalls, Wi-Fi), and enterprise software (Microsoft 365, Active Directory, ServiceNow).', 2, true),
 ('faq-3', '03', 'ServiceNow', 'Can you customize ServiceNow workflows for our existing team?', 'Yes! We specialize in custom ServiceNow implementation, ITSM module configuration, automated request catalogs, and workflow integrations tailored to your enterprise processes.', 3, true),
-('faq-4', '04', 'Onboarding', 'How fast can K²V Technologies onboard our company?', 'Standard IT Service Desk onboarding takes 1 to 2 weeks. During this period, we complete asset discovery, document access procedures, set up monitoring agents, and conduct knowledge transfer.', 4, true),
+('faq-4', '04', 'Onboarding', 'How fast can Kognexa Technology solutions onboard our company?', 'Standard IT Service Desk onboarding takes 1 to 2 weeks. During this period, we complete asset discovery, document access procedures, set up monitoring agents, and conduct knowledge transfer.', 4, true),
 ('faq-5', '05', 'Security & SLA', 'What SLA response times do you guarantee?', 'We offer customizable SLAs based on incident severity. Critical (P1) incidents receive an immediate response within 15 minutes, with dedicated L3 escalation handling.', 5, true)
 ON CONFLICT (id) DO NOTHING;
 
@@ -364,7 +364,7 @@ VALUES
 ('nav-1', 'Home', '#home', 1, true),
 ('nav-2', 'About Us', '#about', 2, true),
 ('nav-3', 'IT Services', '#services', 3, true),
-('nav-4', 'Why K²V', '#why-us', 4, true),
+('nav-4', 'Why Kognexa', '#why-us', 4, true),
 ('nav-5', 'Our Process', '#process', 5, true),
 ('nav-6', 'Case Studies', '#work', 6, true),
 ('nav-7', 'FAQs', '#faq', 7, true),

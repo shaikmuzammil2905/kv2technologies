@@ -6,7 +6,7 @@ export const PROJECTS_DATA = [
     shortDesc: "Streamlined multi-tiered support for a 2,500+ employee remote workforce with 98% SLA compliance.",
     badge: "Case Study",
     problem: "A growing technology organization experienced high ticket backlog, slow response times, and inconsistent support across remote employees working in multiple time zones.",
-    solution: "K²V Technologies deployed a 24/7 Remote Service Desk operation with automated ticket triage, structured L1-L3 escalation protocols, and automated password resets.",
+    solution: "Kognexa Technology solutions deployed a 24/7 Remote Service Desk operation with automated ticket triage, structured L1-L3 escalation protocols, and automated password resets.",
     outcome: "Reduced average first response time to under 12 minutes, resolved 78% of tickets at L1, and achieved a 98% SLA compliance score across all remote teams.",
     techStack: ["ServiceNow ITSM", "Remote Desktop API", "PowerShell Automation", "Azure AD"]
   },

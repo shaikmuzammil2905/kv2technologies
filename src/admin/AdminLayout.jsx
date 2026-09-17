@@ -154,7 +154,7 @@ export default function AdminLayout() {
               <Shield size={20} />
             </div>
             <div>
-              <div style={{ fontWeight: 800, fontSize: '1rem', color: '#ffffff', letterSpacing: '-0.01em' }}>K²V Admin</div>
+              <div style={{ fontWeight: 800, fontSize: '1rem', color: '#ffffff', letterSpacing: '-0.01em' }}>Kognexa Admin</div>
               <div style={{ fontSize: '0.72rem', color: '#38bdf8', fontWeight: 600 }}>CMS Control Center</div>
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function AdminLayout() {
               <MenuIcon size={20} />
             </button>
             <h1 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-              K²V CMS Panel
+              Kognexa CMS Panel
             </h1>
           </div>
 

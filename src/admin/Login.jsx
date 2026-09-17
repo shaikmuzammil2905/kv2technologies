@@ -94,7 +94,7 @@ export default function Login() {
             <Shield size={30} />
           </div>
           <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff', marginBottom: '6px' }}>
-            K²V Admin Portal
+            Kognexa Admin Portal
           </h2>
           <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
             Sign in to manage website content &amp; operations

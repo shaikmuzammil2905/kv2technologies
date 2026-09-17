@@ -31,7 +31,7 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
   const handleSubmit = (e) => {
     e.preventDefault();
     const text = encodeURIComponent(
-      `Hello K²V Technologies!\nI would like to raise a support ticket:\n• Priority: ${priority}\n• Service Category: ${service}\n• Visitor Name: ${name.trim() || 'N/A'}\n• Phone/Contact: ${phone.trim() || 'N/A'}\n• Requirement Summary: ${description.trim() || 'General Support Inquiry'}`
+      `Hello Kognexa Technology solutions!\nI would like to raise a support ticket:\n• Priority: ${priority}\n• Service Category: ${service}\n• Visitor Name: ${name.trim() || 'N/A'}\n• Phone/Contact: ${phone.trim() || 'N/A'}\n• Requirement Summary: ${description.trim() || 'General Support Inquiry'}`
     );
     window.open(`https://wa.me/919741676105?text=${text}`, '_blank');
     setSubmitted(true);
@@ -39,7 +39,7 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
 
   const handleWhatsAppRedirect = () => {
     const text = encodeURIComponent(
-      `Hello K2V Technologies!\nI would like to raise a support request:\n• Priority: ${priority}\n• Service: ${service}\n• Name: ${name || 'N/A'}\n• Contact: ${phone || 'N/A'}\n• Requirement: ${description || 'General Inquiry'}`
+      `Hello Kognexa Technology solutions!\nI would like to raise a support request:\n• Priority: ${priority}\n• Service: ${service}\n• Name: ${name || 'N/A'}\n• Contact: ${phone || 'N/A'}\n• Requirement: ${description || 'General Inquiry'}`
     );
     onSelectWhatsApp(text);
   };
@@ -254,7 +254,7 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
             </h3>
 
             <p style={{ color: 'var(--ink-60)', fontSize: '0.95rem', marginBottom: '24px' }}>
-              Your ticket request for <strong>{service}</strong> ({priority}) has been registered. Under K²V's philosophy, <strong>Every Ticket Matters</strong> and our team responds promptly!
+              Your ticket request for <strong>{service}</strong> ({priority}) has been registered. Under Kognexa's philosophy, <strong>Every Ticket Matters</strong> and our team responds promptly!
             </p>
 
             <div
@@ -269,7 +269,7 @@ export default function TicketWidget({ isOpen, onClose, onSelectWhatsApp, onOpen
             >
               <div style={{ fontSize: '0.8rem', color: 'var(--ink-60)', fontWeight: 600 }}>Assigned Ticket ID</div>
               <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--blue)', fontFamily: "'Manrope', monospace" }}>
-                #K2V-{Math.floor(100000 + Math.random() * 900000)}
+                #Kognexa-{Math.floor(100000 + Math.random() * 900000)}
               </div>
             </div>
 

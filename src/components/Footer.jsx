@@ -26,12 +26,12 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
             <a href="#home" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', textDecoration: 'none', marginBottom: '16px' }}>
               <img
                 src="/assets/logo-icon.png"
-                alt="K²V Technologies Logo"
+                alt="Kognexa Technology solutions Logo"
                 onError={(e) => { e.target.src = '/logo.png'; }}
                 style={{ height: '34px', width: 'auto', objectFit: 'contain' }}
               />
               <span style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 800, color: '#ffffff', fontSize: '1.2rem' }}>
-                K²V Technologies
+                Kognexa Technology solutions
               </span>
             </a>
 
@@ -64,7 +64,7 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
               <li><a href="#home" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>Home</a></li>
               <li><a href="#about" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>About Us</a></li>
               <li><a href="#services" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>IT Services</a></li>
-              <li><a href="#why-us" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>Why K²V</a></li>
+              <li><a href="#why-us" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>Why Kognexa</a></li>
               <li><a href="#process" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>Our Process</a></li>
               <li><a href="#work" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>Case Studies</a></li>
               <li><a href="#faq" style={{ color: 'rgba(255, 255, 255, 0.65)', textDecoration: 'none' }}>FAQs</a></li>
@@ -135,7 +135,7 @@ export default function Footer({ onOpenWhatsApp, onOpenPhone }) {
           }}
         >
           <div>
-            © 2026 K²V Technologies. All rights reserved.
+            © 2026 Kognexa Technology solutions. All rights reserved.
           </div>
 
           <button

@@ -97,7 +97,7 @@ export default function Process() {
             First Call to <span style={{ color: '#0757d9' }}>Continuous Optimization</span>
           </h2>
           <p className="section-sub" style={{ fontSize: '1.05rem', color: '#64748b', marginTop: '12px' }}>
-            How K²V Technologies brings structure, clarity, and speed to everyday IT operations.
+            How Kognexa Technology solutions brings structure, clarity, and speed to everyday IT operations.
           </p>
         </div>
 

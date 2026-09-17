@@ -75,7 +75,7 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
     if (validate()) {
       const rawPhone = contactDetails.phone1 ? contactDetails.phone1.replace(/\D/g, '') : '919741676105';
       const text = encodeURIComponent(
-        `Hello K²V Technologies!\nI would like to submit an inquiry:\n• Name: ${formData.name.trim()}\n• Phone: ${formData.phone.trim()}\n• Email: ${formData.email.trim() || 'Not Provided'}\n• Service Interested: ${formData.service}\n• Requirement Details: ${formData.message.trim()}`
+        `Hello Kognexa Technology solutions!\nI would like to submit an inquiry:\n• Name: ${formData.name.trim()}\n• Phone: ${formData.phone.trim()}\n• Email: ${formData.email.trim() || 'Not Provided'}\n• Service Interested: ${formData.service}\n• Requirement Details: ${formData.message.trim()}`
       );
       window.open(`https://wa.me/${rawPhone}?text=${text}`, '_blank');
       setSubmitted(true);
@@ -95,7 +95,7 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
             Let's Make IT <span style={{ color: 'var(--blue)' }}>Simpler</span>
           </h2>
           <p className="section-sub">
-            Tell us about your IT environment and let's explore how K²V Technologies can help.
+            Tell us about your IT environment and let's explore how Kognexa Technology solutions can help.
           </p>
         </div>
 

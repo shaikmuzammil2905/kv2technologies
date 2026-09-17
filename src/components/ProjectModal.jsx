@@ -29,7 +29,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
     : ['IT Operations', 'Service Management'];
 
   const problemText = project.problem || project.description || 'Enterprise IT operational challenge requiring optimization and structured SLA management.';
-  const solutionText = project.solution || project.shortDesc || 'K²V Technologies deployed multi-tiered IT support workflows and automated escalation pipelines.';
+  const solutionText = project.solution || project.shortDesc || 'Kognexa Technology solutions deployed multi-tiered IT support workflows and automated escalation pipelines.';
   const outcomeText = project.outcome || project.result || 'Achieved high SLA compliance and significant downtime reduction across global business units.';
 
   return (
@@ -82,7 +82,7 @@ export default function ProjectModal({ project, onClose, onOpenTicketWidget }) {
             }}
           >
             <h4 style={{ color: 'var(--blue)', fontSize: '0.86rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '6px' }}>
-              K²V Implemented Solution
+              Kognexa Implemented Solution
             </h4>
             <p style={{ color: 'var(--navy)', fontSize: '0.94rem', lineHeight: 1.6 }}>
               {solutionText}

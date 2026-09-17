@@ -11,7 +11,7 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
     { display: '+91 95000 00449', raw: '919500000449', label: 'CIO' }
   ];
 
-  const defaultMsg = customMessage || encodeURIComponent('Hello K2V Technologies! I would like to inquire about your IT Service Desk and Managed IT services.');
+  const defaultMsg = customMessage || encodeURIComponent('Hello Kognexa Technology solutions! I would like to inquire about your IT Service Desk and Managed IT services.');
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -45,7 +45,7 @@ export default function WhatsAppModal({ isOpen, onClose, customMessage }) {
           </div>
           <div>
             <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--navy)' }}>Chat on WhatsApp</h3>
-            <p style={{ color: 'var(--ink-60)', fontSize: '0.88rem' }}>Select an available K²V Technologies business number</p>
+            <p style={{ color: 'var(--ink-60)', fontSize: '0.88rem' }}>Select an available Kognexa Technology solutions business number</p>
           </div>
         </div>
 

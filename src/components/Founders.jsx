@@ -17,10 +17,10 @@ const foundersData = [
       'Cloud Services'
     ],
     paragraphs: [
-      'Gitigi Vinay, Founder and CEO of K²V Technologies, brings 12+ years of professional IT experience specializing in IT Service Desk, Managed IT Services, IT Support, Cloud Services, ITSM, and IT Operations. With extensive experience supporting users, managing incidents and service requests, resolving technical issues, handling escalations, and maintaining service quality, Vinay understands what businesses need from a reliable technology partner.',
-      'At K²V Technologies, Vinay focuses on delivering professional Service Desk and Cloud solutions that help businesses improve IT operations, strengthen service delivery, reduce downtime, and support business growth. His expertise covers Service Desk Management, Remote IT Support, ITSM, Incident Management, Request Management, SLA Management, Cloud Support, Cloud Operations, IT Infrastructure, and Managed IT Services.',
-      'As Founder and CEO, Vinay leads K²V Technologies with a service-first philosophy built around reliability, accountability, responsiveness, and customer satisfaction. His principle, “Every Ticket Matters,” reflects the company’s commitment to giving every IT issue the attention, ownership, communication, and resolution it deserves.',
-      'Vinay’s vision is to build K²V Technologies into a trusted global Service Desk and Cloud Services provider, helping organizations modernize IT operations, optimize support, adopt cloud technologies, and create reliable, scalable, and cost-effective technology environments.'
+      'Gitigi Vinay, Founder and CEO of Kognexa Technology solutions, brings 12+ years of professional IT experience specializing in IT Service Desk, Managed IT Services, IT Support, Cloud Services, ITSM, and IT Operations. With extensive experience supporting users, managing incidents and service requests, resolving technical issues, handling escalations, and maintaining service quality, Vinay understands what businesses need from a reliable technology partner.',
+      'At Kognexa Technology solutions, Vinay focuses on delivering professional Service Desk and Cloud solutions that help businesses improve IT operations, strengthen service delivery, reduce downtime, and support business growth. His expertise covers Service Desk Management, Remote IT Support, ITSM, Incident Management, Request Management, SLA Management, Cloud Support, Cloud Operations, IT Infrastructure, and Managed IT Services.',
+      'As Founder and CEO, Vinay leads Kognexa Technology solutions with a service-first philosophy built around reliability, accountability, responsiveness, and customer satisfaction. His principle, “Every Ticket Matters,” reflects the company’s commitment to giving every IT issue the attention, ownership, communication, and resolution it deserves.',
+      'Vinay’s vision is to build Kognexa Technology solutions into a trusted global Service Desk and Cloud Services provider, helping organizations modernize IT operations, optimize support, adopt cloud technologies, and create reliable, scalable, and cost-effective technology environments.'
     ],
     skills: [
       'Service Desk Management',
@@ -49,9 +49,9 @@ const foundersData = [
       'IT Infrastructure'
     ],
     paragraphs: [
-      'Kingston, Co-Founder and Desktop & Network Engineer at K²V Technologies, brings 15+ years of professional IT experience specializing in Desktop Support, Network Engineering, IT Infrastructure, Network Troubleshooting, Technical Support, System Administration, and IT Operations.',
+      'Kingston, Co-Founder and Desktop & Network Engineer at Kognexa Technology solutions, brings 15+ years of professional IT experience specializing in Desktop Support, Network Engineering, IT Infrastructure, Network Troubleshooting, Technical Support, System Administration, and IT Operations.',
       'He helps businesses maintain reliable IT environments by resolving desktop and network issues, optimizing connectivity, supporting users, and ensuring stable day-to-day technology operations. His expertise includes Windows Desktop Support, Hardware & Software Troubleshooting, LAN/WAN, TCP/IP, DNS, DHCP, VPN, Network Monitoring, Network Security, Endpoint Support, IT Infrastructure, and Technical Operations.',
-      'At K²V Technologies, Kingston focuses on delivering responsive, reliable, and scalable Desktop Support and Networking solutions that improve productivity and keep businesses connected.'
+      'At Kognexa Technology solutions, Kingston focuses on delivering responsive, reliable, and scalable Desktop Support and Networking solutions that improve productivity and keep businesses connected.'
     ],
     skills: [
       'Windows Desktop Support',
@@ -79,10 +79,10 @@ const foundersData = [
       'IT Operations'
     ],
     paragraphs: [
-      'Kevin Frank is the Co-Founder and CTO of K²V Technologies, with 12+ years of professional IT experience specializing in ServiceNow, ITSM, IT Automation, Workflow Automation, Service Desk Automation, and IT Operations.',
+      'Kevin Frank is the Co-Founder and CTO of Kognexa Technology solutions, with 12+ years of professional IT experience specializing in ServiceNow, ITSM, IT Automation, Workflow Automation, Service Desk Automation, and IT Operations.',
       'He helps businesses streamline IT service management, automate repetitive workflows, optimize ticketing processes, and improve operational efficiency through scalable technology solutions.',
       'Kevin’s expertise spans ServiceNow implementation and support, Incident Management, Request Management, Problem Management, Change Management, Service Catalog, Knowledge Management, workflow automation, process optimization, and IT Service Desk transformation.',
-      'As CTO, he leads K²V Technologies’ technical strategy, delivering reliable, automated, and scalable ServiceNow and IT automation solutions that help organizations reduce manual work, improve service delivery, and modernize IT operations.'
+      'As CTO, he leads Kognexa Technology solutions’ technical strategy, delivering reliable, automated, and scalable ServiceNow and IT automation solutions that help organizations reduce manual work, improve service delivery, and modernize IT operations.'
     ],
     skills: [
       'ServiceNow Implementation',
@@ -116,7 +116,7 @@ export default function Founders() {
           </div>
           <h2 className="section-title" style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.75rem)', marginTop: '8px' }}>
             Meet the Minds Behind<br />
-            <span style={{ color: 'var(--blue)', whiteSpace: 'nowrap', display: 'inline-block' }}>K²V Technologies</span>
+            <span style={{ color: 'var(--blue)', whiteSpace: 'nowrap', display: 'inline-block' }}>Kognexa Technology solutions</span>
           </h2>
           <p className="section-sub" style={{ fontSize: '1.02rem', margin: '14px auto 0' }}>
             Our leadership combines decades of enterprise IT experience across Service Desk, Cloud Operations, Network Engineering, and ServiceNow Automation.

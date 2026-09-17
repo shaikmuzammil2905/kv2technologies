@@ -6,7 +6,7 @@ export const SERVICES_DATA = [
     shortDesc: "L1/L2/L3 support, incident management, request fulfillment and remote assistance.",
     icon: "Headphones",
     category: "Support & Operations",
-    overview: "K²V Technologies provides a structured 24/7 IT Service Desk operation designed to resolve employee technology issues quickly and reliably. Under our 'Every Ticket Matters' philosophy, every user request receives prompt tier-based attention with complete end-to-end SLA tracking.",
+    overview: "Kognexa Technology solutions provides a structured 24/7 IT Service Desk operation designed to resolve employee technology issues quickly and reliably. Under our 'Every Ticket Matters' philosophy, every user request receives prompt tier-based attention with complete end-to-end SLA tracking.",
     benefits: [
       "24/7 Multi-channel support access (Web, Phone, Email & Chat)",
       "Structured L1, L2, and L3 escalation workflows",
@@ -33,7 +33,7 @@ export const SERVICES_DATA = [
     shortDesc: "Proactive monitoring, maintenance, patching and IT operations management.",
     icon: "MonitorCheck",
     category: "Managed Operations",
-    overview: "Transform your IT operations from reactive troubleshooting to a proactive, highly available technology engine. K²V Managed IT Services handle your entire digital ecosystem—ensuring continuous system uptime, security patch compliance, and infrastructure stability.",
+    overview: "Transform your IT operations from reactive troubleshooting to a proactive, highly available technology engine. Kognexa Managed IT Services handle your entire digital ecosystem—ensuring continuous system uptime, security patch compliance, and infrastructure stability.",
     benefits: [
       "Proactive issue detection before business disruption",
       "Automated system updates and OS patch deployment",
@@ -60,7 +60,7 @@ export const SERVICES_DATA = [
     shortDesc: "ITSM implementation, workflows, CMDB, automation and ServiceNow optimization.",
     icon: "Workflow",
     category: "Platform Engineering",
-    overview: "Maximize your enterprise ITSM investment with K²V's specialized ServiceNow implementations. We design custom workflow automation, configure CMDB structures, and optimize IT Service Management modules to streamline enterprise-wide service delivery.",
+    overview: "Maximize your enterprise ITSM investment with Kognexa's specialized ServiceNow implementations. We design custom workflow automation, configure CMDB structures, and optimize IT Service Management modules to streamline enterprise-wide service delivery.",
     benefits: [
       "Custom workflow automation tailored to your organizational structure",
       "Accurate Configuration Management Database (CMDB) mapping",
@@ -87,7 +87,7 @@ export const SERVICES_DATA = [
     shortDesc: "AWS, Azure, Microsoft 365, cloud migration and managed cloud operations.",
     icon: "Cloud",
     category: "Cloud & Infrastructure",
-    overview: "Accelerate your digital transformation with secure, scalable cloud architectures. K²V Technologies delivers comprehensive Cloud Services across AWS, Microsoft Azure, and Microsoft 365—from initial cloud migration strategy to continuous cost optimization and governance.",
+    overview: "Accelerate your digital transformation with secure, scalable cloud architectures. Kognexa Technology solutions delivers comprehensive Cloud Services across AWS, Microsoft Azure, and Microsoft 365—from initial cloud migration strategy to continuous cost optimization and governance.",
     benefits: [
       "Scalable infrastructure customized for workload demands",
       "Enhanced data resiliency and automated cloud backups",
@@ -114,7 +114,7 @@ export const SERVICES_DATA = [
     shortDesc: "Servers, networks, endpoints, virtualization and enterprise infrastructure.",
     icon: "Server",
     category: "Core Infrastructure",
-    overview: "Maintain a resilient physical and virtual foundation with K²V Infrastructure Management. We ensure your servers, storage arrays, network hardware, and hypervisors run at peak performance with enterprise-grade reliability.",
+    overview: "Maintain a resilient physical and virtual foundation with Kognexa Infrastructure Management. We ensure your servers, storage arrays, network hardware, and hypervisors run at peak performance with enterprise-grade reliability.",
     benefits: [
       "High-performance compute and virtualization management (VMware/Hyper-V)",
       "Secure network routing, VPN tunnel setup, and firewall maintenance",
@@ -141,7 +141,7 @@ export const SERVICES_DATA = [
     shortDesc: "Security monitoring, endpoint protection, identity and vulnerability support.",
     icon: "ShieldCheck",
     category: "Information Security",
-    overview: "Protect your business assets against evolving cyber threats. K²V Cyber Security Services implement multi-layered defenses, continuous endpoint protection, Zero-Trust identity frameworks, and routine vulnerability remediations.",
+    overview: "Protect your business assets against evolving cyber threats. Kognexa Cyber Security Services implement multi-layered defenses, continuous endpoint protection, Zero-Trust identity frameworks, and routine vulnerability remediations.",
     benefits: [
       "Real-time threat monitoring and rapid incident mitigation",
       "Next-Gen Endpoint Detection & Response (EDR) implementation",
@@ -168,7 +168,7 @@ export const SERVICES_DATA = [
     shortDesc: "24/7 infrastructure and network monitoring with proactive issue resolution.",
     icon: "Radio",
     category: "Network Operations",
-    overview: "Our 24/7 Network Operations Center (NOC) acts as the watchful eye over your entire IT network. K²V engineers continuously track telemetry, bandwidth, server load, and connectivity—resolving alerts before end users even notice.",
+    overview: "Our 24/7 Network Operations Center (NOC) acts as the watchful eye over your entire IT network. Kognexa engineers continuously track telemetry, bandwidth, server load, and connectivity—resolving alerts before end users even notice.",
     benefits: [
       "Continuous 24/7/365 active network telemetry oversight",
       "Automated alert escalation and rapid triage processes",
@@ -195,7 +195,7 @@ export const SERVICES_DATA = [
     shortDesc: "AI-powered service desk, workflow automation and intelligent IT operations.",
     icon: "Cpu",
     category: "Intelligent Systems",
-    overview: "Eliminate repetitive manual tasks and speed up issue resolution using K²V AI & IT Automation. We build intelligent chatbot assistants, automated ticket classification algorithms, and self-healing IT scripts that empower your workforce.",
+    overview: "Eliminate repetitive manual tasks and speed up issue resolution using Kognexa AI & IT Automation. We build intelligent chatbot assistants, automated ticket classification algorithms, and self-healing IT scripts that empower your workforce.",
     benefits: [
       "Automated password resets and routine request fulfillment",
       "Intelligent ticket routing powered by NLP classification",

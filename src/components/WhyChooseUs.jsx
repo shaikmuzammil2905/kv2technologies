@@ -31,7 +31,7 @@ export default function WhyChooseUs() {
         <div className="section-head">
           <div className="eyebrow">
             <Sparkles size={14} color="var(--blue)" />
-            <span>WHY K²V</span>
+            <span>WHY Kognexa</span>
             <Sparkles size={14} color="var(--blue)" />
           </div>
           <h2 className="section-title">

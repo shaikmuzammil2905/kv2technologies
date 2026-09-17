@@ -231,7 +231,7 @@ export default function ServiceDetailPage() {
 
                 <button
                   onClick={() => {
-                    setWhatsAppCustomText(`Hello K2V Technologies! I would like to inquire about ${service.title}.`);
+                    setWhatsAppCustomText(`Hello Kognexa Technology solutions! I would like to inquire about ${service.title}.`);
                     setWhatsAppModalOpen(true);
                   }}
                   style={{
@@ -315,7 +315,7 @@ export default function ServiceDetailPage() {
               Service Overview &amp; Capability Statement
             </h2>
             <p style={{ color: 'var(--ink-60)', fontSize: '1.08rem', lineHeight: 1.75, maxWidth: '920px' }}>
-              {service.fullDesc || service.overview || `${service.title} is an essential component of K²V Technologies' enterprise IT operations suite. Under our "Every Ticket Matters" philosophy, we ensure continuous availability, high SLA compliance, rapid issue escalation, and complete operational transparency across your organization.`}
+              {service.fullDesc || service.overview || `${service.title} is an essential component of Kognexa Technology solutions' enterprise IT operations suite. Under our "Every Ticket Matters" philosophy, we ensure continuous availability, high SLA compliance, rapid issue escalation, and complete operational transparency across your organization.`}
             </p>
           </div>
 

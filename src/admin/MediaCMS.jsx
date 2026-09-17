@@ -98,7 +98,7 @@ export default function MediaCMS() {
             Media & Image Library (Cloudinary)
           </h2>
           <p style={{ color: '#94a3b8', fontSize: '0.88rem', marginTop: '4px' }}>
-            Upload, preview, replace, and copy asset URLs for K²V website CMS
+            Upload, preview, replace, and copy asset URLs for Kognexa website CMS
           </p>
         </div>
 

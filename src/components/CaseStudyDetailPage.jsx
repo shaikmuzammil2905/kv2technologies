@@ -82,7 +82,7 @@ export default function CaseStudyDetailPage() {
     : ['IT Operations', 'Service Management'];
 
   const problemText = project.problem || project.description || 'Enterprise IT operational challenge requiring optimization and structured SLA management.';
-  const solutionText = project.solution || project.shortDesc || 'K²V Technologies deployed multi-tiered IT support workflows and automated escalation pipelines.';
+  const solutionText = project.solution || project.shortDesc || 'Kognexa Technology solutions deployed multi-tiered IT support workflows and automated escalation pipelines.';
   const outcomeText = project.outcome || project.result || 'Achieved high SLA compliance and significant downtime reduction across global business units.';
 
   return (
@@ -253,7 +253,7 @@ export default function CaseStudyDetailPage() {
               }}
             >
               <h3 style={{ color: 'var(--blue)', fontSize: '1rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: '10px' }}>
-                K²V Implemented Solution
+                Kognexa Implemented Solution
               </h3>
               <p style={{ color: 'var(--navy)', fontSize: '1.05rem', lineHeight: 1.75 }}>
                 {solutionText}
