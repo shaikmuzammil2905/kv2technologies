@@ -14,15 +14,15 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
 // Real-time local event bus for instant sync between Admin Panel & Public Website
 export function notifyCmsUpdate(tableName) {
   if (typeof window !== 'undefined') {
-    window.dispatchEvent(new CustomEvent('k2v_cms_update', { detail: { tableName } }));
+    window.dispatchEvent(new CustomEvent('kognexa_cms_update', { detail: { tableName } }));
   }
 }
 
 export function subscribeCmsUpdate(callback) {
   if (typeof window === 'undefined') return () => {};
   const handler = (event) => callback(event.detail?.tableName);
-  window.addEventListener('k2v_cms_update', handler);
-  return () => window.removeEventListener('k2v_cms_update', handler);
+  window.addEventListener('kognexa_cms_update', handler);
+  return () => window.removeEventListener('kognexa_cms_update', handler);
 }
 
 const memoryCache = new Map();
@@ -31,7 +31,7 @@ const memoryCache = new Map();
 export function getCachedData(key, defaultData) {
   try {
     if (typeof localStorage !== 'undefined') {
-      const cached = localStorage.getItem(`k2v_cms_${key}`);
+      const cached = localStorage.getItem(`kognexa_cms_${key}`);
       if (cached) {
         const parsed = JSON.parse(cached);
         if (Array.isArray(defaultData)) {
@@ -57,7 +57,7 @@ export function setCachedData(key, data) {
   memoryCache.set(key, data);
   try {
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(`k2v_cms_${key}`, JSON.stringify(data));
+      localStorage.setItem(`kognexa_cms_${key}`, JSON.stringify(data));
     }
   } catch (e) {
     // Ignore storage error
@@ -173,7 +173,7 @@ export async function saveContactSubmission(submission) {
     id: reqId,
     name: (submission.name || 'Website Visitor').trim(),
     phone: (submission.phone || '').trim() || 'N/A',
-    email: (submission.email || '').trim() || 'inquiry@k2vtechnologies.com',
+    email: (submission.email || '').trim() || 'inquiry@kognexatechnologies.com',
     service: submission.service || 'IT Service Desk',
     message: (submission.message || '').trim() || 'No additional details provided.',
     status: submission.status || 'unread',

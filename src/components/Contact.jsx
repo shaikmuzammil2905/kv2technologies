@@ -15,7 +15,7 @@ export default function Contact({ onOpenWhatsApp, onOpenPhone }) {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [contactDetails, setContactDetails] = useState({
-    email: 'info@k2vtechnologies.com',
+    email: 'info@kognexatechnologies.com',
     phone1: '+91 97416 76105',
     phone2: '+91 89034 12599',
     phone3: '+91 95000 00449',

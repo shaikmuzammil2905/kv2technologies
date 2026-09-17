@@ -14,7 +14,7 @@ export default function Login() {
   useEffect(() => {
     // Check if session exists in Supabase or LocalStorage
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session || localStorage.getItem('k2v_admin_session')) {
+      if (session || localStorage.getItem('kognexa_admin_session')) {
         navigate('/admin/dashboard');
       }
     });
@@ -42,20 +42,20 @@ export default function Login() {
         if (
           error.message.includes('Email not confirmed') ||
           email.toLowerCase().includes('admin') ||
-          email.toLowerCase().includes('k2v')
+          email.toLowerCase().includes('kognexa')
         ) {
-          localStorage.setItem('k2v_admin_session', JSON.stringify({ email: email.trim(), authenticated: true, timestamp: Date.now() }));
+          localStorage.setItem('kognexa_admin_session', JSON.stringify({ email: email.trim(), authenticated: true, timestamp: Date.now() }));
           navigate('/admin/dashboard');
           return;
         }
         setErrorMsg(error.message || 'Invalid login credentials.');
       } else if (data.session) {
-        localStorage.setItem('k2v_admin_session', JSON.stringify({ email: data.session.user.email, authenticated: true, timestamp: Date.now() }));
+        localStorage.setItem('kognexa_admin_session', JSON.stringify({ email: data.session.user.email, authenticated: true, timestamp: Date.now() }));
         navigate('/admin/dashboard');
       }
     } catch (err) {
       // Fallback local admin session
-      localStorage.setItem('k2v_admin_session', JSON.stringify({ email: email.trim(), authenticated: true, timestamp: Date.now() }));
+      localStorage.setItem('kognexa_admin_session', JSON.stringify({ email: email.trim(), authenticated: true, timestamp: Date.now() }));
       navigate('/admin/dashboard');
     } finally {
       setLoading(false);
@@ -132,7 +132,7 @@ export default function Login() {
               <Mail size={18} color="#64748b" style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)' }} />
               <input
                 type="email"
-                placeholder="admin.k2v@gmail.com"
+                placeholder="admin.kognexa@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 style={{

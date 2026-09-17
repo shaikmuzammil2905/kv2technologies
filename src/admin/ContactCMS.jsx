@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin, Clock, CheckCircle2, AlertCircle, RefreshCw, Messa
 export default function ContactCMS() {
   const [activeTab, setActiveTab] = useState('inbox'); // 'inbox' | 'info'
   const [contactInfo, setContactInfo] = useState({
-    email: 'info@k2vtechnologies.com',
+    email: 'info@kognexatechnologies.com',
     phone1: '+91 97416 76105',
     phone2: '+91 89034 12599',
     phone3: '+91 95000 00449',

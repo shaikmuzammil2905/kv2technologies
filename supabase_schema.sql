@@ -249,7 +249,7 @@ VALUES (
 INSERT INTO public.contact_info (id, email, phone1, phone2, phone3, address, hours)
 VALUES (
   1,
-  'info@k2vtechnologies.com',
+  'info@kognexatechnologies.com',
   '+91 97416 76105',
   '+91 89034 12599',
   '+91 95000 00449',
@@ -269,7 +269,7 @@ VALUES (
   '+91 97416 76105',
   '+91 89034 12599',
   '+91 95000 00449',
-  'info@k2vtechnologies.com',
+  'info@kognexatechnologies.com',
   'Remote-First IT Services Company Worldwide'
 ) ON CONFLICT (id) DO NOTHING;
 

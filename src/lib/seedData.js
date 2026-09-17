@@ -77,7 +77,7 @@ export const INITIAL_SITE_SETTINGS = {
   phone1: '+91 97416 76105',
   phone2: '+91 89034 12599',
   phone3: '+91 95000 00449',
-  email: 'info@k2vtechnologies.com',
+  email: 'info@kognexatechnologies.com',
   address: 'Remote-First IT Services Company Worldwide'
 };
 
